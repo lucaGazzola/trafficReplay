@@ -5,7 +5,6 @@ import string
 import sys
 import re
 
-
 def main():
 
     """
@@ -38,9 +37,9 @@ def main():
             if str(packet.http.chat).startswith('GET'):
                 write_get_request(packet, pythonScript)
 
-            if str(packet.http.chat).startswith('PUT'):
+            #if str(packet.http.chat).startswith('PUT'):
                 # print(packet.http._all_fields)
-                write_put_request(packet, pythonScript)
+                #write_put_request(packet, pythonScript)
 
             if str(packet.http.chat).startswith('HTTP'):
                 write_assertion(packet, pythonScript)
