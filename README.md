@@ -71,3 +71,8 @@ You can now replay the traffic (if the microservice application is running) by g
 
   `python3.5 stream-X.cap_replay.py`
   
+## Issues
+
+#TODO
+at line `91` in `pyshark_test` the string `packet.http.file_data` sometimes presents escaped unicode characters `\xa` : need to handle this case
+  
