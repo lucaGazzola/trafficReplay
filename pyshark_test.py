@@ -136,7 +136,7 @@ def write_assertion(packet, pythonScript):
     pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
     if 'file_data' in packet.http.field_names:
         pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":None',str(response.content))\n")
-        pythonScript.write("assert content[2:-1] == '" + re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data) + "'\n\n")
+        pythonScript.write("assert content == '" + re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data) + "'\n\n")
 
 
 def db_cleanup(url, pythonScript):
