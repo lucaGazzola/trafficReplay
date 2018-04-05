@@ -18,7 +18,7 @@ yarn (https://yarnpkg.com/lang/en/docs/install/#linux-tab)
 
 jhipster (installation instructions under "Install jHipster 4": https://developer.okta.com/blog/2017/06/20/develop-microservices-with-jhipster) 
 
-python 3.5 
+python 3
 
 python libs:
 
@@ -69,7 +69,7 @@ This will use `pyshark_test.py` to generate a replay script for each capture fil
 
 You can now replay the traffic (if the microservice application is running) by going into `streamsDirectory` and launching:
 
-  `python3.5 stream-X.cap_replay.py`
+  `python3 stream-X.cap_replay.py`
   
 ## Issues
 
