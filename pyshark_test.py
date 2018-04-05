@@ -65,6 +65,10 @@ def write_get_request(packet, pythonScript):
     print(api_location)
     url = url + re.sub(r'.*:', '', packet.http.host) + api_location
 
+    # hardcoded check, remove
+    if url.__contains__('dialog'):
+        return
+
     pythonScript.write("print('sending get request to " + url + "')\n")
     pythonScript.write("response = requests.get('"+url+"', headers=headers)\n")
     pythonScript.write("print('response: {0}'.format(response.content))\n\n")
@@ -133,9 +137,15 @@ def write_assertion(packet, pythonScript):
     :param pythonScript: the script to write the assertion to
     """
 
-    pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
+
     if 'file_data' in packet.http.field_names:
-        pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":None',str(response.content))\n")
+
+        # hardcoded check, remove
+        if re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data).__contains__('<div'):
+            return
+
+        pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
+        pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":None',response.content.decode('utf-8'))\n")
         pythonScript.write("assert content == '" + re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data) + "'\n\n")
 
 
