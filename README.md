@@ -46,7 +46,7 @@ you should now be able to access the application at `localhost:8080`, you can al
 
 Open another terminal and run `brctl show`. you should see a bridge interface with 5 docker container running on it ( registry, gateway, gateway database, bank account, bank account database).
 
-now run `tcpdump -i interface -w capture.pcap` where `interface` is the name of the interface where the container are running.
+now run `sudo tcpdump -i interface -w capture.pcap` where `interface` is the name of the interface where the container are running.
 
 You can now use the application normally (add bank accounts for example) while the traffic between containers is captured in the `capture.pcap` file.
 
