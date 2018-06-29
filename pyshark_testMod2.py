@@ -5,6 +5,8 @@ import string
 import sys
 import re
 
+correct = False
+
 def main():
 
     """
@@ -12,32 +14,35 @@ def main():
     """
     #Come primo argimento viene passato il nome del file sorgente
         #secondo argomento il file di destinazione
+
+    global pythonScript
     print("processing file " + sys.argv[1])
     cap = pyshark.FileCapture(sys.argv[1])
 
     authorized = False
     headers = {'Content-type': 'application/json', "Accept": "application/json"}
 
-    #apro in scrittura il file di destinazione
-    pythonScript = open(sys.argv[2], 'w')
-    pythonScript.write("import requests\n")
-    pythonScript.write("import json\n")
-    pythonScript.write("import time\n")
-    pythonScript.write("import re\n\n")
+    pythonScript = None
 
     #Pacchetti estratti dal file pcap dove sono memorizzati i pacchetti catturati da un'interfaccia docker
     for packet in cap:
         if 'HTTP' in str(packet.layers):
             # print(packet.http)
             if not authorized:
+                pythonScript = open(sys.argv[2], 'w')
+                write_import(pythonScript)
                 headers['Authorization'] = packet.http.authorization
                 pythonScript.write("headers=" + str(headers) + "\n\n")
                 authorized = True
 
             if str(packet.http.chat).startswith('POST'):
+                if pythonScript.closed:
+                    pythonScript = open(sys.argv[2], 'w')
                 write_post_request(packet, pythonScript)
 
             if str(packet.http.chat).startswith('GET'):
+                if pythonScript.closed:
+                    pythonScript = open(sys.argv[2], 'w')
                 write_get_request(packet, pythonScript)
 
             #if str(packet.http.chat).startswith('PUT'):
@@ -45,9 +50,28 @@ def main():
                 #write_put_request(packet, pythonScript)
 
             if str(packet.http.chat).startswith('HTTP'):
+                if pythonScript.closed:
+                    pythonScript = open(sys.argv[2], 'w')
                 write_assertion(packet, pythonScript)
 
-    pythonScript.close()
+    # pythonScript = open("clear", 'w')
+    # pythonScript.write("headers=" + str(headers) + "\n\n")
+    # url = 'http://localhost:8080/#/product'
+    # db_cleanup(url, pythonScript)
+    if not pythonScript is None:
+        pythonScript.close()
+
+
+
+
+def write_import(pythonScript):
+    global correct
+    if not correct:
+        pythonScript.write("import requests\n")
+        pythonScript.write("import json\n")
+        pythonScript.write("import time\n")
+        pythonScript.write("import re\n\n")
+        correct = True
 
 
 def write_get_request(packet, pythonScript):
@@ -76,6 +100,7 @@ def write_get_request(packet, pythonScript):
     if url.__contains__('dialog'):
         return
 
+    write_import(pythonScript)
     pythonScript.write("print('sending get request to " + url + "')\n")
     pythonScript.write("response = requests.get('"+url+"', headers=headers)\n")
     pythonScript.write("print('response: {0}'.format(response.content))\n\n")
@@ -91,6 +116,8 @@ def write_post_request(packet, pythonScript):
     """
 
     url = 'http://localhost:'
+
+    write_import(pythonScript)
 
     api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
     print("------inizio-------")
@@ -121,6 +148,8 @@ def write_put_request(packet, pythonScript):
     :param packet: packet request to replay
     :param pythonScript: script to write the request to
     """
+
+    write_import(pythonScript)
 
     url = 'http://localhost:'
 
@@ -155,6 +184,7 @@ def write_assertion(packet, pythonScript):
         if re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data).__contains__('<div'):
             return
 
+        write_import(pythonScript)
         pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
         pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":None',response.content.decode('utf-8'))\n")
         pythonScript.write("assert content == '" + re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data) + "'\n\n")

@@ -5,18 +5,21 @@ import string
 import sys
 import re
 
+correct = False
+
 def main():
 
     """
     creates a script that replays an interaction with a docker container in a microservice application
     """
-    #Come primo argimento viene passato il nome del file sorgente
+    #Come primo argomento viene passato il nome del file sorgente
         #secondo argomento il file di destinazione
     print("processing file " + sys.argv[1])
     cap = pyshark.FileCapture(sys.argv[1])
 
     authorized = False
     headers = {'Content-type': 'application/json', "Accept": "application/json"}
+    global correct
 
     #apro in scrittura il file di destinazione
     pythonScript = open(sys.argv[2], 'w')
@@ -36,9 +39,11 @@ def main():
 
             if str(packet.http.chat).startswith('POST'):
                 write_post_request(packet, pythonScript)
+                correct = True
 
             if str(packet.http.chat).startswith('GET'):
                 write_get_request(packet, pythonScript)
+                correct = True
 
             #if str(packet.http.chat).startswith('PUT'):
                 # print(packet.http._all_fields)
@@ -46,8 +51,14 @@ def main():
 
             if str(packet.http.chat).startswith('HTTP'):
                 write_assertion(packet, pythonScript)
+                correct = True
 
     pythonScript.close()
+    if not correct:
+        try:
+            os.remove(sys.argv[2])
+        except OSError:
+            pass
 
 
 def write_get_request(packet, pythonScript):
@@ -57,6 +68,8 @@ def write_get_request(packet, pythonScript):
     :param packet: packet request to replay
     :param pythonScript: script to write the request to
     """
+
+    global correct
 
     url = 'http://localhost:'
 
@@ -74,6 +87,7 @@ def write_get_request(packet, pythonScript):
 
     # hardcoded check, remove
     if url.__contains__('dialog'):
+        correct = False
         return
 
     pythonScript.write("print('sending get request to " + url + "')\n")
