@@ -30,6 +30,7 @@ def main():
                 #print("layer: "+str(layer))
                 #print("elemento current:" + str(current_layer))
                 #Tutti i campi di questo livello
+                print("dizionario:"+str(current_layer.__dict__)+'\n')
                 fields = current_layer.__dict__['_all_fields']
                 #print(fields)
                 for field in fields:
@@ -38,18 +39,18 @@ def main():
                     # if fields["mongo.message_length"] == "194":
                     #     print("elemento field:" + str(field))
                     #Prendo in considerazione il campo "Query"
-                    if "Query" in fields[field]:
+                    if "Elements" in fields[field]:
                     #     #print("field_:"+str(type(fields[field])))
                           fieldquery = fields[field].__dict__['fields']
                     #     #print(type(fieldquery))
                           for p in fieldquery:
                     #         print("elemento lista:"+str(dir(p)))
-                            print("elemento attributi:" + str(dir(p)))
-                            print("metodo getattribute:" + str(p.__getattribute__('get_default_value')))
+                            print("elemento attributi:" + str(dir(p))+'\n')
+                            print("metodo getattribute:" + str(p.__getattribute__('get_default_value'))+'\n')
                             #print("metodo showname:" + str(p.get_field_by_showname('Elements')))
                             #Nome con cui compare nel pacchetto
-                            print("metodo showname:" + str(p.showname))
-                            print("get_default_value:"+str(p.get_default_value))
+                            print("metodo showname:" + str(p.showname)+'\n')
+                            print("get_default_value:"+str(p.get_default_value)+'\n')
 
                     #         for k in iter(p.__getattribute__):
                     #             print(str(k))
