@@ -6,6 +6,7 @@ import sys
 import re
 import collections
 import bson
+import pprint
 from bson.codec_options import CodecOptions
 from pyshark_parser import packet_util
 from pyshark_parser import layer_util
@@ -39,7 +40,10 @@ def main():
                     # if fields["mongo.message_length"] == "194":
                     #     print("elemento field:" + str(field))
                     #Prendo in considerazione il campo "Query"
-                    if "Elements" in fields[field]:
+                    print("....."+field+".......")
+                    pprint.pprint(str(type(fields[field])))
+                    print("............")
+                    if "Query" in fields[field]:
                     #     #print("field_:"+str(type(fields[field])))
                           fieldquery = fields[field].__dict__['fields']
                     #     #print(type(fieldquery))

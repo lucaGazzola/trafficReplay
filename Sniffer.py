@@ -1,8 +1,10 @@
 #!/usr/bin/evn python
 from scapy.all import *
+import sys
+
 def print_summary(pkt):
-    # ipsrc = sys.argv[1]
-    # ipdst = sys.argv[2]
+    ipsrc = sys.argv[1] #172.19.0.3
+    ipdst = sys.argv[2] #172.19.0.8
     if IP in pkt:
         ip_src=pkt[IP].src
         ip_dst=pkt[IP].dst
@@ -12,13 +14,18 @@ def print_summary(pkt):
 
         print (" IP src " + str(ip_src) + " TCP sport " + str(tcp_sport))
         print (" IP dst " + str(ip_dst) + " TCP dport " + str(tcp_dport))
-        print(dir(pkt[TCP].payload))
+        #print(dir(pkt[TCP].payload))
 
     # you can filter with something like that
-    if  ( pkt[IP].src == "172.19.0.3") and ( pkt[IP].dst == "172.19.0.8") :
+    if  ( pkt[IP].src == ipsrc) and ( pkt[IP].dst == ipdst) :
         print("trovato pacchetto mongo")
-        print(pkt[TCP].payload)
-        print(pkt[TCP].show())
+        #payload del pacchetto
+        print(str(bytes(pkt[TCP].payload)))
+        #contenuto del pacchetto in esadecimale
+        print(hexdump(pkt))
+        pkt[IP].src == ipdst
+        pkt[IP].dst == ipsrc
+        #print(pkt[TCP].show())
 
 sniff(filter="ip",prn=print_summary)
 # or it possible to filter with filter parameter...!

@@ -1,0 +1,2200 @@
+Packet #         1
+Packet (Length: 124)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 110
+	Identification: 0x5c69 (23657)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x85ed [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 59944
+	Destination Port: 27017
+	Stream index: 23
+	TCP Segment Len: 58
+	Sequence number: 1    (relative sequence number)
+	Next sequence number: 59    (relative sequence number)
+	Acknowledgment number: 1    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5894 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702238239, TSecr 3688398936
+	Length: 10
+	Timestamp value: 3702238239
+	Timestamp echo reply: 3688398936
+	SEQ/ACK analysis
+	Bytes in flight: 58
+	Bytes sent since last PSH flag: 58
+	TCP payload (58 bytes)
+	PDU Size: 58
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 58
+	Request ID: 0x00000e8f (3727)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .0.. = Slave OK: No
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: admin.$cmd
+	Database Name: admin
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 19
+	Elements
+	Element: ismaster
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         2
+Packet (Length: 125)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 111
+	Identification: 0x78dc (30940)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x6979 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 60012
+	Destination Port: 27017
+	Stream index: 24
+	TCP Segment Len: 59
+	Sequence number: 1    (relative sequence number)
+	Next sequence number: 60    (relative sequence number)
+	Acknowledgment number: 1    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5895 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702240194, TSecr 3688400890
+	Length: 10
+	Timestamp value: 3702240194
+	Timestamp echo reply: 3688400890
+	SEQ/ACK analysis
+	Bytes in flight: 59
+	Bytes sent since last PSH flag: 59
+	TCP payload (59 bytes)
+	PDU Size: 59
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 59
+	Request ID: 0x00000e90 (3728)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .1.. = Slave OK: Yes
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: store.$cmd
+	Database Name: store
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 20
+	Elements
+	Element: buildInfo
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         3
+Packet (Length: 124)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 110
+	Identification: 0x5c6b (23659)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x85eb [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 59944
+	Destination Port: 27017
+	Stream index: 23
+	TCP Segment Len: 58
+	Sequence number: 59    (relative sequence number)
+	Next sequence number: 117    (relative sequence number)
+	Acknowledgment number: 206    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5894 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702248240, TSecr 3688408937
+	Length: 10
+	Timestamp value: 3702248240
+	Timestamp echo reply: 3688408937
+	SEQ/ACK analysis
+	Bytes in flight: 58
+	Bytes sent since last PSH flag: 58
+	TCP payload (58 bytes)
+	PDU Size: 58
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 58
+	Request ID: 0x00000e91 (3729)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .0.. = Slave OK: No
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: admin.$cmd
+	Database Name: admin
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 19
+	Elements
+	Element: ismaster
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         4
+Packet (Length: 125)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 111
+	Identification: 0x78de (30942)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x6977 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 60012
+	Destination Port: 27017
+	Stream index: 24
+	TCP Segment Len: 59
+	Sequence number: 60    (relative sequence number)
+	Next sequence number: 119    (relative sequence number)
+	Acknowledgment number: 1280    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5895 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702250197, TSecr 3688410892
+	Length: 10
+	Timestamp value: 3702250197
+	Timestamp echo reply: 3688410892
+	SEQ/ACK analysis
+	Bytes in flight: 59
+	Bytes sent since last PSH flag: 59
+	TCP payload (59 bytes)
+	PDU Size: 59
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 59
+	Request ID: 0x00000e92 (3730)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .1.. = Slave OK: Yes
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: store.$cmd
+	Database Name: store
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 20
+	Elements
+	Element: buildInfo
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         5
+Packet (Length: 124)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 110
+	Identification: 0x5c6d (23661)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x85e9 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 59944
+	Destination Port: 27017
+	Stream index: 23
+	TCP Segment Len: 58
+	Sequence number: 117    (relative sequence number)
+	Next sequence number: 175    (relative sequence number)
+	Acknowledgment number: 411    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5894 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702258241, TSecr 3688418938
+	Length: 10
+	Timestamp value: 3702258241
+	Timestamp echo reply: 3688418938
+	SEQ/ACK analysis
+	Bytes in flight: 58
+	Bytes sent since last PSH flag: 58
+	TCP payload (58 bytes)
+	PDU Size: 58
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 58
+	Request ID: 0x00000e93 (3731)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .0.. = Slave OK: No
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: admin.$cmd
+	Database Name: admin
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 19
+	Elements
+	Element: ismaster
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         6
+Packet (Length: 125)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 111
+	Identification: 0x78e0 (30944)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x6975 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 60012
+	Destination Port: 27017
+	Stream index: 24
+	TCP Segment Len: 59
+	Sequence number: 119    (relative sequence number)
+	Next sequence number: 178    (relative sequence number)
+	Acknowledgment number: 2559    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5895 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702260198, TSecr 3688420894
+	Length: 10
+	Timestamp value: 3702260198
+	Timestamp echo reply: 3688420894
+	SEQ/ACK analysis
+	Bytes in flight: 59
+	Bytes sent since last PSH flag: 59
+	TCP payload (59 bytes)
+	PDU Size: 59
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 59
+	Request ID: 0x00000e94 (3732)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .1.. = Slave OK: Yes
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: store.$cmd
+	Database Name: store
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 20
+	Elements
+	Element: buildInfo
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         7
+Packet (Length: 124)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 110
+	Identification: 0x5c6f (23663)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x85e7 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 59944
+	Destination Port: 27017
+	Stream index: 23
+	TCP Segment Len: 58
+	Sequence number: 175    (relative sequence number)
+	Next sequence number: 233    (relative sequence number)
+	Acknowledgment number: 616    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5894 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702268242, TSecr 3688428939
+	Length: 10
+	Timestamp value: 3702268242
+	Timestamp echo reply: 3688428939
+	SEQ/ACK analysis
+	Bytes in flight: 58
+	Bytes sent since last PSH flag: 58
+	TCP payload (58 bytes)
+	PDU Size: 58
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 58
+	Request ID: 0x00000e95 (3733)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .0.. = Slave OK: No
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: admin.$cmd
+	Database Name: admin
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 19
+	Elements
+	Element: ismaster
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         8
+Packet (Length: 125)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 111
+	Identification: 0x78e2 (30946)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x6973 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 60012
+	Destination Port: 27017
+	Stream index: 24
+	TCP Segment Len: 59
+	Sequence number: 178    (relative sequence number)
+	Next sequence number: 237    (relative sequence number)
+	Acknowledgment number: 3838    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5895 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702270200, TSecr 3688430896
+	Length: 10
+	Timestamp value: 3702270200
+	Timestamp echo reply: 3688430896
+	SEQ/ACK analysis
+	Bytes in flight: 59
+	Bytes sent since last PSH flag: 59
+	TCP payload (59 bytes)
+	PDU Size: 59
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 59
+	Request ID: 0x00000e96 (3734)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .1.. = Slave OK: Yes
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: store.$cmd
+	Database Name: store
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 20
+	Elements
+	Element: buildInfo
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         9
+Packet (Length: 124)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 110
+	Identification: 0x5c71 (23665)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x85e5 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 59944
+	Destination Port: 27017
+	Stream index: 23
+	TCP Segment Len: 58
+	Sequence number: 233    (relative sequence number)
+	Next sequence number: 291    (relative sequence number)
+	Acknowledgment number: 821    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5894 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702278243, TSecr 3688438940
+	Length: 10
+	Timestamp value: 3702278243
+	Timestamp echo reply: 3688438940
+	SEQ/ACK analysis
+	Bytes in flight: 58
+	Bytes sent since last PSH flag: 58
+	TCP payload (58 bytes)
+	PDU Size: 58
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 58
+	Request ID: 0x00000e97 (3735)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .0.. = Slave OK: No
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: admin.$cmd
+	Database Name: admin
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 19
+	Elements
+	Element: ismaster
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         10
+Packet (Length: 125)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 111
+	Identification: 0x78e4 (30948)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x6971 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 60012
+	Destination Port: 27017
+	Stream index: 24
+	TCP Segment Len: 59
+	Sequence number: 237    (relative sequence number)
+	Next sequence number: 296    (relative sequence number)
+	Acknowledgment number: 5117    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5895 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702280202, TSecr 3688440897
+	Length: 10
+	Timestamp value: 3702280202
+	Timestamp echo reply: 3688440897
+	SEQ/ACK analysis
+	Bytes in flight: 59
+	Bytes sent since last PSH flag: 59
+	TCP payload (59 bytes)
+	PDU Size: 59
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 59
+	Request ID: 0x00000e98 (3736)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .1.. = Slave OK: Yes
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: store.$cmd
+	Database Name: store
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 20
+	Elements
+	Element: buildInfo
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         11
+Packet (Length: 124)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 110
+	Identification: 0x5c73 (23667)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x85e3 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 59944
+	Destination Port: 27017
+	Stream index: 23
+	TCP Segment Len: 58
+	Sequence number: 291    (relative sequence number)
+	Next sequence number: 349    (relative sequence number)
+	Acknowledgment number: 1026    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5894 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702288245, TSecr 3688448941
+	Length: 10
+	Timestamp value: 3702288245
+	Timestamp echo reply: 3688448941
+	SEQ/ACK analysis
+	Bytes in flight: 58
+	Bytes sent since last PSH flag: 58
+	TCP payload (58 bytes)
+	PDU Size: 58
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 58
+	Request ID: 0x00000e99 (3737)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .0.. = Slave OK: No
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: admin.$cmd
+	Database Name: admin
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 19
+	Elements
+	Element: ismaster
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         12
+Packet (Length: 125)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 111
+	Identification: 0x78e6 (30950)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x696f [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 60012
+	Destination Port: 27017
+	Stream index: 24
+	TCP Segment Len: 59
+	Sequence number: 296    (relative sequence number)
+	Next sequence number: 355    (relative sequence number)
+	Acknowledgment number: 6396    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5895 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702290204, TSecr 3688450899
+	Length: 10
+	Timestamp value: 3702290204
+	Timestamp echo reply: 3688450899
+	SEQ/ACK analysis
+	Bytes in flight: 59
+	Bytes sent since last PSH flag: 59
+	TCP payload (59 bytes)
+	PDU Size: 59
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 59
+	Request ID: 0x00000e9a (3738)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .1.. = Slave OK: Yes
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: store.$cmd
+	Database Name: store
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 20
+	Elements
+	Element: buildInfo
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         13
+Packet (Length: 124)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 110
+	Identification: 0x5c75 (23669)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x85e1 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 59944
+	Destination Port: 27017
+	Stream index: 23
+	TCP Segment Len: 58
+	Sequence number: 349    (relative sequence number)
+	Next sequence number: 407    (relative sequence number)
+	Acknowledgment number: 1231    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5894 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702298246, TSecr 3688458942
+	Length: 10
+	Timestamp value: 3702298246
+	Timestamp echo reply: 3688458942
+	SEQ/ACK analysis
+	Bytes in flight: 58
+	Bytes sent since last PSH flag: 58
+	TCP payload (58 bytes)
+	PDU Size: 58
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 58
+	Request ID: 0x00000e9b (3739)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .0.. = Slave OK: No
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: admin.$cmd
+	Database Name: admin
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 19
+	Elements
+	Element: ismaster
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         14
+Packet (Length: 125)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 111
+	Identification: 0x78e8 (30952)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x696d [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 60012
+	Destination Port: 27017
+	Stream index: 24
+	TCP Segment Len: 59
+	Sequence number: 355    (relative sequence number)
+	Next sequence number: 414    (relative sequence number)
+	Acknowledgment number: 7675    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5895 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702300206, TSecr 3688460901
+	Length: 10
+	Timestamp value: 3702300206
+	Timestamp echo reply: 3688460901
+	SEQ/ACK analysis
+	Bytes in flight: 59
+	Bytes sent since last PSH flag: 59
+	TCP payload (59 bytes)
+	PDU Size: 59
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 59
+	Request ID: 0x00000e9c (3740)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .1.. = Slave OK: Yes
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: store.$cmd
+	Database Name: store
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 20
+	Elements
+	Element: buildInfo
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         15
+Packet (Length: 124)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 110
+	Identification: 0x5c77 (23671)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x85df [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 59944
+	Destination Port: 27017
+	Stream index: 23
+	TCP Segment Len: 58
+	Sequence number: 407    (relative sequence number)
+	Next sequence number: 465    (relative sequence number)
+	Acknowledgment number: 1436    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5894 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702308247, TSecr 3688468943
+	Length: 10
+	Timestamp value: 3702308247
+	Timestamp echo reply: 3688468943
+	SEQ/ACK analysis
+	Bytes in flight: 58
+	Bytes sent since last PSH flag: 58
+	TCP payload (58 bytes)
+	PDU Size: 58
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 58
+	Request ID: 0x00000e9d (3741)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .0.. = Slave OK: No
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: admin.$cmd
+	Database Name: admin
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 19
+	Elements
+	Element: ismaster
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         16
+Packet (Length: 125)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 111
+	Identification: 0x78ea (30954)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x696b [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 60012
+	Destination Port: 27017
+	Stream index: 24
+	TCP Segment Len: 59
+	Sequence number: 414    (relative sequence number)
+	Next sequence number: 473    (relative sequence number)
+	Acknowledgment number: 8954    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5895 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702310207, TSecr 3688470903
+	Length: 10
+	Timestamp value: 3702310207
+	Timestamp echo reply: 3688470903
+	SEQ/ACK analysis
+	Bytes in flight: 59
+	Bytes sent since last PSH flag: 59
+	TCP payload (59 bytes)
+	PDU Size: 59
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 59
+	Request ID: 0x00000e9e (3742)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .1.. = Slave OK: Yes
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: store.$cmd
+	Database Name: store
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 20
+	Elements
+	Element: buildInfo
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         17
+Packet (Length: 124)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 110
+	Identification: 0x5c79 (23673)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x85dd [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 59944
+	Destination Port: 27017
+	Stream index: 23
+	TCP Segment Len: 58
+	Sequence number: 465    (relative sequence number)
+	Next sequence number: 523    (relative sequence number)
+	Acknowledgment number: 1641    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5894 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702318248, TSecr 3688478944
+	Length: 10
+	Timestamp value: 3702318248
+	Timestamp echo reply: 3688478944
+	SEQ/ACK analysis
+	Bytes in flight: 58
+	Bytes sent since last PSH flag: 58
+	TCP payload (58 bytes)
+	PDU Size: 58
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 58
+	Request ID: 0x00000e9f (3743)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .0.. = Slave OK: No
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: admin.$cmd
+	Database Name: admin
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 19
+	Elements
+	Element: ismaster
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         18
+Packet (Length: 125)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 111
+	Identification: 0x78ec (30956)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x6969 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 60012
+	Destination Port: 27017
+	Stream index: 24
+	TCP Segment Len: 59
+	Sequence number: 473    (relative sequence number)
+	Next sequence number: 532    (relative sequence number)
+	Acknowledgment number: 10233    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5895 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702320209, TSecr 3688480905
+	Length: 10
+	Timestamp value: 3702320209
+	Timestamp echo reply: 3688480905
+	SEQ/ACK analysis
+	Bytes in flight: 59
+	Bytes sent since last PSH flag: 59
+	TCP payload (59 bytes)
+	PDU Size: 59
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 59
+	Request ID: 0x00000ea0 (3744)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .1.. = Slave OK: Yes
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: store.$cmd
+	Database Name: store
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 20
+	Elements
+	Element: buildInfo
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         19
+Packet (Length: 124)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 110
+	Identification: 0x5c7b (23675)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x85db [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 59944
+	Destination Port: 27017
+	Stream index: 23
+	TCP Segment Len: 58
+	Sequence number: 523    (relative sequence number)
+	Next sequence number: 581    (relative sequence number)
+	Acknowledgment number: 1846    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5894 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702328248, TSecr 3688488945
+	Length: 10
+	Timestamp value: 3702328248
+	Timestamp echo reply: 3688488945
+	SEQ/ACK analysis
+	Bytes in flight: 58
+	Bytes sent since last PSH flag: 58
+	TCP payload (58 bytes)
+	PDU Size: 58
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 58
+	Request ID: 0x00000ea1 (3745)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .0.. = Slave OK: No
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: admin.$cmd
+	Database Name: admin
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 19
+	Elements
+	Element: ismaster
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         20
+Packet (Length: 125)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 111
+	Identification: 0x78ee (30958)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x6967 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 60012
+	Destination Port: 27017
+	Stream index: 24
+	TCP Segment Len: 59
+	Sequence number: 532    (relative sequence number)
+	Next sequence number: 591    (relative sequence number)
+	Acknowledgment number: 11512    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5895 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702330211, TSecr 3688490906
+	Length: 10
+	Timestamp value: 3702330211
+	Timestamp echo reply: 3688490906
+	SEQ/ACK analysis
+	Bytes in flight: 59
+	Bytes sent since last PSH flag: 59
+	TCP payload (59 bytes)
+	PDU Size: 59
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 59
+	Request ID: 0x00000ea2 (3746)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .1.. = Slave OK: Yes
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: store.$cmd
+	Database Name: store
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 20
+	Elements
+	Element: buildInfo
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         21
+Packet (Length: 124)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 110
+	Identification: 0x5c7d (23677)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x85d9 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 59944
+	Destination Port: 27017
+	Stream index: 23
+	TCP Segment Len: 58
+	Sequence number: 581    (relative sequence number)
+	Next sequence number: 639    (relative sequence number)
+	Acknowledgment number: 2051    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5894 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702338249, TSecr 3688498946
+	Length: 10
+	Timestamp value: 3702338249
+	Timestamp echo reply: 3688498946
+	SEQ/ACK analysis
+	Bytes in flight: 58
+	Bytes sent since last PSH flag: 58
+	TCP payload (58 bytes)
+	PDU Size: 58
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 58
+	Request ID: 0x00000ea3 (3747)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .0.. = Slave OK: No
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: admin.$cmd
+	Database Name: admin
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 19
+	Elements
+	Element: ismaster
+	Type: Int32 (0x10)
+	Value: 1
+
+Packet #         22
+Packet (Length: 125)
+Layer ETH:
+	Destination: 02:42:ac:13:00:08
+	Address: 02:42:ac:13:00:08
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 02:42:ac:13:00:05
+	Type: IPv4 (0x0800)
+	Address: 02:42:ac:13:00:05
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+Layer IP:
+	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 111
+	Identification: 0x78f0 (30960)
+	Flags: 0x02 (Don't Fragment)
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	Fragment offset: 0
+	Time to live: 64
+	Protocol: TCP (6)
+	Header checksum: 0x6965 [validation disabled]
+	Header checksum status: Unverified
+	Source: 172.19.0.5
+	Destination: 172.19.0.8
+	Source GeoIP: Unknown
+	Destination GeoIP: Unknown
+Layer TCP:
+	Source Port: 60012
+	Destination Port: 27017
+	Stream index: 24
+	TCP Segment Len: 59
+	Sequence number: 591    (relative sequence number)
+	Next sequence number: 650    (relative sequence number)
+	Acknowledgment number: 12791    (relative ack number)
+	1000 .... = Header Length: 32 bytes (8)
+	Flags: 0x018 (PSH, ACK)
+	000. .... .... = Reserved: Not set
+	...0 .... .... = Nonce: Not set
+	.... 0... .... = Congestion Window Reduced (CWR): Not set
+	.... .0.. .... = ECN-Echo: Not set
+	.... ..0. .... = Urgent: Not set
+	.... ...1 .... = Acknowledgment: Set
+	.... .... 1... = Push: Set
+	.... .... .0.. = Reset: Not set
+	.... .... ..0. = Syn: Not set
+	.... .... ...0 = Fin: Not set
+	TCP Flags: \xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7\xc2\xb7AP\xc2\xb7\xc2\xb7\xc2\xb7
+	Window size value: 1444
+	Calculated window size: 1444
+	Window size scaling factor: -1 (unknown)
+	Checksum: 0x5895 [unverified]
+	Checksum Status: Unverified
+	Urgent pointer: 0
+	Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	TCP Option - Timestamps: TSval 3702340212, TSecr 3688500908
+	Length: 10
+	Timestamp value: 3702340212
+	Timestamp echo reply: 3688500908
+	SEQ/ACK analysis
+	Bytes in flight: 59
+	Bytes sent since last PSH flag: 59
+	TCP payload (59 bytes)
+	PDU Size: 59
+	TCP Option - No-Operation (NOP)
+	Kind: No-Operation (1)
+	Kind: Time Stamp Option (8)
+Layer MONGO:
+	Message Length: 59
+	Request ID: 0x00000ea4 (3748)
+	Response To: 0x00000000 (0)
+	OpCode: Query (2004)
+	Query Flags
+	.... .... .... .... .... .... .... ..0. = Tailable Cursor: No
+	.... .... .... .... .... .... .... .1.. = Slave OK: Yes
+	.... .... .... .... .... .... .... 0... = Op Log Reply: No
+	.... .... .... .... .... .... ...0 .... = No Cursor Timeout: No
+	.... .... .... .... .... .... ..0. .... = AwaitData: No
+	.... .... .... .... .... .... .0.. .... = Exhaust: No
+	.... .... .... .... .... .... 0... .... = Partial: No
+	fullCollectionName: store.$cmd
+	Database Name: store
+	Collection Name: $cmd
+	Number To Skip: 0
+	Number to Return: -1
+	Query
+	Document length: 20
+	Elements
+	Element: buildInfo
+	Type: Int32 (0x10)
+	Value: 1
+
