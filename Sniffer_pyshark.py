@@ -28,21 +28,6 @@ for pkt in cap:
             #print(pkt.ip.src)
             #print(pkt.ip.dst)
             out_file = open("Mongo_Request_pkts.txt", "w")
-            # out_string += "Packet #         " + str(i)
-            # out_string += "\n"
-            # out_string += str(pkt)
-            # out_string += "\n"
-            #out_string += "Contenuto: "+json.dumps(str(current_layer.__dict__), sort_keys = True, indent =4)+'\n'
-            #jsonarray = current_layer.__dict__['_layer_name']
-            #print(jsonarray)
-            #stringjson = str(current_layer.__dict__)
-            #n = json.dumps(stringjson)
-            #jsonobj = json.loads(jsonarray)
-            #out_string += "\n"
-            #out_string += "JSON: "+ json.dumps(jsonobj, sort_keys=True, indent=2) + '\n'
-            #pprint.pprint(jsonobj)
-            #out_string += "Contenuto: "+str(current_layer.__dict__) + '\n'
-            #print(type(jsonarray))
             print("Chiave-Valore:")
             out_string +="Chiave-Valore:\n"
 
