@@ -1,0 +1,150 @@
+ip container = 172.19.0.8
+MongoTrafficReplay
+operation-0
+------------___operation-0.cap
+non http
+{'order': 0, 'op': 'insert', 'ns': 'store.$cmd', 'request_data': {'documents': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}], 'insert': 'product', 'ordered': True}, 'reply_data': {'n': 1, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:16:52.580620549+02:00', 'play_at': '2018-08-24T21:16:52.580476098+02:00', 'playbacklag_us': 144, 'connection_num': 1, 'latency_us': 297, 'seen': '2018-08-14T18:37:41.781228Z', 'request_id': 4276}
+{'order': 0, 'op': 'insert', 'ns': 'store.$cmd', 'request_data': {'documents': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}], 'insert': 'product', 'ordered': True}, 'reply_data': {'n': 1, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:33.784187069+02:00', 'play_at': '2018-08-24T10:32:33.784103542+02:00', 'playbacklag_us': 83, 'connection_num': 1, 'latency_us': 434, 'seen': '2018-08-14T18:37:41.781228Z', 'request_id': 4276}
+
+
+operation= insert optest= insert
+
+operazione di inserimento
+operation-1
+------------___operation-1.cap
+non http
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {}, 'find': 'product', 'limit': 20, 'sort': {'_id': 1}}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:16:53.905475497+02:00', 'play_at': '2018-08-24T21:16:53.900520627+02:00', 'playbacklag_us': 4954, 'connection_num': 1, 'latency_us': 456, 'seen': '2018-08-14T18:37:41.794469Z', 'request_id': 4278}
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {}, 'find': 'product', 'limit': 20, 'sort': {'_id': 1}}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:34.424410606+02:00', 'play_at': '2018-08-24T10:32:34.424289789+02:00', 'playbacklag_us': 120, 'connection_num': 1, 'latency_us': 474, 'seen': '2018-08-14T18:37:41.794469Z', 'request_id': 4278}
+
+
+operation= command optest= command
+
+
+
+operation= find optest= find
+
+operazione di ricerca
+operation-2
+------------___operation-2.cap
+non http
+{'order': 0, 'op': 'insert', 'ns': 'store.$cmd', 'request_data': {'documents': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '23.33'}], 'insert': 'product', 'ordered': True}, 'reply_data': {'n': 1, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:16:54.99736362+02:00', 'play_at': '2018-08-24T21:16:54.997282215+02:00', 'playbacklag_us': 81, 'connection_num': 1, 'latency_us': 237, 'seen': '2018-08-14T18:37:50.068271Z', 'request_id': 4279}
+{'order': 0, 'op': 'insert', 'ns': 'store.$cmd', 'request_data': {'documents': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '23.33'}], 'insert': 'product', 'ordered': True}, 'reply_data': {'n': 1, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:35.057145339+02:00', 'play_at': '2018-08-24T10:32:35.057070949+02:00', 'playbacklag_us': 74, 'connection_num': 1, 'latency_us': 203, 'seen': '2018-08-14T18:37:50.068271Z', 'request_id': 4279}
+
+
+operation= insert optest= insert
+
+operazione di inserimento
+operation-3
+------------___operation-3.cap
+non http
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {}, 'find': 'product', 'limit': 20, 'sort': {'_id': 1}}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '23.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:16:56.067770174+02:00', 'play_at': '2018-08-24T21:16:56.067700941+02:00', 'playbacklag_us': 69, 'connection_num': 1, 'latency_us': 266, 'seen': '2018-08-14T18:37:50.083121Z', 'request_id': 4281}
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {}, 'find': 'product', 'limit': 20, 'sort': {'_id': 1}}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '23.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:35.671565984+02:00', 'play_at': '2018-08-24T10:32:35.666718686+02:00', 'playbacklag_us': 4847, 'connection_num': 1, 'latency_us': 464, 'seen': '2018-08-14T18:37:50.083121Z', 'request_id': 4281}
+
+
+operation= command optest= command
+
+
+
+operation= find optest= find
+
+operazione di ricerca
+operation-4
+------------___operation-4.cap
+non http
+{'order': 0, 'op': 'insert', 'ns': 'store.$cmd', 'request_data': {'documents': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321830274390001fce773'}, 'name': 'prod3', 'price': '3.33'}], 'insert': 'product', 'ordered': True}, 'reply_data': {'n': 1, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:16:57.083784463+02:00', 'play_at': '2018-08-24T21:16:57.083692744+02:00', 'playbacklag_us': 91, 'connection_num': 1, 'latency_us': 287, 'seen': '2018-08-14T18:37:55.035888Z', 'request_id': 4283}
+{'order': 0, 'op': 'insert', 'ns': 'store.$cmd', 'request_data': {'documents': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321830274390001fce773'}, 'name': 'prod3', 'price': '3.33'}], 'insert': 'product', 'ordered': True}, 'reply_data': {'n': 1, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:36.276910332+02:00', 'play_at': '2018-08-24T10:32:36.276732912+02:00', 'playbacklag_us': 177, 'connection_num': 1, 'latency_us': 335, 'seen': '2018-08-14T18:37:55.035888Z', 'request_id': 4283}
+
+
+operation= insert optest= insert
+
+operazione di inserimento
+operation-5
+------------___operation-5.cap
+non http
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {}, 'find': 'product', 'limit': 20, 'sort': {'_id': 1}}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '23.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321830274390001fce773'}, 'name': 'prod3', 'price': '3.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:16:58.116528226+02:00', 'play_at': '2018-08-24T21:16:58.116401161+02:00', 'playbacklag_us': 127, 'connection_num': 1, 'latency_us': 356, 'seen': '2018-08-14T18:37:55.050837Z', 'request_id': 4285}
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {}, 'find': 'product', 'limit': 20, 'sort': {'_id': 1}}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '23.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321830274390001fce773'}, 'name': 'prod3', 'price': '3.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:36.90344589+02:00', 'play_at': '2018-08-24T10:32:36.903322395+02:00', 'playbacklag_us': 123, 'connection_num': 1, 'latency_us': 384, 'seen': '2018-08-14T18:37:55.050837Z', 'request_id': 4285}
+
+
+operation= command optest= command
+
+
+
+operation= find optest= find
+
+operazione di ricerca
+operation-6
+------------___operation-6.cap
+non http
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {'_id': {'$oid': '5b73217e0274390001fce772'}}, 'find': 'product', 'limit': 1, 'singleBatch': True}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '23.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:16:59.136581059+02:00', 'play_at': '2018-08-24T21:16:59.136469726+02:00', 'playbacklag_us': 111, 'connection_num': 1, 'latency_us': 392, 'seen': '2018-08-14T18:37:56.792017Z', 'request_id': 4286}
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {'_id': {'$oid': '5b73217e0274390001fce772'}}, 'find': 'product', 'limit': 1, 'singleBatch': True}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '23.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:37.511304821+02:00', 'play_at': '2018-08-24T10:32:37.507153936+02:00', 'playbacklag_us': 4150, 'connection_num': 1, 'latency_us': 282, 'seen': '2018-08-14T18:37:56.792017Z', 'request_id': 4286}
+
+
+operation= command optest= command
+
+
+
+operation= find optest= find
+
+operazione di ricerca
+operation-7
+------------___operation-7.cap
+non http
+{'order': 0, 'op': 'update', 'ns': 'store.$cmd', 'request_data': {'ordered': False, 'update': 'product', 'updates': [{'q': {'_id': {'$oid': '5b73217e0274390001fce772'}}, 'u': {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '25.33'}, 'upsert': True}]}, 'reply_data': {'n': 1, 'nModified': 1, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:17:00.163874341+02:00', 'play_at': '2018-08-24T21:17:00.163781753+02:00', 'playbacklag_us': 92, 'connection_num': 1, 'latency_us': 409, 'seen': '2018-08-14T18:38:00.511982Z', 'request_id': 4287}
+{'order': 0, 'op': 'update', 'ns': 'store.$cmd', 'request_data': {'ordered': False, 'update': 'product', 'updates': [{'q': {'_id': {'$oid': '5b73217e0274390001fce772'}}, 'u': {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '25.33'}, 'upsert': True}]}, 'reply_data': {'n': 1, 'nModified': 1, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:38.132672818+02:00', 'play_at': '2018-08-24T10:32:38.132516906+02:00', 'playbacklag_us': 155, 'connection_num': 1, 'latency_us': 417, 'seen': '2018-08-14T18:38:00.511982Z', 'request_id': 4287}
+
+
+operation= update optest= update
+
+operazione di aggiornamento
+operation-8
+------------___operation-8.cap
+non http
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {}, 'find': 'product', 'limit': 20, 'sort': {'_id': 1}}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '25.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321830274390001fce773'}, 'name': 'prod3', 'price': '3.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:17:01.204713129+02:00', 'play_at': '2018-08-24T21:17:01.204493061+02:00', 'playbacklag_us': 220, 'connection_num': 1, 'latency_us': 622, 'seen': '2018-08-14T18:38:00.530247Z', 'request_id': 4289}
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {}, 'find': 'product', 'limit': 20, 'sort': {'_id': 1}}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '25.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321830274390001fce773'}, 'name': 'prod3', 'price': '3.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:38.783268653+02:00', 'play_at': '2018-08-24T10:32:38.781256769+02:00', 'playbacklag_us': 2011, 'connection_num': 1, 'latency_us': 554, 'seen': '2018-08-14T18:38:00.530247Z', 'request_id': 4289}
+
+
+operation= command optest= command
+
+
+
+operation= find optest= find
+
+operazione di ricerca
+operation-9
+------------___operation-9.cap
+non http
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {'_id': {'$oid': '5b7321830274390001fce773'}}, 'find': 'product', 'limit': 1, 'singleBatch': True}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321830274390001fce773'}, 'name': 'prod3', 'price': '3.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:17:02.240381539+02:00', 'play_at': '2018-08-24T21:17:02.238216076+02:00', 'playbacklag_us': 2165, 'connection_num': 1, 'latency_us': 203, 'seen': '2018-08-14T18:38:02.145564Z', 'request_id': 4291}
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {'_id': {'$oid': '5b7321830274390001fce773'}}, 'find': 'product', 'limit': 1, 'singleBatch': True}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321830274390001fce773'}, 'name': 'prod3', 'price': '3.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:39.406889168+02:00', 'play_at': '2018-08-24T10:32:39.406794033+02:00', 'playbacklag_us': 95, 'connection_num': 1, 'latency_us': 249, 'seen': '2018-08-14T18:38:02.145564Z', 'request_id': 4291}
+
+
+operation= command optest= command
+
+
+
+operation= find optest= find
+
+operazione di ricerca
+operation-10
+------------___operation-10.cap
+non http
+{'order': 0, 'op': 'delete', 'ns': 'store.$cmd', 'request_data': {'delete': 'product', 'deletes': [{'limit': 0, 'q': {'_id': {'$oid': '5b7321830274390001fce773'}}}], 'ordered': False}, 'reply_data': {'n': 1, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:17:03.249728723+02:00', 'play_at': '2018-08-24T21:17:03.249643529+02:00', 'playbacklag_us': 85, 'connection_num': 1, 'latency_us': 499, 'seen': '2018-08-14T18:38:03.574416Z', 'request_id': 4292}
+{'order': 0, 'op': 'delete', 'ns': 'store.$cmd', 'request_data': {'delete': 'product', 'deletes': [{'limit': 0, 'q': {'_id': {'$oid': '5b7321830274390001fce773'}}}], 'ordered': False}, 'reply_data': {'n': 1, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:40.046132133+02:00', 'play_at': '2018-08-24T10:32:40.046015721+02:00', 'playbacklag_us': 116, 'connection_num': 1, 'latency_us': 416, 'seen': '2018-08-14T18:38:03.574416Z', 'request_id': 4292}
+
+
+operation= delete optest= delete
+
+operazione di delete
+operation-11
+------------___operation-11.cap
+non http
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {}, 'find': 'product', 'limit': 20, 'sort': {'_id': 1}}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '25.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T21:17:04.270141343+02:00', 'play_at': '2018-08-24T21:17:04.269989483+02:00', 'playbacklag_us': 151, 'connection_num': 1, 'latency_us': 510, 'seen': '2018-08-14T18:38:03.589396Z', 'request_id': 4294}
+{'order': 0, 'op': 'command', 'command': 'find', 'ns': 'store.$cmd', 'request_data': {'filter': {}, 'find': 'product', 'limit': 20, 'sort': {'_id': 1}}, 'reply_data': {'cursor': {'firstBatch': [{'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b7321750274390001fce771'}, 'name': 'prod1', 'price': '12.33'}, {'_class': 'org.jhipster.store.domain.Product', '_id': {'$oid': '5b73217e0274390001fce772'}, 'name': 'prod2', 'price': '25.33'}], 'id': {'$numberLong': '0'}, 'ns': 'store.product'}, 'ok': 1.0}, 'nreturned': 1, 'played_at': '2018-08-24T10:32:40.679347164+02:00', 'play_at': '2018-08-24T10:32:40.67922343+02:00', 'playbacklag_us': 123, 'connection_num': 1, 'latency_us': 481, 'seen': '2018-08-14T18:38:03.589396Z', 'request_id': 4294}
+
+
+operation= command optest= command
+
+
+
+operation= find optest= find
+
+operazione di ricerca

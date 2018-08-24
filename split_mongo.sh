@@ -1,9 +1,8 @@
-#usage: ./split.sh pcapfile.pcap savedir
-if [ -d "$2" ]; 
+#usage: ./split_mongo.sh pcapfile.pcap savedir
+if [ ! -d "$2" ]; 
 then 
-	rm -Rf $2; 
+	mkdir $2; 
 fi
-mkdir $2
 if [ ! -d "$2/Operation" ]; 
 then 
 	mkdir "$2/Operation"; 
@@ -21,7 +20,6 @@ count_find=0
 #count_reply=0
 elements=$(tshark -r $1  -T fields -e mongo.element.name -e mongo.opcode -e mongo.request_id -E separator=';')
 #echo $elements
-#for element in $(tshark -r $1 -T fields -e mongo.element.name | sort -n)
 for element in $elements
 do
 	echo $element
@@ -62,12 +60,12 @@ do
 				count_delete=$((count_delete+1))
 				count_op=$((count_op+1))
 		    		;;
-		#	find)
-		#		tshark -r $1 -w $2/find-$count_find.cap -Y "mongo.request_id==$seqnum"
-		#		tshark -r $1 -w $2/Operation/operation-$count_op.cap -Y "mongo.request_id==$seqnum"
-		#		count_find=$((count_find+1))
-		#		count_op=$((count_op+1))
-		#   		;;
+			find)
+				tshark -r $1 -w $2/find-$count_find.cap -Y "mongo.request_id==$seqnum"
+				tshark -r $1 -w $2/Operation/operation-$count_op.cap -Y "mongo.request_id==$seqnum"
+				count_find=$((count_find+1))
+				count_op=$((count_op+1))
+		   		;;
 			*)
 				echo "others="$op
 				tshark -r $1 -w $2/others-$count_others.cap -Y "mongo.request_id==$seqnum"

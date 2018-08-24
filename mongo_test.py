@@ -7,13 +7,7 @@ import re
 import subprocess
 import json
 
-
-
-
 def main():
-
-    authorized = False
-    headers = {'Content-type': 'application/json', "Accept": "application/json"}
 
     #apro in scrittura il file di destinazione
     pythonScript = open(sys.argv[1], 'w')
@@ -22,175 +16,170 @@ def main():
     pythonScript.write("import time\n")
     pythonScript.write("import re\n\n")
 
-
     #Devo prendere file report e file monitor e confrontarli usando il campo request_id
     with open(sys.argv[2], 'r') as f:
         array = json.load(f)
 
     print(array)
-    print(array['request_id'])
-
-    data = []
-    with open(sys.argv[3], 'r') as f:
-        for line in f:
-            data.append(json.loads(line))
+    #print(array['request_id'])
 
 
+    with open(sys.argv[3], 'r') as test:
+        arraytest = json.load(test)
 
-    print(data[0]['request_id'])
+    print(arraytest)
+
+    operation = array['op']
+    operation_test = arraytest['op']
+
+    assert operation == operation_test
+
+    print("\n\noperation= "+operation+" optest= "+operation_test+"\n")
+
+    if operation == "insert":
+        print("operazione di inserimento")
+        req_data = array['request_data']
+        req_data_test = arraytest['request_data']
+        assert len(req_data) == len(req_data_test)
+        doc = req_data['documents']
+        doc_test = req_data_test['documents']
+        assert len(doc) == len(doc_test)
+        for i in range(0,len(doc)):
+            assert len(doc[i]) == len(doc_test[i])
+            for key, value in doc[i].items():
+                if key != "_class" and key != "_id":
+                    assert doc[i][key] == doc_test[i][key]
+        ins = req_data['insert']
+        ins_test = req_data_test['insert']
+        assert ins == ins_test
+        order = req_data['ordered']
+        order_test = req_data_test['ordered']
+        assert order == order_test
+        rep_data = array['reply_data']
+        rep_data_test = arraytest['reply_data']
+        assert len(rep_data) == len(rep_data_test)
+        n = rep_data['n']
+        n_test = rep_data_test['n']
+        assert n == n_test
+        ok = rep_data['ok']
+        ok_test = rep_data_test['ok']
+        assert ok == ok_test
+        pythonScript.close()
+        return
+
+    if operation == "update":
+        print("operazione di aggiornamento")
+        req_data = array['request_data']
+        req_data_test = arraytest['request_data']
+        assert len(req_data) == len(req_data_test)
+        up = req_data['update']
+        up_test = req_data_test['update']
+        assert up == up_test
+        order = req_data['ordered']
+        order_test = req_data_test['ordered']
+        assert order == order_test
+        updates = req_data['updates']
+        updates_test = req_data_test['updates']
+        assert len(updates) == len(updates_test)
+        for i in range(0, len(updates)):
+            assert len(updates[i]) == len(updates_test[i])
+            for key, value in updates[i].items():
+                #q contiene id dell'eliminato , u contiene i dati del nuovo
+                if key != "u" and key != "_id" and key != 'q':
+                    assert updates[i][key] == updates_test[i][key]
+                if key == 'u':
+                    for keys, values in updates[i][key].items():
+                        if keys != "_class" and keys != "_id":
+                            assert updates[i][key][keys] == updates_test[i][key][keys]
+        rep_data = array['reply_data']
+        rep_data_test = arraytest['reply_data']
+        assert len(rep_data) == len(rep_data_test)
+        n = rep_data['n']
+        n_test = rep_data_test['n']
+        assert n == n_test
+        ok = rep_data['ok']
+        ok_test = rep_data_test['ok']
+        assert ok == ok_test
+        modif = rep_data['nModified']
+        modif_test = rep_data_test['nModified']
+        assert modif == modif_test
+        pythonScript.close()
+        return
+
+    if operation == "delete":
+        print("operazione di delete")
+        req_data = array['request_data']
+        req_data_test = arraytest['request_data']
+        assert len(req_data) == len(req_data_test)
+        delete = req_data['delete']
+        delete_test = req_data_test['delete']
+        assert delete == delete_test
+        order = req_data['ordered']
+        order_test = req_data_test['ordered']
+        assert order == order_test
+        deletes = req_data['deletes']
+        deletes_test = req_data_test['deletes']
+        assert len(deletes) == len(deletes_test)
+        for i in range(0, len(deletes)):
+            assert len(deletes[i]) == len(deletes_test[i])
+            for key, value in deletes[i].items():
+                if key == 'q':
+                    for keys, values in deletes[i][key].items():
+                        assert deletes[i][key][keys]['$oid'] == deletes_test[i][key][keys]['$oid']
+                else:
+                    assert deletes[i][key] == deletes_test[i][key]
+        rep_data = array['reply_data']
+        rep_data_test = arraytest['reply_data']
+        assert len(rep_data) == len(rep_data_test)
+        n = rep_data['n']
+        n_test = rep_data_test['n']
+        assert n == n_test
+        ok = rep_data['ok']
+        ok_test = rep_data_test['ok']
+        assert ok == ok_test
+        pythonScript.close()
+        return
+
+    if operation == "command":
+        operation = array['command']
+        operation_test = arraytest['command']
+        print("\n\noperation= " + operation + " optest= " + operation_test + "\n")
+        assert operation == operation_test
+        print("operazione di ricerca")
+        req_data = array['request_data']
+        req_data_test = arraytest['request_data']
+        assert len(req_data) == len(req_data_test)
+        filt = req_data['filter']
+        filt_test = req_data_test['filter']
+        assert filt ==filt_test
+        find = req_data['find']
+        find_test = req_data_test['find']
+        assert find == find_test
+        limit = req_data['limit']
+        limit_test = req_data_test['limit']
+        assert limit == limit_test
+        rep_data = array['reply_data']
+        rep_data_test = arraytest['reply_data']
+        assert len(rep_data) == len(rep_data_test)
+        cursor = rep_data['cursor']
+        cursor_test = rep_data_test['cursor']
+        assert len(cursor) == len(cursor_test)
+        for key, value in cursor.items():
+            if key == "firstBatch":
+                assert len(cursor[key]) == len(cursor_test[key])
+                for i in range(0, len(cursor[key])):
+                    for keys, values in cursor[key][i].items():
+                        if keys != "_class" and keys != "_id":
+                            assert  cursor[key][i][keys] == cursor_test[key][i][keys]
+        pythonScript.close()
+        return
+
 
     pythonScript.close()
 
 
 
-#     #Pacchetti estratti dal file pcap dove sono memorizzati i pacchetti catturati da un'interfaccia docker
-#     for packet in cap:
-#         if 'mongo' in str(packet.layers):
-#             # print(packet.http)
-#             if not authorized:
-#                 headers['Authorization'] = packet.http.authorization
-#                 pythonScript.write("headers=" + str(headers) + "\n\n")
-#                 authorized = True
-#                 #Se il file considerato contiene un'operazione
-#             if "operation" in sys.argv[1]:
-#                 #eseguo operazione contenuta al suo interno
-#                 command =
-#                 subprocess.Popen("cwm --rdf test.rdf --ntriples > test.nt")
-#                 #controllo codice di risposta
-#                 #analizzo report per vedere se la risposta è corretta
-#
-#     pythonScript.close()
-#
-#
-# def write_get_request(packet, pythonScript):
-#
-#     """
-#     writes a get request to a python script
-#     :param packet: packet request to replay
-#     :param pythonScript: script to write the request to
-#     """
-#
-#     url = 'http://localhost:'
-#
-#     api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
-#     print("------inizio-------")
-#     print(api_location)
-#     api_location = re.sub(r'\?.*', '/', api_location)
-#     print(api_location)
-#     print("------fine-------")
-#     if not api_location.endswith('/'):
-#         api_location += '/'
-#     print('get')
-#     print(api_location)
-#     url = url + re.sub(r'.*:', '', packet.http.host) + api_location
-#
-#     # hardcoded check, remove
-#     if url.__contains__('dialog'):
-#         return
-#
-#     pythonScript.write("print('sending get request to " + url + "')\n")
-#     pythonScript.write("response = requests.get('"+url+"', headers=headers)\n")
-#     pythonScript.write("print('response: {0}'.format(response.content))\n\n")
-#
-#
-#
-# def write_post_request(packet, pythonScript):
-#
-#     """
-#     writes a post request to a python script
-#     :param packet: packet request to replay
-#     :param pythonScript: script to write the request to
-#     """
-#
-#     url = 'http://localhost:'
-#
-#     api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
-#     print("------inizio-------")
-#     print(api_location)
-#     api_location = re.sub(r'\?.*', '/', api_location)
-#     print(api_location)
-#     print("------fine-------")
-#     if not api_location.endswith('/'):
-#         api_location += '/'
-#     print('post')
-#     print(api_location)
-#     url = url + re.sub(r'.*:', '', packet.http.host) + api_location
-#     json_post = packet.http.file_data
-#
-#     json_post = json_post.replace('null', 'None')
-#     pythonScript.write("print('sending post request to "+url+"')\n")
-#     pythonScript.write("json_content = "+json_post+"\n")
-#     pythonScript.write('print(str(json_content))\n')
-#     pythonScript.write("response = requests.post('"+url+"', data=json.dumps(json_content), headers=headers)\n")
-#     pythonScript.write("if response.status_code == 201:\n")
-#     pythonScript.write("\tprint('created')\n\n")
-#
-#
-# def write_put_request(packet, pythonScript):
-#
-#     """
-#     writes a put request to a python script
-#     :param packet: packet request to replay
-#     :param pythonScript: script to write the request to
-#     """
-#
-#     url = 'http://localhost:'
-#
-#     username=packet.http.authbasic.split(':')[0]
-#     password=packet.http.authbasic.split(':')[1]
-#
-#     api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
-#     api_location = re.sub(r'\?.*', '/', api_location).split(':')[0]
-#     if not api_location.endswith('/'):
-#         api_location += '/'
-#     print('put')
-#     print(api_location)
-#     url = url + re.sub(r'.*:', '', packet.http.host) + api_location
-#
-#     pythonScript.write("print('sending get request to " + url + "')\n")
-#     pythonScript.write("response = requests.get('"+url+"', headers=headers, auth=HTTPBasicAuth('"+username+"', '"+password+"'))\n")
-#     pythonScript.write("print('response: {0}'.format(response.content))\n\n")
-#
-#
-# def write_assertion(packet, pythonScript):
-#
-#     """
-#     writes an assertion in the replay script to make sure the response to a request is as expected
-#     :param packet: the response packet to get the assertion from
-#     :param pythonScript: the script to write the assertion to
-#     """
-#
-#
-#     if 'file_data' in packet.http.field_names:
-#
-#         # hardcoded check, remove
-#         if re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data).__contains__('<div'):
-#             return
-#
-#         pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
-#         pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":None',response.content.decode('utf-8'))\n")
-#         pythonScript.write("assert content == '" + re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data) + "'\n\n")
-#
-#
-# def db_cleanup(url, pythonScript):
-#
-#     """
-#     prints code which cleans the database up
-#     :param url: container url
-#     :param pythonScript: script to write the cleanup to
-#     """
-#
-#     pythonScript.write("print('setup: cleaning the database')\n")
-#     pythonScript.write("response = requests.get('"+url+"', headers=headers)\n")
-#     pythonScript.write("items = json.loads(response.text)\n")
-#     pythonScript.write("item_ids = []\n")
-#     pythonScript.write("for item in items:\n")
-#     pythonScript.write("\turl = '"+url+"/' + str(item['id'])\n")
-#     pythonScript.write("\tprint('deleting item ' + str(item['id']))\n")
-#     pythonScript.write("\tr = requests.delete(url, data=json.dumps(item_ids), headers=headers)\n")
-#     pythonScript.write("\tif r.status_code == 200:\n")
-#     pythonScript.write("\t\tprint('ok')\n")
-#     pythonScript.write("print('starting replay')\n")
+
 
 
 if __name__ == "__main__":
