@@ -35,8 +35,8 @@ for filename in $( ls -v *.cap ); do
 	mongoreplay play -p ~/TesiGit/trafficReplay/$1/recordings/playback_$name.bson --report ~/TesiGit/trafficReplay/$1/reports/playback-$name.json --collect json --host mongodb://$ipdb:27017
 	#Questa parte viene eseguita solo per applicazione da testare
 	#Creazione degli script di test
-	destScript=$filename"_replay.py"
-    	python3 ../../mongo_test.py $destScript ~/TesiGit/trafficReplay/$1/reports/playback-$name.json ~/TesiGit/trafficReplay/$1/reports/test-$name.json $ipdb:27017 
+	destScript=$name"_replay.py"
+    	python3 ../../mongo_test2.py $destScript ~/TesiGit/trafficReplay/$1/reports/playback-$name.json ~/TesiGit/trafficReplay/$1/reports/test-$name.json $ipdb:27017 
 done
 #cd ..
 #cd $3
