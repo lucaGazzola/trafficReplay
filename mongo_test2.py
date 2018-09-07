@@ -7,6 +7,7 @@ import re
 import subprocess
 import json
 
+
 def main():
 
     #apro in scrittura il file di destinazione

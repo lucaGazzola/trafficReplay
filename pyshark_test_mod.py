@@ -26,7 +26,17 @@ def main():
     pythonScript.write("import re\n\n")
 
     for packet in cap:
-        if 'HTTP' in str(packet.layers):
+        #print(dir(packet.tcp))
+        #print(dir(packet.http))
+        print(str(packet.layers))
+        print("mongo:"+str(dir(packet.mongo)))
+        print("database_name:"+packet.mongo.database_name)
+        print("collection_name:" + packet.mongo.collection_name)
+        print("addr:"+packet.ip.addr)
+        print("src:" + packet.ip.src)
+        print("sorgente:"+str(packet.ip.src_host))
+        print("destinario:"+str(packet.ip.dst_host))
+        if 'IP' in str(packet.layers):
             # print(packet.http)
             if not authorized:
                 headers['Authorization'] = packet.http.authorization
