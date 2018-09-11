@@ -1,11 +1,4 @@
-#Vado a leggere tutti i file della cartella del percorso passato come argomento
-#Leggo istruzione contenuta nella prima istruzione
 #Creo Client Mongo
-#Inizio a leggere i comandi e li mando al Server tramite Client creato
-
-#Non serve inizializzare il database perchè tanto il server risponde quello che gli indico io
-
-#Quindi nel server andrò a leggere le reply dal file di report per rispondere
 
 
 from mockupdb import *
@@ -27,6 +20,14 @@ def main():
     client = MongoClient(sys.argv[2])
     collection = client.db.test_collection
 
+    print("Test: attesa connessione con mockup...")
+    client.db.command('ping')
+    print("Test:connesso")
+
+
+    #Come primo comando mando il request_id a cui fare riferimento
+    #client.db.command("info","1234")
+
 
     # if sys.argv[2] == "first":
     #     #se la prima operazione è una find allora faccio inizilizzazione
@@ -44,7 +45,7 @@ def main():
 
     #Se è un'operazione di insert vado ad estrarre i dati da inserire dal file di report e richiedo inserimento al server
     if operation == "insert":
-        print("--------------------------------------------------------------------------")
+        print("---------------------------------open client-----------------------------------------")
         print("operazione di inserimento")
         #Estrazione informazioni dal file di report
         req_data = array['request_data']
@@ -61,12 +62,12 @@ def main():
         #future = go(collection.insert_one, {'_id': 1, "name": 'prod1', "price": '12.33'})
         write_result = future()
         print("risultato inserimento:"+str(write_result))
-        print("id inserito"+str(write_result.inserted_id))
+        print("id inserito "+str(write_result.inserted_id))
 
 
     #Se è un'operazione di insert vado ad estrarre i dati da aggiornare e quelli che vengono usati per aggiornare
     if operation == "update":
-        print("--------------------------------------------------------------------------")
+        print("-------------------------------open client-------------------------------------------")
         print("operazione di aggiornamento")
         req_data = array['request_data']
         updates = req_data['updates']
@@ -92,7 +93,7 @@ def main():
 
     #Se è un'operazione di cancellazione estraggo id elemento da eliminare
     if operation == "delete":
-        print("--------------------------------------------------------------------------")
+        print("----------------------------------open client----------------------------------------")
         print("operazione di delete")
         req_data = array['request_data']
         deletes = req_data['deletes']
@@ -109,7 +110,7 @@ def main():
     if operation == "command":
         operation = array['command']
         if operation == "find":
-            print("--------------------------------------------------------------------------")
+            print("-------------------------------open client-------------------------------------------")
             print("operazione di ricerca")
             req_data = array['request_data']
             filt = req_data['filter']
@@ -127,7 +128,9 @@ def main():
                 print("Empty cursor!")
             # for document in cursor:
             #     pprint(document)
-
+    #client.db.command('shutdown')
+    client.close()
+    print("---------------------------------------------close client----------------------------------")
 if __name__ == "__main__":
     main()
 
