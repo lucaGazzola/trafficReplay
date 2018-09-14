@@ -26,8 +26,7 @@ def main():
         #REST -> quindi vado a considerare protocollo ad alto livello
         #Controllo che sia interazione diretta con applicazione (porta 8081)
         #Porta 8080 è con gateway quindi non la considero
-        if 'HTTP' in str(packet.layers) and 'TCP' in str(packet.layers) and \
-                ( packet.tcp.dstport == "8081" or packet.tcp.srcport == "8081" ):
+        if 'HTTP' in str(packet.layers):
             # print("-------------------------------------per http")
             # print(dir(packet.http))
             # print("-------------------------------------per tcp:")
@@ -42,9 +41,9 @@ def main():
                 write_import(pythonScript)
 
             if not authorized:
-                #headers['Authorization'] = packet.http.authorization
+                if 'authorization' in packet.http.field_names:
+                    headers['Authorization'] = packet.http.authorization
                 pythonScript.write("headers=" + str(headers) + "\n\n")
-                req_auth(pythonScript)
                 authorized = True
 
             if str(packet.http.chat).startswith('POST'):
@@ -71,14 +70,6 @@ def write_import(pythonScript):
     pythonScript.write("import re\n\n")
 
 
-#Mando richiesta autenticazione da gateway per ricevere token
-def req_auth(pythonScript):
-    pythonScript.write("print('sending post request to http://localhost:8080/api/authenticate')\n")
-    pythonScript.write("json_content = {\"username\": \"admin\", \"password\": \"admin\"}\n")
-    pythonScript.write("response = requests.post('http://localhost:8080/api/authenticate', data=json.dumps(json_content), headers=headers)\n")
-    pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":None', response.content.decode('utf-8'))\n")
-    pythonScript.write("data = loads(content)\n")
-    pythonScript.write("headers = {'Content-type': 'application/json', 'Accept': 'application/json','Authorization': 'Bearer ' + data['id_token']}\n\n")
 
 def write_get_request(packet, pythonScript):
 

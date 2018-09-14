@@ -1,6 +1,6 @@
 #!/bin/bash
 # generates replay scripts
-# usage: ./generate_replay_scripts_mongo.sh MongoStreamDirectory
+# usage: ./generate_replay_scripts_mongo.sh MongoStreamDirectory OpDir
 if [[ $# -lt 2 ]] ; then
     echo 'missing directories ----> use ./generate_replay_scripts_mongo.sh <mongo_directory> <operations directory>'
     exit 0

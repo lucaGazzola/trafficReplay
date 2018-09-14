@@ -4,5 +4,5 @@
 cd $1
 for filename in *.cap; do
     destScript=$filename"_replay.py"
-    python3 ../pyshark_test_mod.py $filename $destScript
+    python3 ../pyshark_test.py $filename $destScript
 done
