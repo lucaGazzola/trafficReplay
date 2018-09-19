@@ -35,8 +35,10 @@ def main():
             # print("-------------------------------------processing file: " + sys.argv[1])
             # print("-------------------------------------dst port: "+str(packet.tcp.dstport))
             # print("-------------------------------------src port: "+str(packet.tcp.srcport))
-
             # Apro in scrittura il file di destinazione
+            #print("-----------------------------------------------")
+            #print(str(packet.http.chat))
+
             if pythonScript is None or pythonScript.closed:
                 pythonScript = open(sys.argv[2], 'w')
                 write_import(pythonScript)
@@ -53,9 +55,12 @@ def main():
             if str(packet.http.chat).startswith('GET'):
                 write_get_request(packet, pythonScript)
 
-            #if str(packet.http.chat).startswith('PUT'):
-                # print(packet.http._all_fields)
-                #write_put_request(packet, pythonScript)
+            if str(packet.http.chat).startswith('PUT'):
+                 write_put_request(packet, pythonScript)
+
+            #Da Implementare ------------------------------------------
+            if str(packet.http.chat).startswith('DELETE'):
+                 write_delete_request(packet, pythonScript)
 
             if str(packet.http.chat).startswith('HTTP'):
                 write_assertion(packet, pythonScript)
@@ -68,7 +73,9 @@ def write_import(pythonScript):
     pythonScript.write("import requests\n")
     pythonScript.write("import json\n")
     pythonScript.write("import time\n")
-    pythonScript.write("import re\n\n")
+    pythonScript.write("import re\n")
+    pythonScript.write("from bson.json_util import loads \n\n")
+    pythonScript.write("id_dict = {}\n")
 
 
 #Mando richiesta autenticazione da gateway per ricevere token
@@ -95,13 +102,22 @@ def write_get_request(packet, pythonScript):
     if not api_location.endswith('/'):
         api_location += '/'
     url = url + re.sub(r'.*:', '', packet.http.host) + api_location
-
+    #il campo request_uri_query_parameter è presente solo per le get senza passaggio di id
+    if not  'request_uri_query_parameter' in packet.http.field_names:
+        old_id = url.split("/")
+        #Creazione url corretto mettendo url corretto per questo test
+        pythonScript.write("url = '" + url + "'\n")
+        pythonScript.write("url = url.replace(\""+old_id[len(old_id) - 2]+"\", id_dict['" +old_id[len(old_id) - 2] + "'])\n")
     # hardcoded check, remove
     if url.__contains__('dialog'):
         return
 
-    pythonScript.write("print('sending get request to " + url + "')\n")
-    pythonScript.write("response = requests.get('"+url+"', headers=headers)\n")
+    if not 'request_uri_query_parameter' in packet.http.field_names:
+        pythonScript.write("print('sending get request to '+ url)\n")
+        pythonScript.write("response = requests.get(url, headers=headers)\n")
+    else:
+        pythonScript.write("print('sending get request to " + url + "')\n")
+        pythonScript.write("response = requests.get('"+url+"', headers=headers)\n")
     pythonScript.write("print('response: {0}'.format(response.content))\n\n")
 
 
@@ -121,8 +137,6 @@ def write_post_request(packet, pythonScript):
     if not api_location.endswith('/'):
         api_location += '/'
     url = url + re.sub(r'.*:', '', packet.http.host) + api_location
-    print("file data:"+str(packet.http.file_data))
-    print("elenco:"+str(dir(packet.http)))
     json_post = packet.http.file_data
 
     json_post = json_post.replace('null', 'None')
@@ -144,18 +158,52 @@ def write_put_request(packet, pythonScript):
 
     url = 'http://localhost:'
 
-    username=packet.http.authbasic.split(':')[0]
-    password=packet.http.authbasic.split(':')[1]
+    #print(packet.http.authbasic)
 
+    #username=packet.http.authbasic.split(':')[0]
+    #password=packet.http.authbasic.split(':')[1]
+    #--------------------------------------------Sostituisco con split sullo spazio------------------------------------
     api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
     api_location = re.sub(r'\?.*', '/', api_location).split(':')[0]
     if not api_location.endswith('/'):
         api_location += '/'
     url = url + re.sub(r'.*:', '', packet.http.host) + api_location
 
-    pythonScript.write("print('sending get request to " + url + "')\n")
-    pythonScript.write("response = requests.get('"+url+"', headers=headers, auth=HTTPBasicAuth('"+username+"', '"+password+"'))\n")
+
+    pythonScript.write("data = json.loads('"+packet.http.file_data+"')\n")
+    pythonScript.write("data['id'] = id_dict[data['id']]\n")
+    pythonScript.write("print('sending put request to " + url + "')\n")
+    pythonScript.write("response = requests.put('"+url+"', data = json.dumps(data), headers=headers)\n")
     pythonScript.write("print('response: {0}'.format(response.content))\n\n")
+
+
+
+def write_delete_request(packet, pythonScript):
+
+
+    url = 'http://localhost:'
+
+    print("-------------------------------DELETE---------------------------")
+    print(packet.http.chat)
+    api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
+    print(api_location)
+    api_location = re.sub(r'\?.*', '/', api_location).split(':')[0]
+    if not api_location.endswith('/'):
+        api_location += '/'
+    url = url + re.sub(r'.*:', '', packet.http.host) + api_location
+    print(url)
+    old_id = url.split("/")
+    print(old_id)
+    pythonScript.write("url = '" + url + "'\n")
+    pythonScript.write("url = url.replace(\"" + old_id[len(old_id) - 2] + "\", id_dict['" + old_id[len(old_id) - 2] + "'])\n")
+    pythonScript.write("print('sending delete request to '+ url)\n")
+    pythonScript.write("response = requests.delete(url, headers=headers)\n")
+    pythonScript.write("print('response: {0}'.format(response.content))\n\n")
+    pythonScript.write("assert response.status_code == 200\n\n")
+
+    print("---------------------------------FINE DELETE------------------")
+
+
 
 
 def write_assertion(packet, pythonScript):
@@ -165,10 +213,6 @@ def write_assertion(packet, pythonScript):
     :param packet: the response packet to get the assertion from
     :param pythonScript: the script to write the assertion to
     """
-    print("controllo i fields names:")
-    print(str(packet.http.field_names))
-    print("---------------------DATI---------------------")
-    print(packet.http.chat)
     # if packet.http.response_phrase == "OK":
     #     print("ooooook")
     #     print(packet.http.response_phrase)
@@ -182,12 +226,7 @@ def write_assertion(packet, pythonScript):
     #     print(data["id"])
     #Alla fine mi basta solo quello creato
     if packet.http.response_phrase == "Created":
-        print(packet.http.response_phrase)
-        print(packet.http.response)
-        print(packet.http.file_data)
         data = loads(packet.http.file_data)
-        print(data["id"])
-    print("--------------------------Fine DATI-------------------------")
 
 
     if 'file_data' in packet.http.field_names:
@@ -196,7 +235,8 @@ def write_assertion(packet, pythonScript):
         if re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data).__contains__('<div'):
             return
         if packet.http.response_phrase == "Created":
-            pythonScript.write("real_id = '" + str(data['id']) + "'\n\n")
+            pythonScript.write("cont = loads(response.content.decode('utf-8'))\n")
+            pythonScript.write("id_dict['"+ str(data['id']) +"'] = cont['id']\n\n")
         pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
         pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":None',response.content.decode('utf-8'))\n")
         pythonScript.write("assert content == '" + re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data) + "'\n\n")

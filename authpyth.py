@@ -68,6 +68,7 @@ def write_import(pythonScript):
     pythonScript.write("import json\n")
     pythonScript.write("import time\n")
     pythonScript.write("import re\n\n")
+    pythonScript.write("\n\nid_dict = {}\n")
 
 
 
@@ -156,10 +157,7 @@ def write_assertion(packet, pythonScript):
     :param packet: the response packet to get the assertion from
     :param pythonScript: the script to write the assertion to
     """
-    print("controllo i fields names:")
-    print(str(packet.http.field_names))
-    print("---------------------DATI---------------------")
-    print(packet.http.chat)
+
     # if packet.http.response_phrase == "OK":
     #     print("ooooook")
     #     print(packet.http.response_phrase)
@@ -173,12 +171,7 @@ def write_assertion(packet, pythonScript):
     #     print(data["id"])
     #Alla fine mi basta solo quello creato
     if packet.http.response_phrase == "Created":
-        print(packet.http.response_phrase)
-        print(packet.http.response)
-        print(packet.http.file_data)
         data = loads(packet.http.file_data)
-        print(data["id"])
-    print("--------------------------Fine DATI-------------------------")
 
 
     if 'file_data' in packet.http.field_names:
