@@ -21,10 +21,27 @@ def main():
 
     pythonScript = None
 
+    authenticate = False
+
     #Pacchetti estratti dal file pcap dove sono memorizzati i pacchetti catturati da un'interfaccia docker
     for packet in cap:
         #REST -> quindi vado a considerare protocollo ad alto livello
         #Controllo che sia interazione diretta con applicazione (porta 8081)
+
+        if 'HTTP' in str(packet.layers) and packet.tcp.dstport == "8080":
+            # print(packet.http.request_uri)
+            # print(packet.http.file_data)
+            if str(packet.http.chat).startswith('POST') and "file_data" in packet.http.field_names and \
+                    "username" in str(packet.http.file_data) and "password" in str(packet.http.file_data):
+                if pythonScript is None or pythonScript.closed:
+                    print(sys.argv[2])
+                    pythonScript = open('authentication.py', 'w')
+                    write_import(pythonScript)
+                authenticate = True
+                pythonScript.write("headers=" + str(headers) + "\n\n")
+                req_auth_pkt(packet, pythonScript)
+
+
         #Porta 8080 è con gateway quindi non la considero
         if 'HTTP' in str(packet.layers) and 'TCP' in str(packet.layers) and \
                 ( packet.tcp.dstport == "8081" or packet.tcp.srcport == "8081" ):
@@ -36,17 +53,18 @@ def main():
             # print("-------------------------------------dst port: "+str(packet.tcp.dstport))
             # print("-------------------------------------src port: "+str(packet.tcp.srcport))
             # Apro in scrittura il file di destinazione
-            #print("-----------------------------------------------")
-            #print(str(packet.http.chat))
+
 
             if pythonScript is None or pythonScript.closed:
                 pythonScript = open(sys.argv[2], 'w')
                 write_import(pythonScript)
+                pythonScript.write("id_dict = {}\n")
 
             if not authorized:
                 #headers['Authorization'] = packet.http.authorization
                 pythonScript.write("headers=" + str(headers) + "\n\n")
-                req_auth(pythonScript)
+                if not authenticate:
+                    req_auth(pythonScript)
                 authorized = True
 
             if str(packet.http.chat).startswith('POST'):
@@ -58,7 +76,6 @@ def main():
             if str(packet.http.chat).startswith('PUT'):
                  write_put_request(packet, pythonScript)
 
-            #Da Implementare ------------------------------------------
             if str(packet.http.chat).startswith('DELETE'):
                  write_delete_request(packet, pythonScript)
 
@@ -74,18 +91,48 @@ def write_import(pythonScript):
     pythonScript.write("import json\n")
     pythonScript.write("import time\n")
     pythonScript.write("import re\n")
-    pythonScript.write("from bson.json_util import loads \n\n")
-    pythonScript.write("id_dict = {}\n")
+    pythonScript.write("from bson.json_util import loads \n")
+    pythonScript.write("import os.path\n\n")
 
 
-#Mando richiesta autenticazione da gateway per ricevere token
-def req_auth(pythonScript):
-    pythonScript.write("print('sending post request to http://localhost:8080/api/authenticate')\n")
-    pythonScript.write("json_content = {\"username\": \"admin\", \"password\": \"admin\"}\n")
-    pythonScript.write("response = requests.post('http://localhost:8080/api/authenticate', data=json.dumps(json_content), headers=headers)\n")
+#ricavo dati autenticazione dal pacchetto
+def req_auth_pkt(packet, pythonScript):
+    url = 'http://localhost:'
+
+    api_location = str(packet.http.chat).split(" ")[1]
+    api_location = re.sub(r'\?.*', '/', api_location)
+    if api_location.endswith('/'):
+        api_location = api_location[:-1]
+    url = url + re.sub(r'.*:', '', packet.http.host) + api_location
+    print("url: "+url)
+    json_post = packet.http.file_data
+    print(json_post)
+    pythonScript.write("print('sending authenticate request to " + url + "')\n")
+    pythonScript.write("json_content = " + json_post + "\n")
+    pythonScript.write('print(str(json_content))\n')
+    pythonScript.write("response = requests.post('" + url + "', data=json.dumps(json_content), headers=headers)\n")
+    pythonScript.write("if response.status_code == 200:\n")
+    pythonScript.write("\tprint('authenticated')\n\n")
     pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":None', response.content.decode('utf-8'))\n")
     pythonScript.write("data = loads(content)\n")
-    pythonScript.write("headers = {'Content-type': 'application/json', 'Accept': 'application/json','Authorization': 'Bearer ' + data['id_token']}\n\n")
+    pythonScript.write("file = open('Token.txt','w')\n")
+    pythonScript.write("file.write(data['id_token'])\n")
+    pythonScript.write("file.close\n")
+
+#Mando richiesta autenticazione da gateway per ricevere token -> nel caso non ci fosse pacchetto di autenticazione
+def req_auth(pythonScript):
+    pythonScript.write("if os.path.exists('Token.txt'):\n")
+    pythonScript.write("\tfile = open('Token.txt','r')\n")
+    pythonScript.write("\ttoken = file.read()\n")
+    pythonScript.write("\tprint(token)\n")
+    pythonScript.write("\theaders = {'Content-type': 'application/json', 'Accept': 'application/json','Authorization': 'Bearer ' + token}\n\n")
+    pythonScript.write("else:\n")
+    pythonScript.write("\tprint('sending post request to http://localhost:8080/api/authenticate')\n")
+    pythonScript.write("\tjson_content = {\"username\": \"admin\", \"password\": \"admin\"}\n")
+    pythonScript.write("\tresponse = requests.post('http://localhost:8080/api/authenticate', data=json.dumps(json_content), headers=headers)\n")
+    pythonScript.write("\tcontent = re.sub(r'\"id\".*?(?=,)', '\"id\":None', response.content.decode('utf-8'))\n")
+    pythonScript.write("\tdata = loads(content)\n")
+    pythonScript.write("\theaders = {'Content-type': 'application/json', 'Accept': 'application/json','Authorization': 'Bearer ' + data['id_token']}\n\n")
 
 def write_get_request(packet, pythonScript):
 
@@ -97,7 +144,8 @@ def write_get_request(packet, pythonScript):
 
     url = 'http://localhost:'
 
-    api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
+    #api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
+    api_location = str(packet.http.chat).split(" ")[1]
     api_location = re.sub(r'\?.*', '/', api_location)
     if not api_location.endswith('/'):
         api_location += '/'
@@ -132,7 +180,8 @@ def write_post_request(packet, pythonScript):
 
     url = 'http://localhost:'
 
-    api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
+    #api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
+    api_location = str(packet.http.chat).split(" ")[1]
     api_location = re.sub(r'\?.*', '/', api_location)
     if not api_location.endswith('/'):
         api_location += '/'
@@ -163,7 +212,8 @@ def write_put_request(packet, pythonScript):
     #username=packet.http.authbasic.split(':')[0]
     #password=packet.http.authbasic.split(':')[1]
     #--------------------------------------------Sostituisco con split sullo spazio------------------------------------
-    api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
+    #api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
+    api_location = str(packet.http.chat).split(" ")[1]
     api_location = re.sub(r'\?.*', '/', api_location).split(':')[0]
     if not api_location.endswith('/'):
         api_location += '/'
@@ -183,26 +233,19 @@ def write_delete_request(packet, pythonScript):
 
     url = 'http://localhost:'
 
-    print("-------------------------------DELETE---------------------------")
-    print(packet.http.chat)
-    api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
-    print(api_location)
+    #api_location = re.sub(r'.*\s/', '/', str(packet.http.chat)[:-13])
+    api_location = str(packet.http.chat).split(" ")[1]
     api_location = re.sub(r'\?.*', '/', api_location).split(':')[0]
     if not api_location.endswith('/'):
         api_location += '/'
     url = url + re.sub(r'.*:', '', packet.http.host) + api_location
-    print(url)
     old_id = url.split("/")
-    print(old_id)
     pythonScript.write("url = '" + url + "'\n")
     pythonScript.write("url = url.replace(\"" + old_id[len(old_id) - 2] + "\", id_dict['" + old_id[len(old_id) - 2] + "'])\n")
     pythonScript.write("print('sending delete request to '+ url)\n")
     pythonScript.write("response = requests.delete(url, headers=headers)\n")
     pythonScript.write("print('response: {0}'.format(response.content))\n\n")
     pythonScript.write("assert response.status_code == 200\n\n")
-
-    print("---------------------------------FINE DELETE------------------")
-
 
 
 
