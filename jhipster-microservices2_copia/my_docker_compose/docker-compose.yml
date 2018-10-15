@@ -1,0 +1,10 @@
+version: '2'
+services:
+    app:
+        image: apptest
+        environment:
+            - ADD_VAR=mongodb://mockup:37379
+        depends_on:
+             - mockup
+    mockup:
+        image: mockupmongodb

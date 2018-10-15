@@ -1,0 +1,176 @@
+Attaching to mydockercompose_mockup_1, mydockercompose_app_1
+[36mmockup_1  |[0m Attivazione Server....
+[36mmockup_1  |[0m mongodb://0.0.0.0:37379
+[36mmockup_1  |[0m ('0.0.0.0', 37379)
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m in attesa di comando
+[36mmockup_1  |[0m {"insert": "test_collection", "ordered": true, "$db": "db", "$readPreference": {"mode": "primary"}, "documents": [{"_id": {"$oid": "5b7321750274390001fce771"}, "_class": "org.jhipster.store.domain.Product", "name": "prod1", "price": "12.33"}]}
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m ---------------------------------open client-----------------------------------------
+[33mapp_1     |[0m operazione di inserimento
+[33mapp_1     |[0m risultato inserimento:<pymongo.results.InsertOneResult object at 0x7ff0cdcacec8>
+[33mapp_1     |[0m id inserito 5b7321750274390001fce771
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m Server:find
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m -------------------------------open client-------------------------------------------
+[33mapp_1     |[0m operazione di ricerca
+[33mapp_1     |[0m Filter:{}
+[33mapp_1     |[0m <pymongo.cursor.Cursor object at 0x7f0af2bd6f60>
+[33mapp_1     |[0m {'a': 2}
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m in attesa di comando
+[36mmockup_1  |[0m {"insert": "test_collection", "ordered": true, "$db": "db", "$readPreference": {"mode": "primary"}, "documents": [{"_id": {"$oid": "5b73217e0274390001fce772"}, "_class": "org.jhipster.store.domain.Product", "name": "prod2", "price": "23.33"}]}
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m ---------------------------------open client-----------------------------------------
+[33mapp_1     |[0m operazione di inserimento
+[33mapp_1     |[0m risultato inserimento:<pymongo.results.InsertOneResult object at 0x7f6f865e6908>
+[33mapp_1     |[0m id inserito 5b73217e0274390001fce772
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m Server:find
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m -------------------------------open client-------------------------------------------
+[33mapp_1     |[0m operazione di ricerca
+[33mapp_1     |[0m Filter:{}
+[33mapp_1     |[0m <pymongo.cursor.Cursor object at 0x7f35de6d7128>
+[33mapp_1     |[0m {'a': 2}
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m in attesa di comando
+[36mmockup_1  |[0m {"insert": "test_collection", "ordered": true, "$db": "db", "$readPreference": {"mode": "primary"}, "documents": [{"_id": {"$oid": "5b7321830274390001fce773"}, "_class": "org.jhipster.store.domain.Product", "name": "prod3", "price": "3.33"}]}
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m ---------------------------------open client-----------------------------------------
+[33mapp_1     |[0m operazione di inserimento
+[33mapp_1     |[0m risultato inserimento:<pymongo.results.InsertOneResult object at 0x7f3cf0b168c8>
+[33mapp_1     |[0m id inserito 5b7321830274390001fce773
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m Server:find
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m -------------------------------open client-------------------------------------------
+[33mapp_1     |[0m operazione di ricerca
+[33mapp_1     |[0m Filter:{}
+[33mapp_1     |[0m <pymongo.cursor.Cursor object at 0x7fd4debb2240>
+[33mapp_1     |[0m {'a': 2}
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m Server:find
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m -------------------------------open client-------------------------------------------
+[33mapp_1     |[0m operazione di ricerca
+[33mapp_1     |[0m Filter:{'_id': {'$oid': '5b73217e0274390001fce772'}}
+[33mapp_1     |[0m <pymongo.cursor.Cursor object at 0x7f01fc14f160>
+[33mapp_1     |[0m {'a': 2}
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m in attesa di comando
+[36mmockup_1  |[0m {"update": "test_collection", "ordered": true, "$db": "db", "$readPreference": {"mode": "primary"}, "updates": [{"q": {"_id": {"$oid": "5b73217e0274390001fce772"}}, "u": {"_class": "org.jhipster.store.domain.Product", "_id": {"$oid": "5b73217e0274390001fce772"}, "name": "prod2", "price": "25.33"}, "multi": false, "upsert": true}]}
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m ../../../readoperations.py:92: DeprecationWarning: update is deprecated. Use replace_one, update_one or update_many instead.
+[33mapp_1     |[0m   collection.update( data_old, data_new, upsert=True)
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m -------------------------------open client-------------------------------------------
+[33mapp_1     |[0m operazione di aggiornamento
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m Server:find
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m -------------------------------open client-------------------------------------------
+[33mapp_1     |[0m operazione di ricerca
+[33mapp_1     |[0m Filter:{}
+[33mapp_1     |[0m <pymongo.cursor.Cursor object at 0x7f72ca6be358>
+[33mapp_1     |[0m {'a': 2}
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m Server:find
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m -------------------------------open client-------------------------------------------
+[33mapp_1     |[0m operazione di ricerca
+[33mapp_1     |[0m Filter:{'_id': {'$oid': '5b7321830274390001fce773'}}
+[33mapp_1     |[0m <pymongo.cursor.Cursor object at 0x7fe8d08a50f0>
+[33mapp_1     |[0m {'a': 2}
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m in attesa di comando
+[36mmockup_1  |[0m {"delete": "test_collection", "ordered": true, "$db": "db", "$readPreference": {"mode": "primary"}, "deletes": [{"q": {"_id": {"$oid": "5b7321830274390001fce773"}}, "limit": 0}]}
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m ../../../readoperations.py:109: DeprecationWarning: remove is deprecated. Use delete_one or delete_many instead.
+[33mapp_1     |[0m   collection.remove(data_delete)
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m ----------------------------------open client----------------------------------------
+[33mapp_1     |[0m operazione di delete
+[33mapp_1     |[0m delete_item:{"_id": {"$oid": "5b7321830274390001fce773"}}
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mapp_1     |[0m inizio esecuzione test...
+[36mmockup_1  |[0m Server:find
+[36mmockup_1  |[0m ---------------open server-------------------
+[33mapp_1     |[0m mongodb://mockup:37379
+[33mapp_1     |[0m Test: attesa connessione con mockup...
+[33mapp_1     |[0m Test:connesso
+[33mapp_1     |[0m nome del database: db
+[33mapp_1     |[0m -------------------------------open client-------------------------------------------
+[33mapp_1     |[0m operazione di ricerca
+[33mapp_1     |[0m Filter:{}
+[33mapp_1     |[0m <pymongo.cursor.Cursor object at 0x7fd8188d4160>
+[33mapp_1     |[0m {'a': 2}
+[33mapp_1     |[0m ---------------------------------------------close client----------------------------------
+[33mapp_1     |[0m termina esecuzione test...
+[33mmydockercompose_app_1 exited with code 0
+[0mGracefully stopping... (press Ctrl+C again to force)

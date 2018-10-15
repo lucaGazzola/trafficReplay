@@ -1,0 +1,2 @@
+{"order":0,"op":"command","command":"buildinfo","ns":"admin.$cmd","request_data":{"buildinfo":1},"reply_data":null,"connection_num":0,"seen":"2018-10-08T14:42:29.999857Z","request_id":2}
+{"order":1,"op":"reply","request_data":null,"reply_data":{"connectionId":1,"err":null,"n":0,"ok":1.0,"syncMillis":0,"writtenTo":null},"connection_num":0,"seen":"2018-10-08T14:42:30.0205Z","request_id":3}

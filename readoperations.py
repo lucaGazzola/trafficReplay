@@ -24,6 +24,8 @@ def main():
     client.db.command('ping')
     print("Test:connesso")
 
+    print("nome del database: "+client.db.name)
+
 
     #Come primo comando mando il request_id a cui fare riferimento
     #client.db.command("info","1234")

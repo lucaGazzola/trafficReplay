@@ -1,0 +1,2 @@
+{"order":0,"op":"command","command":"ismaster","ns":"admin.$cmd","request_data":{"ismaster":1},"reply_data":null,"connection_num":0,"seen":"2018-10-08T14:43:00.240327Z","request_id":7}
+{"order":1,"op":"reply","request_data":null,"reply_data":{"ismaster":true,"localTime":{"$date":"2018-10-08T14:43:10.241Z"},"maxBsonObjectSize":16777216,"maxMessageSizeBytes":48000000,"maxWireVersion":5,"maxWriteBatchSize":1000,"minWireVersion":0,"ok":1.0,"readOnly":false},"connection_num":0,"seen":"2018-10-08T14:43:10.241489Z","request_id":8}
