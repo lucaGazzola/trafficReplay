@@ -3,6 +3,11 @@ import sys
 import json
 import pprint
 from bson.int64 import Int64
+import time
+from os import listdir
+from os.path import isfile, join
+
+
 
 def main():
 	print("Attivazione Server....")
@@ -12,6 +17,11 @@ def main():
 	port = server.run()
 	print(server.uri)
 	print(server.address)
+
+	onlyfiles = [f for f in listdir("MockupFolder") if isfile(join("MockupFolder", f))]
+	print(onlyfiles)
+
+
 	ismaster_reply = OpReply({
 		"allocator": "tcmalloc",
 		"bits": 64,
@@ -90,7 +100,6 @@ def main():
 	#In questo modo vado ad aprire il file corrispondente e leggo la parte di reply
 
    # print("Mockup connesso. File passato: "+sys.argv[1])
-
 	while True:
 		print("---------------open server-------------------")
 		#if server.got(OpMsg('find', 'test_collection', filter={})):

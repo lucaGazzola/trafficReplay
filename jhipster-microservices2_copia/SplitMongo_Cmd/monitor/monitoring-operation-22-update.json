@@ -1,0 +1,2 @@
+{"order":0,"op":"update","ns":"db.$cmd","request_data":{"ordered":false,"update":"product","updates":[{"q":{"_id":{"$oid":"5bc893e202743900012a339e"}},"u":{"_class":"org.jhipster.store.domain.Product","_id":{"$oid":"5bc893e202743900012a339e"},"name":"prod2","price":"25.33"},"upsert":true}]},"reply_data":null,"connection_num":0,"seen":"2018-10-18T14:08:52.328008Z","request_id":94}
+{"order":1,"op":"reply","request_data":null,"reply_data":{"n":3,"ok":1.0},"connection_num":0,"seen":"2018-10-18T14:08:52.413773Z","request_id":95}

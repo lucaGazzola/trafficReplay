@@ -92,7 +92,11 @@ RUN apt-get install -y python-pip
 RUN apt-get install -y python3-pip
 
 
-ADD servermongo.py /
+ADD mockupmongo.py /
+
+RUN mkdir /MockupFolder
+
+COPY MockupFolder /MockupFolder
 
 RUN pip3 install git+https://github.com/Luke2691/mongo-mockup-db
 
@@ -106,7 +110,7 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 37379
 
-CMD ["python3", "-u", "servermongo.py"]
+CMD ["python3", "-u", "mockupmongo.py"]
 
 
 

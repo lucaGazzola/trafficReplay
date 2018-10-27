@@ -1,0 +1,2 @@
+{"order":0,"op":"command","command":"createIndexes","ns":"db.$cmd","request_data":{"createIndexes":"dbchangelog","indexes":[{"key":{"author":1,"changeId":1},"name":"changeId_1_author_1","ns":"db.dbchangelog","unique":true}]},"reply_data":null,"connection_num":0,"seen":"2018-10-19T11:00:47.951844Z","request_id":13}
+{"order":1,"op":"reply","request_data":null,"reply_data":{"createdCollectionAutomatically":true,"numIndexesAfter":2,"numIndexesBefore":1,"ok":1.0},"connection_num":0,"seen":"2018-10-19T11:00:49.709734Z","request_id":14}

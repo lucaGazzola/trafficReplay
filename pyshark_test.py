@@ -23,6 +23,10 @@ def main():
 
     authenticate = False
 
+    pythonScript_Other = None
+
+    count_op = 0
+
     #Pacchetti estratti dal file pcap dove sono memorizzati i pacchetti catturati da un'interfaccia docker
     for packet in cap:
         #REST -> quindi vado a considerare protocollo ad alto livello
@@ -40,7 +44,6 @@ def main():
                 authenticate = True
                 pythonScript.write("headers=" + str(headers) + "\n\n")
                 req_auth_pkt(packet, pythonScript)
-
 
         #Porta 8080 è con gateway quindi non la considero
         if 'HTTP' in str(packet.layers) and 'TCP' in str(packet.layers) and \
@@ -65,22 +68,63 @@ def main():
                 pythonScript.write("headers=" + str(headers) + "\n\n")
                 if not authenticate:
                     req_auth(pythonScript)
+                    authenticate = True
                 authorized = True
 
             if str(packet.http.chat).startswith('POST'):
+                name = "Operation_"+count_op+"_Update"
+                count_op = count_op + 1
+                pythonScript_Post = open(name, 'w')
+                write_import(pythonScript_Post)
+                pythonScript_Post.write("id_dict = {}\n")
                 write_post_request(packet, pythonScript)
+                write_post_request(packet, pythonScript_Post)
+                if not pythonScript_Other is None:
+                    pythonScript_Other.close()
+                pythonScript_Other = pythonScript_Post
 
             if str(packet.http.chat).startswith('GET'):
+                name = "Operation_" + count_op + "_Find"
+                count_op = count_op + 1
+                pythonScript_Get = open(name, 'w')
+                write_import(pythonScript_Get)
+                pythonScript_Get.write("id_dict = {}\n")
                 write_get_request(packet, pythonScript)
+                write_get_request(packet, pythonScript_Get)
+                if not pythonScript_Other is None:
+                    pythonScript_Other.close()
+                pythonScript_Other = pythonScript_Post
 
             if str(packet.http.chat).startswith('PUT'):
-                 write_put_request(packet, pythonScript)
+                name = "Operation_" + count_op + "_Insert"
+                count_op = count_op + 1
+                pythonScript_Put = open(name, 'w')
+                write_import(pythonScript_Put)
+                pythonScript_Put.write("id_dict = {}\n")
+                write_put_request(packet, pythonScript)
+                write_put_request(packet, pythonScript_Put)
+                if not pythonScript_Other is None:
+                    pythonScript_Other.close()
+                pythonScript_Other = pythonScript_Post
 
             if str(packet.http.chat).startswith('DELETE'):
-                 write_delete_request(packet, pythonScript)
+                name = "Operation_" + count_op + "_Delete"
+                count_op = count_op + 1
+                pythonScript_Delete = open(name, 'w')
+                write_import(pythonScript_Delete)
+                pythonScript_Delete.write("id_dict = {}\n")
+                write_delete_request(packet, pythonScript)
+                write_delete_request(packet, pythonScript_Delete)
+                if not pythonScript_Other is None:
+                    pythonScript_Other.close()
+                pythonScript_Other = pythonScript_Post
 
             if str(packet.http.chat).startswith('HTTP'):
                 write_assertion(packet, pythonScript)
+                if not pythonScript_Other is None:
+                    write_assertion(packet, pythonScript_Other)
+                    pythonScript_Other.close()
+                    pythonScript_Other = None
 
     if not pythonScript is None:
         pythonScript.close()

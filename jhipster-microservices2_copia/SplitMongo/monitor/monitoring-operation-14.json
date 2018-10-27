@@ -1,2 +1,0 @@
-{"order":0,"op":"delete","ns":"db.$cmd","request_data":{"delete":"mongobeelock","deletes":[{"limit":0,"q":{"key":"LOCK"}}],"ordered":true},"reply_data":null,"connection_num":0,"seen":"2018-10-08T14:43:23.669203Z","request_id":17}
-{"order":2,"op":"reply","request_data":null,"reply_data":{"ismaster":true,"localTime":{"$date":"2018-10-08T14:43:30.243Z"},"maxBsonObjectSize":16777216,"maxMessageSizeBytes":48000000,"maxWireVersion":5,"maxWriteBatchSize":1000,"minWireVersion":0,"ok":1.0,"readOnly":false},"connection_num":1,"seen":"2018-10-08T14:43:30.243456Z","request_id":18}

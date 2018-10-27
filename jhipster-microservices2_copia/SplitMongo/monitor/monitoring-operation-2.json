@@ -1,2 +1,0 @@
-{"order":0,"op":"command","command":"getlasterror","ns":"admin.$cmd","request_data":{"getlasterror":1},"reply_data":null,"connection_num":0,"seen":"2018-10-08T14:42:30.020349Z","request_id":3}
-{"order":1,"op":"reply","request_data":null,"reply_data":{"ismaster":true,"localTime":{"$date":"2018-10-08T14:42:30.033Z"},"maxBsonObjectSize":16777216,"maxMessageSizeBytes":48000000,"maxWireVersion":5,"maxWriteBatchSize":1000,"minWireVersion":0,"ok":1.0,"readOnly":false},"connection_num":0,"seen":"2018-10-08T14:42:30.034021Z","request_id":4}

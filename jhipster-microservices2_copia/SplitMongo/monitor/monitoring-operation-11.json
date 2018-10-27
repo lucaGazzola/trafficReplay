@@ -1,2 +1,0 @@
-{"order":0,"op":"command","command":"find","ns":"db.$cmd","request_data":{"filter":{"key":{"author":1,"changeId":1},"ns":"db.dbchangelog"},"find":"system.indexes","limit":1,"singleBatch":true},"reply_data":null,"connection_num":0,"seen":"2018-10-08T14:43:14.048531Z","request_id":12}
-{"order":1,"op":"reply","request_data":null,"reply_data":{"createdCollectionAutomatically":true,"numIndexesAfter":2,"numIndexesBefore":1,"ok":1.0},"connection_num":0,"seen":"2018-10-08T14:43:15.319395Z","request_id":13}

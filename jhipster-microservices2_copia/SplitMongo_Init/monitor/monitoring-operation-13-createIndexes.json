@@ -1,0 +1,2 @@
+{"order":0,"op":"command","command":"createIndexes","ns":"db.$cmd","request_data":{"createIndexes":"mongobeelock","indexes":[{"key":{"key":1},"name":"mongobeelock_key_idx","ns":"db.mongobeelock","unique":true}]},"reply_data":null,"connection_num":0,"seen":"2018-10-19T11:00:49.118921Z","request_id":14}
+{"order":1,"op":"reply","request_data":null,"reply_data":{"n":1,"ok":1.0},"connection_num":0,"seen":"2018-10-19T11:00:49.836285Z","request_id":15}
