@@ -127,29 +127,34 @@ def main():
 
     print("----------------Inizializzazione Terminata------------------------------")
 
-    #Adesso ricevo richieste dall'applicazione, controllo che siano corrette e invio risposte
-    print("in attesa di comando")
+    print("in attesa di comando------nuovo")
     cmd = server.receives(timeout=100000)
     print("comando: " + str(cmd))
     print(cmd.command_name)
-
-    folder = "/reports/CMDs"
-    for command in sorted(os.listdir(folder), key=numericalSort):
-        print("file comando: " + str(command))
-        #Controllo che il contenuto della richiesta sia corretto
-        with open(str(folder)+'/'+str(command)) as file_data:
-            data = json.load(file_data)
-            print("request: "+str(data["request_data"]))
-            if cmd.command_name == "find":
-                data["reply_data"]["cursor"]["id"] = Int64(0)
-        #Se corretto mando la risposta contentuta nel file di report
-            response = OpReply(data["reply_data"])
-            print("risposta con: " + str(response))
-            cmd.replies(response)
-        print("in attesa di comando")
-        cmd = server.receives(timeout=100000)
-        print("comando: " + str(cmd))
-        print(cmd.command_name)
+    num_rep = 1
+    while True:
+        # Adesso ricevo richieste dall'applicazione, controllo che siano corrette e invio risposte
+        print("num: "+str(num_rep))
+        folder = "/reports"+str(num_rep)+"/CMDs"
+        num_rep = num_rep + 1
+        print("num agg: " + str(num_rep))
+        print("cerco in "+str(folder))
+        for command in sorted(os.listdir(folder), key=numericalSort):
+            print("file comando: " + str(command))
+            #Controllo che il contenuto della richiesta sia corretto
+            with open(str(folder)+'/'+str(command)) as file_data:
+                data = json.load(file_data)
+                print("request: "+str(data["request_data"]))
+                if cmd.command_name == "find" and 'cursor' in  data["reply_data"] and 'id' in data["reply_data"]["cursor"]:
+                    data["reply_data"]["cursor"]["id"] = Int64(0)
+            #Se corretto mando la risposta contentuta nel file di report
+                response = OpReply(data["reply_data"])
+                print("risposta con: " + str(response))
+                cmd.replies(response)
+            print("in attesa di comando")
+            cmd = server.receives(timeout=100000)
+            print("comando: " + str(cmd))
+            print(cmd.command_name)
 
 
 

@@ -1,0 +1,2 @@
+{"order":0,"op":"command","command":"count","ns":"db.$cmd","request_data":{"count":"product","query":{}},"reply_data":null,"connection_num":0,"seen":"2018-10-28T17:51:09.630153Z","request_id":73}
+{"order":1,"op":"reply","request_data":null,"reply_data":{"cursor":{"firstBatch":[{"_class":"org.jhipster.store.domain.Product","_id":{"$oid":"5bd5f70b0e8e3d0001891c24"},"name":"prod1","price":"12.33"}],"id":{"$numberLong":"0"},"ns":"db.product"},"ok":1.0},"connection_num":0,"seen":"2018-10-28T17:51:09.920679Z","request_id":74}
