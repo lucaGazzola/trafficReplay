@@ -1,0 +1,2 @@
+{"order":0,"op":"command","command":"ismaster","ns":"admin.$cmd","request_data":{"ismaster":1},"reply_data":null,"connection_num":0,"seen":"2018-10-29T19:02:41.241066Z","request_id":162}
+{"order":2,"op":"reply","request_data":null,"reply_data":{"n":1,"ok":1.0},"connection_num":1,"seen":"2018-10-29T19:02:46.243949Z","request_id":163}

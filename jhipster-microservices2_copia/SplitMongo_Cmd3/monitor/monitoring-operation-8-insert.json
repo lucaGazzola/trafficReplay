@@ -1,0 +1,2 @@
+{"order":0,"op":"insert","ns":"db.$cmd","request_data":{"documents":[{"_class":"org.jhipster.store.domain.Product","_id":{"$oid":"5bd757e4027439000182989f"},"name":"prod1","price":"12.33"}],"insert":"product","ordered":true},"reply_data":null,"connection_num":0,"seen":"2018-10-29T18:56:36.790544Z","request_id":79}
+{"order":1,"op":"reply","request_data":null,"reply_data":{"n":1,"ok":1.0},"connection_num":0,"seen":"2018-10-29T18:56:37.663502Z","request_id":80}

@@ -156,7 +156,8 @@ def write_get_request(packet, pythonScript):
         old_id = url.split("/")
         #Creazione url corretto mettendo url corretto per questo test
         pythonScript.write("url = '" + url + "'\n")
-        pythonScript.write("url = url.replace(\""+old_id[len(old_id) - 2]+"\", id_dict['" +old_id[len(old_id) - 2] + "'])\n")
+        pythonScript.write("if '"+old_id[len(old_id) - 2]+"' in id_dict:")
+        pythonScript.write("\turl = url.replace(\""+old_id[len(old_id) - 2]+"\", id_dict['" +old_id[len(old_id) - 2] + "'])\n")
     # hardcoded check, remove
     if url.__contains__('dialog'):
         return
@@ -222,7 +223,8 @@ def write_put_request(packet, pythonScript):
 
 
     pythonScript.write("data = json.loads('"+packet.http.file_data+"')\n")
-    pythonScript.write("data['id'] = id_dict[data['id']]\n")
+    pythonScript.write("if data['id'] in id_dict:")
+    pythonScript.write("\tdata['id'] = id_dict[data['id']]\n")
     pythonScript.write("print('sending put request to " + url + "')\n")
     pythonScript.write("response = requests.put('"+url+"', data = json.dumps(data), headers=headers)\n")
     pythonScript.write("print('response: {0}'.format(response.content))\n\n")
@@ -242,7 +244,8 @@ def write_delete_request(packet, pythonScript):
     url = url + re.sub(r'.*:', '', packet.http.host) + api_location
     old_id = url.split("/")
     pythonScript.write("url = '" + url + "'\n")
-    pythonScript.write("url = url.replace(\"" + old_id[len(old_id) - 2] + "\", id_dict['" + old_id[len(old_id) - 2] + "'])\n")
+    pythonScript.write("if '" + old_id[len(old_id) - 2] + "' in id_dict:")
+    pythonScript.write("\turl = url.replace(\"" + old_id[len(old_id) - 2] + "\", id_dict['" + old_id[len(old_id) - 2] + "'])\n")
     pythonScript.write("print('sending delete request to '+ url)\n")
     pythonScript.write("response = requests.delete(url, headers=headers)\n")
     pythonScript.write("print('response: {0}'.format(response.content))\n\n")
@@ -269,9 +272,6 @@ def write_assertion(packet, pythonScript):
     #     data = loads(packet.http.file_data[1:len(packet.http.file_data)-1])
     #     print(data["id"])
     #Alla fine mi basta solo quello creato
-    if packet.http.response_phrase == "Created":
-        data = loads(packet.http.file_data)
-
 
     if 'file_data' in packet.http.field_names:
 
@@ -279,11 +279,19 @@ def write_assertion(packet, pythonScript):
         if re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data).__contains__('<div'):
             return
         if packet.http.response_phrase == "Created":
+            data = loads(packet.http.file_data)
             pythonScript.write("cont = loads(response.content.decode('utf-8'))\n")
             pythonScript.write("id_dict['"+ str(data['id']) +"'] = cont['id']\n\n")
         pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
-        pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":None',response.content.decode('utf-8'))\n")
-        pythonScript.write("assert content == '" + re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data) + "'\n\n")
+        pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":null',response.content.decode('utf-8'))\n")
+        pythonScript.write("content = re.sub(r'\"timestamp\".*?(?=,)', '\"timestamp\":null',content)\n")
+        pythonScript.write("data_cont = loads(content)\n")
+        pythonScript.write("if 'path' in data_cont and data_cont['path'].endswith('/'):\n")
+        pythonScript.write("\tdata_cont['path'] = data_cont['path'][:-1]\n")
+        pythonScript.write("packet_data = '" + re.sub(r'\"id\".*?(?=,)', '\"id\":null', packet.http.file_data) + "'\n")
+        pythonScript.write("packet_data = re.sub(r'\"timestamp\".*?(?=,)', '\"timestamp\":null', packet_data)\n")
+        pythonScript.write("data_pkt = loads(packet_data)\n")
+        pythonScript.write("assert data_cont == data_pkt\n\n")
 
 
 def db_cleanup(url, pythonScript):
