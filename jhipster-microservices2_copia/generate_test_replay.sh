@@ -18,7 +18,6 @@ ipdb="$(echo -e "${ipdb}" | tr -d '[:space:]')"
 echo "ip container = "$ipdb
 #Prima vado ad eseguire mongo replay per i file contenuti nella cartella
 cd $1
-echo $1
 
 if [ ! -d "recordings" ]; 
 then 
@@ -50,7 +49,6 @@ then
 fi
 for filename in $( ls -v *.cap ); do
 	name=${filename%%.cap*}
-	echo $name
 	mongoreplay record -f $filename -p ../$1/recordings/test_$name.bson
 	#Creo una cartella con i report sui pacchetti di controllo ed una con i report sui pacchetti contenenti comandi per il database
 	if  ! ([[ $name == *"find"* ]] || [[ $name == *"delete"* ]] || [[ $name == *"update"* ]] || [[ $name == *"insert"* ]] || [[ $name == *"count"* ]]); 		

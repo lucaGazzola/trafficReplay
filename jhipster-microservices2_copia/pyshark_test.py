@@ -29,12 +29,9 @@ def main():
         #Controllo che sia interazione diretta con applicazione (porta 8081)
 
         if 'HTTP' in str(packet.layers) and packet.tcp.dstport == "8080":
-            # print(packet.http.request_uri)
-            # print(packet.http.file_data)
             if str(packet.http.chat).startswith('POST') and "file_data" in packet.http.field_names and \
                     "username" in str(packet.http.file_data) and "password" in str(packet.http.file_data):
                 if pythonScript is None or pythonScript.closed:
-                    print(sys.argv[2])
                     pythonScript = open('authentication.py', 'w')
                     write_import(pythonScript)
                 authenticate = True
@@ -45,13 +42,6 @@ def main():
         #Porta 8080 è con gateway quindi non la considero
         if 'HTTP' in str(packet.layers) and 'TCP' in str(packet.layers) and \
                 ( packet.tcp.dstport == "8081" or packet.tcp.srcport == "8081" ):
-            # print("-------------------------------------per http")
-            # print(dir(packet.http))
-            # print("-------------------------------------per tcp:")
-            # print(dir(packet.tcp))
-            # print("-------------------------------------processing file: " + sys.argv[1])
-            # print("-------------------------------------dst port: "+str(packet.tcp.dstport))
-            # print("-------------------------------------src port: "+str(packet.tcp.srcport))
             # Apro in scrittura il file di destinazione
 
 
@@ -105,12 +95,9 @@ def req_auth_pkt(packet, pythonScript):
     if api_location.endswith('/'):
         api_location = api_location[:-1]
     url = url + re.sub(r'.*:', '', packet.http.host) + api_location
-    print("url: "+url)
     json_post = packet.http.file_data
-    print(json_post)
     pythonScript.write("print('sending authenticate request to " + url + "')\n")
     pythonScript.write("json_content = " + json_post + "\n")
-    pythonScript.write('print(str(json_content))\n')
     pythonScript.write("response = requests.post('" + url + "', data=json.dumps(json_content), headers=headers)\n")
     pythonScript.write("if response.status_code == 200:\n")
     pythonScript.write("\tprint('authenticated')\n\n")
@@ -125,7 +112,6 @@ def req_auth(pythonScript):
     pythonScript.write("if os.path.exists('Token.txt'):\n")
     pythonScript.write("\tfile = open('Token.txt','r')\n")
     pythonScript.write("\ttoken = file.read()\n")
-    pythonScript.write("\tprint(token)\n")
     pythonScript.write("\theaders = {'Content-type': 'application/json', 'Accept': 'application/json','Authorization': 'Bearer ' + token}\n\n")
     pythonScript.write("else:\n")
     pythonScript.write("\tprint('sending post request to http://localhost:8080/api/authenticate')\n")
@@ -193,8 +179,8 @@ def write_post_request(packet, pythonScript):
     json_post = json_post.replace('null', 'None')
     pythonScript.write("print('sending post request to "+url+"')\n")
     pythonScript.write("json_content = "+json_post+"\n")
-    pythonScript.write('print(str(json_content))\n')
     pythonScript.write("response = requests.post('"+url+"', data=json.dumps(json_content), headers=headers)\n")
+    pythonScript.write("print('response: {0}'.format(response.content)\n")
     pythonScript.write("if response.status_code == 201:\n")
     pythonScript.write("\tprint('created')\n\n")
 
@@ -260,19 +246,6 @@ def write_assertion(packet, pythonScript):
     :param packet: the response packet to get the assertion from
     :param pythonScript: the script to write the assertion to
     """
-    # if packet.http.response_phrase == "OK":
-    #     print("ooooook")
-    #     print(packet.http.response_phrase)
-    #     print(packet.http.response)
-    #     print(packet.http.file_data)
-    #     stringa = packet.http.file_data[1:len(packet.http.file_data)-1]
-    #     dati = stringa.split("},")
-    #     print(dati)
-    #     print(packet.http.file_data[1:len(packet.http.file_data)-1])
-    #     data = loads(packet.http.file_data[1:len(packet.http.file_data)-1])
-    #     print(data["id"])
-    #Alla fine mi basta solo quello creato
-
     if 'file_data' in packet.http.field_names:
 
         # hardcoded check, remove
@@ -292,27 +265,6 @@ def write_assertion(packet, pythonScript):
         pythonScript.write("packet_data = re.sub(r'\"timestamp\".*?(?=,)', '\"timestamp\":null', packet_data)\n")
         pythonScript.write("data_pkt = loads(packet_data)\n")
         pythonScript.write("assert data_cont == data_pkt\n\n")
-
-
-def db_cleanup(url, pythonScript):
-
-    """
-    prints code which cleans the database up
-    :param url: container url
-    :param pythonScript: script to write the cleanup to
-    """
-
-    pythonScript.write("print('setup: cleaning the database')\n")
-    pythonScript.write("response = requests.get('"+url+"', headers=headers)\n")
-    pythonScript.write("items = json.loads(response.text)\n")
-    pythonScript.write("item_ids = []\n")
-    pythonScript.write("for item in items:\n")
-    pythonScript.write("\turl = '"+url+"/' + str(item['id'])\n")
-    pythonScript.write("\tprint('deleting item ' + str(item['id']))\n")
-    pythonScript.write('\tr = requests.delete(url, data=json.dumps(item_ids), headers=headers)\n')
-    pythonScript.write("\tif r.status_code == 200:\n")
-    pythonScript.write("\t\tprint('ok')\n")
-    pythonScript.write("print('starting replay')\n")
 
 
 if __name__ == "__main__":

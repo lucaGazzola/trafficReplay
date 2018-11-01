@@ -328,6 +328,7 @@ def main():
                 dispatcher = {'update': cmd_update, 'insert':cmd_insert, 'delete':cmd_delete, 'find':cmd_find, 'count': cmd_count}
                 ris = dispatcher[cmd.command_name](request_check,request)
                 print(ris)
+                assert ris == True
                 print("Success!")
 
             #Se corretto mando la risposta contentuta nel file di report

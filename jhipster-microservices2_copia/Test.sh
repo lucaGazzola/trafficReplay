@@ -6,9 +6,7 @@
 #TODO possibilità di passare elenco di file ed elenco di cartelle per fare più test in modo automatico
 
 id_mongocontainer=$(docker ps -qf "name="$2)
-echo $id_mongocontainer
-echo "copia"
-
+echo "id del container $2 : $id_mongocontainer"
 
 #Eseguo un test alla volta, copiando la rispettiva cartella dei report nel container del mockup ed eseguendo
 	#lo script per le istruzioni REST
@@ -45,7 +43,6 @@ for dir in $( ls -vd */ ); do
 				#Passo 1: copio sul mockup la cartella contenente i report mongo con le risposte alle richieste inviate
 				#Per ora non terrà in considerazione dei comandi di configurazione perchè già impostati con inizializzazione
 				docker cp $subdir $id_mongocontainer:/
-				echo "$subdir ha i file di report"
 				correct=1
 				break 1
 			fi
@@ -62,9 +59,7 @@ for dir in $( ls -vd */ ); do
 	#-------------controllo che sia presente lo script python per le istruzioni REST----------------#
 	if [ -e *.py ]; then
 		for file in $( ls *.py ); do
-			echo $file
 			#Passo 2: Mando in esecuzione lo script che manda comandi REST
-			echo "script"
 			python3 $file
 			break 1
 		done
