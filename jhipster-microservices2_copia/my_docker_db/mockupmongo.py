@@ -310,16 +310,22 @@ def main():
     while True:
         print("-----------------TEST "+str(num_rep)+"----------------------")
         # Adesso ricevo richieste dall'applicazione, controllo che siano corrette e invio risposte
-        folder = "/reports"+str(num_rep)+"/CMDs"
+        file = open('ActualFileTest.txt', 'r')
+        folder_name = file.read()
+        print(folder_name)
+        folder_name = folder_name.strip('\n')
+        print(folder_name)
+        file.close()
+        folder = str(folder_name)+"CMDs"
         num_rep = num_rep + 1
         for command in sorted(os.listdir(folder), key=numericalSort):
             #Controllo che il contenuto della richiesta sia corretto
-            print("file: "+str(command))
             with open(str(folder)+'/'+str(command)) as file_data:
                 data = json.load(file_data)
-                print("confronto con: "+str(data["request_data"]))
-                if cmd.command_name == "find" and 'cursor' in  data["reply_data"] and 'id' in data["reply_data"]["cursor"]:
-                    data["reply_data"]["cursor"]["id"] = Int64(0)
+                if cmd.command_name == "find" and 'cursor' in  data["reply_data"] and 'id' in data["reply_data"]["cursor"] \
+                        and '$numberLong' in data["reply_data"]["cursor"]["id"] :
+                    number_long = data["reply_data"]["cursor"]["id"]["$numberLong"]
+                    data["reply_data"]["cursor"]["id"] = Int64(number_long)
 
                 #------------da qua confronto richiesta-------------
                 request_check = data["request_data"]

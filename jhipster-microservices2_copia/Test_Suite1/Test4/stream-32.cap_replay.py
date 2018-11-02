@@ -11,8 +11,8 @@ headers={'Content-type': 'application/json', 'Accept': 'application/json'}
 if os.path.exists('Token.txt'):
 	file = open('Token.txt','r')
 	token = file.read()
-	print(token)
 	headers = {'Content-type': 'application/json', 'Accept': 'application/json','Authorization': 'Bearer ' + token}
+	file.close()
 
 else:
 	print('sending post request to http://localhost:8080/api/authenticate')
@@ -24,8 +24,8 @@ else:
 
 print('sending post request to http://localhost:8081/api/products/')
 json_content = {"name":"prod7","price":12.33}
-print(str(json_content))
 response = requests.post('http://localhost:8081/api/products/', data=json.dumps(json_content), headers=headers)
+print('response: {0}'.format(response.content))
 if response.status_code == 201:
 	print('created')
 

@@ -42,6 +42,8 @@ for dir in $( ls -vd */ ); do
 			else
 				#Passo 1: copio sul mockup la cartella contenente i report mongo con le risposte alle richieste inviate
 				#Per ora non terrà in considerazione dei comandi di configurazione perchè già impostati con inizializzazione
+				echo $subdir > 'ActualFileTest.txt'
+				docker cp 'ActualFileTest.txt' $id_mongocontainer:/
 				docker cp $subdir $id_mongocontainer:/
 				correct=1
 				break 1

@@ -105,14 +105,15 @@ def req_auth_pkt(packet, pythonScript):
     pythonScript.write("data = loads(content)\n")
     pythonScript.write("file = open('Token.txt','w')\n")
     pythonScript.write("file.write(data['id_token'])\n")
-    pythonScript.write("file.close\n")
+    pythonScript.write("file.close()\n")
 
 #Mando richiesta autenticazione da gateway per ricevere token -> nel caso non ci fosse pacchetto di autenticazione
 def req_auth(pythonScript):
     pythonScript.write("if os.path.exists('Token.txt'):\n")
     pythonScript.write("\tfile = open('Token.txt','r')\n")
     pythonScript.write("\ttoken = file.read()\n")
-    pythonScript.write("\theaders = {'Content-type': 'application/json', 'Accept': 'application/json','Authorization': 'Bearer ' + token}\n\n")
+    pythonScript.write("\theaders = {'Content-type': 'application/json', 'Accept': 'application/json','Authorization': 'Bearer ' + token}\n")
+    pythonScript.write("\tfile.close()\n\n")
     pythonScript.write("else:\n")
     pythonScript.write("\tprint('sending post request to http://localhost:8080/api/authenticate')\n")
     pythonScript.write("\tjson_content = {\"username\": \"admin\", \"password\": \"admin\"}\n")
@@ -180,7 +181,7 @@ def write_post_request(packet, pythonScript):
     pythonScript.write("print('sending post request to "+url+"')\n")
     pythonScript.write("json_content = "+json_post+"\n")
     pythonScript.write("response = requests.post('"+url+"', data=json.dumps(json_content), headers=headers)\n")
-    pythonScript.write("print('response: {0}'.format(response.content)\n")
+    pythonScript.write("print('response: {0}'.format(response.content))\n")
     pythonScript.write("if response.status_code == 201:\n")
     pythonScript.write("\tprint('created')\n\n")
 

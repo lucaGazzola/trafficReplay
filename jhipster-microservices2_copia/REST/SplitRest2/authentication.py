@@ -9,7 +9,6 @@ headers={'Content-type': 'application/json', 'Accept': 'application/json'}
 
 print('sending authenticate request to http://localhost:8080/api/authenticate')
 json_content = {"username":"admin","password":"admin"}
-print(str(json_content))
 response = requests.post('http://localhost:8080/api/authenticate', data=json.dumps(json_content), headers=headers)
 if response.status_code == 200:
 	print('authenticated')
@@ -18,4 +17,4 @@ content = re.sub(r'"id".*?(?=,)', '"id":None', response.content.decode('utf-8'))
 data = loads(content)
 file = open('Token.txt','w')
 file.write(data['id_token'])
-file.close
+file.close()
