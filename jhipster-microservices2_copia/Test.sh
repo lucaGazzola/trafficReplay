@@ -19,7 +19,7 @@ for dir in $( ls -vd */ ); do
 	number=$(ls -1 $dir | wc -l)
 	if [ "$number" -lt "2" ] ; then
 		echo "$dir non ha tutti i file necessari per il test"
-		echo "----------------------- FINE TEST $number_test -------------------------------------"
+		echo "----------------------- TEST $number_test FALLITO DIRECTORY $dir -------------------------------------"
 		printf "\n\n"
 		number_test=$((number_test+1))
 		continue
@@ -29,7 +29,7 @@ for dir in $( ls -vd */ ); do
 	if  ! [ -d */ ] ; then
 	  	echo "in $dir non è presente la directory con i report"
 		cd ..
-		echo "----------------------- FINE TEST $number_test -------------------------------------"
+		echo "----------------------- TEST $number_test FALLITO DIRECTORY $dir -------------------------------------"
 		printf "\n\n"
 		number_test=$((number_test+1))
 		continue	
@@ -52,7 +52,7 @@ for dir in $( ls -vd */ ); do
 		if [ "$correct" -ne "1" ] ; then
 		 	echo "file di report non presenti in $dir"
 			cd ..
-			echo "----------------------- FINE TEST $number_test -------------------------------------"
+			echo "----------------------- TEST $number_test FALLITO DIRECTORY $dir -------------------------------------"
 			printf "\n\n"
 			number_test=$((number_test+1))
 			continue
@@ -63,6 +63,11 @@ for dir in $( ls -vd */ ); do
 		for file in $( ls *.py ); do
 			#Passo 2: Mando in esecuzione lo script che manda comandi REST
 			python3 $file
+			ret=$?
+			if [ $ret -ne 0 ]; then
+			     	echo "----------------------- TEST $number_test FALLITO DIRECTORY $dir -------------------------------------"
+				exit 1
+			fi
 			break 1
 		done
 	else
