@@ -40,9 +40,7 @@ echo "Split..."
 for element in $elements
 do
 	IFS=';' # space is set as delimiter
-	echo "-------------------------->$element<---------------------------------"
 	read -ra ADDR <<< "$element" # str is read into an array as tokens separated by IFS
-	echo "contenuto : $ADDR"
 	operations=${ADDR[3]}
 	IFS=','
 	read -ra op <<< "$operations"
@@ -50,19 +48,16 @@ do
 	ports_union=${ADDR[2]}
 	IFS=','
 	read -ra ports <<< "$ports_union"
-	echo "porte $ports"
-	if [ ! -z "${op[0]}" ] && [ ${ports[1]} == "27017" ] && ( [ "$codeop" == "2004" ] || [ "$codeop" == "2013" ] ); then
-		echo "------------------------------------------------------"
-		echo "element = $element"
-		echo "codice operazione = $codeop"
-		echo "operazione = ${op[0]}"
+	if [ ! -z "${op[0]}" ] &&  [ ${ports[1]} == "27017" ] && ( [ "$codeop" == "2004" ] || [ "$codeop" == "2013" ] ); then
 		ip_mongo=${ADDR[1]}
-		echo "scrivo in $2/operation-$count_op-${op[0]}.txt -----> $ip_mongo"
 		echo $ip_mongo > $2/operation-$count_op-${op[0]}.txt
 		seqnum=${ADDR[5]}
-		echo "operazione ${op[0]} con codop $codeop con seqnum $seqnum"
 		#Stiamo considerando solo le operazioni verso il database quindi non vado a prendere in considerazione le risposte
-		tshark -r $1 -w $2/operation-$count_op-${op[0]}.cap -Y "( mongo.request_id==$seqnum and ip.dst==$ip_mongo ) or ( mongo.response_to==$seqnum and ip.src==$ip_mongo )"
+		if [ $count_op == 96 ]; then
+		tshark -r $1 -2 -d tcp.port==27017,mongo -w $2/operation-$count_op-${op[0]}.cap -Y "( mongo.request_id==$seqnum and ip.dst==$ip_mongo ) or ( mongo.response_to==$seqnum and ip.src==$ip_mongo )"
+		else
+		tshark -r $1 -w $2/operation-$count_op-${op[0]}.cap -Y "mongo and ( mongo.request_id==$seqnum and ip.dst==$ip_mongo ) or ( mongo.response_to==$seqnum and ip.src==$ip_mongo )"
+		fi
 		count_op=$((count_op+1))
 	fi	
 done

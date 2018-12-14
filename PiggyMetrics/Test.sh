@@ -2,8 +2,7 @@
 # Exec python script for REST comunication and MongoReplay Report for the response of mockupmongo
 # ./Test.sh Test_Suite_Dir Name_container
 # Passo la cartella dei casi di test da eseguire (sottocartelle contenenti script python per istruzioni rest e cartella con report)
-
-#TODO possibilità di passare elenco di file ed elenco di cartelle per fare più test in modo automatico
+#Il nome del container deve essere quello del container dove è eseguito il mockup
 
 id_mongocontainer=$(docker ps -qf "name="$2)
 echo "id del container $2 : $id_mongocontainer"
@@ -15,7 +14,7 @@ number_test=1
 for dir in $( ls -vd */ ); do
 	echo "----------------------- INIZIO TEST $number_test -------------------------------------"
 	correct=0
-	#-------------controllo che ci siano almeno due elementi nella cartella--------------#
+	#-------------controllo che ci siano almeno due elementi nella cartella (script python + cartella dei report)--------------#
 	number=$(ls -1 $dir | wc -l)
 	if [ "$number" -lt "2" ] ; then
 		echo "$dir non ha tutti i file necessari per il test"
@@ -36,19 +35,24 @@ for dir in $( ls -vd */ ); do
 	else
 		#Copia della cartella
 		for subdir in $( ls -vd */ ); do
+			echo "subdir = $subdir"
 			number=$(ls -1 $subdir | wc -l)
+			#Controllo abbia i file di report
 			if [ "$number" -lt "1" ] ; then
 				echo "$subdir non ha tutti i file necessari per il test"
 			else
 				#Passo 1: copio sul mockup la cartella contenente i report mongo con le risposte alle richieste inviate
 				#Per ora non terrà in considerazione dei comandi di configurazione perchè già impostati con inizializzazione
-				echo $subdir > 'ActualFileTest.txt'
-				docker cp 'ActualFileTest.txt' $id_mongocontainer:/
-				docker cp $subdir $id_mongocontainer:/
+				if [ "$correct" -ne "1" ];then
+					echo $subdir > 'ActualFileTest.txt'
+				else
+					echo $subdir >> 'ActualFileTest.txt'
+				fi
 				correct=1
 				break 1
 			fi
 		done
+		#Se non sono presenti i file necessari per il test
 		if [ "$correct" -ne "1" ] ; then
 		 	echo "file di report non presenti in $dir"
 			cd ..
@@ -56,6 +60,10 @@ for dir in $( ls -vd */ ); do
 			printf "\n\n"
 			number_test=$((number_test+1))
 			continue
+		#Altrimenti posso procedere con la copia del file di test sul container con il mockup mongo
+		else
+		   docker cp 'ActualFileTest.txt' $id_mongocontainer:/
+		   docker cp $subdir $id_mongocontainer:/
 		fi
 	fi
 	#-------------controllo che sia presente lo script python per le istruzioni REST----------------#

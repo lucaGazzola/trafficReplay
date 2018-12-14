@@ -20,13 +20,13 @@ for filename in $( ls -v *.cap ); do
 	while read mongo_cont; do
 		IFS=';'
 		read -ra mongo_info <<< "$mongo_cont"
-		echo "nome = ${mongo_info[0]}"
-		echo "ip letto da file = $ip_mongo_cont"
-		echo "ip preso da nome del cont ${mongo_info[1]} nel file originale"
+		#echo "nome = ${mongo_info[0]}"
+		#echo "ip letto da file = $ip_mongo_cont"
+		#echo "ip preso da nome del cont ${mongo_info[1]} nel file originale"
 		if [ $ip_mongo_cont == ${mongo_info[1]} ]; then
-			echo "nome2 = "${mongo_info[0]}
+			#echo "nome2 = "${mongo_info[0]}
 			id_mongocontainer=$(docker ps -aqf "name="${mongo_info[0]})
-			echo "id container = "$id_mongocontainer
+			#echo "id container = "$id_mongocontainer
 			inspect=$(docker inspect $id_mongocontainer | grep "IPAddress")
 			ipdb=${inspect%,*}     # trim everything past the last ,
 			ipdb=${ipdb##*,}       # ...then remove everything before the last , remaining
