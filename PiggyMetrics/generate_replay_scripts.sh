@@ -1,18 +1,33 @@
 #!/bin/bash
 # generates replay scripts
-# usage: ./generate_replay_scripts.sh TestDir/captureStreamsDirectory port_gateway ports_list 
-# port_gateway per ora ci server per autenticazione
-# tutte le porte elencate sono porte su localhost ---> mappate su porte del localhost
-if [[ $# -lt 3 ]] ; then 
-	echo 'missing args ---> ./generate_replay_scripts.sh <testdir/captureStreamsDirectory> <test_directory> <port_gateway> <ports_list>'
+# usage: ./generate_replay_scripts.sh TestDir/captureStreamsDirectory ip_auth_service ip_list password_list
+# ip_auth_service serve per ottenere token di autenticazione
+# ip_list lista degli indirizzi ip dei container da tenere in considerazione (posso prenderli dal file di test creato dalla cattura)
+# password_list lista delle password associate alle applicazioni i cui indirizzi ip sono specificati nella lista degli ip
+if [[ $# -lt 4 ]] ; then 
+	echo 'missing args ---> ./generate_replay_scripts.sh <testdir/captureStreamsDirectory> <ip_auth_service> <ip_list> <password_list>'
 	exit 1
 fi
+
+if [ $((($#-2)%2)) -ne 0 ]; then
+	echo 'number of passwords and ip must be the same'
+	exit 1
+fi
+
+
 #una parte del filtraggio è stata fatta durante lo split
-#adesso devo specificare i numeri di porta esposti dalle applicazioni che voglio considerare
+#adesso devo specificare gli ip delle applicazioni che voglio considerare
+#TODO considerare caso in cui applicazione non ha la password
 cd $1
 for filename in $( ls -v *.cap ); do
     	destScript=$filename"_replay.py"
-    	list="${@:3:$(($#-2))}"
-    	python3 ../../pyshark_test.py $filename $destScript $list $2
+    	listIP="${@:3:$((($#-2)/2))}"
+	listPass="${@:$(((3+($#-2)/2))):$((($#-2)/2))}"
+	listIP=$(echo ${listIP// /,})
+	listPass=$(echo ${listPass// /,})
+	#echo $listIP
+	#echo $listPass
+	#Passo come argomento unica stringa e da pyhton creo lista
+    	python3 ../../pyshark_test.py $filename $destScript $3 $listPass $listIP 
 done
 exit 0

@@ -1,0 +1,2 @@
+{"order":0,"op":"command","command":"saslContinue","ns":"piggymetrics.$cmd","request_data":{"conversationId":1,"payload":{"$binary":"dj10ZXZSUURrTkVYcXFuRDFjS044VHJ5ZGk5c3M9","$type":"00"},"saslContinue":1},"connection_num":0,"seen":"2018-12-14T09:04:37.06811Z","request_id":73}
+{"order":1,"op":"reply","reply_data":{"conversationId":1,"done":true,"ok":1.0,"payload":{"$binary":"","$type":"00"}},"nreturned":1,"connection_num":0,"latency_us":162,"seen":"2018-12-14T09:04:37.068272Z","request_id":73}
