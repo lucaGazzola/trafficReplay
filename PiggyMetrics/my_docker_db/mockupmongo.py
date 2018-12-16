@@ -188,6 +188,8 @@ def cmd_count(test_req,req):
 def cmd_find(test_req,req):
     #Controllo campo Limit
     if not check_field(test_req,req,'limit'):
+        print(test_req)
+        print(req)
         print("campi limit dei find non corrispondono")
         return False
     #Controllo campo Find
@@ -233,27 +235,26 @@ def main():
             getlast = getlast + 1
             with open(str(folder)+'/'+str(conf)) as file_data:
                 data = json.load(file_data)
-                getlasterror_reply = OpReply(data["reply_data"])
-                print("a getlasterror rispondo con" + str(getlasterror_reply))
-                server.autoresponds('getlasterror', getlasterror_reply)
+                #getlasterror_reply = OpReply(data["reply_data"])
+                opmsgreply_getlasterror = mockupdb.make_op_msg_reply(data["reply_data"])
+                server.autoresponds('getlasterror', opmsgreply_getlasterror)
 
-        if ismaster == 0 and "isster" in str(conf):
-            print("preso file: "+str(conf))
+        if ismaster == 0 and "ismaster" in str(conf):
             ismaster = ismaster + 1
             with open(str(folder)+'/'+str(conf)) as file_data:
                 data = json.load(file_data)
-                ismaster_reply = OpReply(data["reply_data"])
-                print("a ismaster rispondo con" + str(ismaster_reply))
-                server.autoresponds('ismaster', ismaster_reply)
+                #ismaster_reply = OpReply(data["reply_data"])
+                opmsgreply_ismaster = mockupdb.make_op_msg_reply(data["reply_data"]["sections"][0]["payload"])
+                server.autoresponds('ismaster', opmsgreply_ismaster)
 
         if buildinfo == 0 and (("buildInfo" in str(conf)) or ("buildinfo" in str(conf))):
             buildinfo = buildinfo + 1
             with open(str(folder)+'/'+str(conf)) as file_data:
                 data = json.load(file_data)
-                buildinfo_reply = OpReply(data["reply_data"])
-                print("a buildinfo rispondo con"+str(buildinfo_reply))
-                server.autoresponds('buildInfo', buildinfo_reply)
-                server.autoresponds('buildinfo', buildinfo_reply)
+                #buildinfo_reply = OpReply(data["reply_data"])
+                opmsgreply_buildinfo = mockupdb.make_op_msg_reply(data["reply_data"])
+                server.autoresponds('buildInfo', opmsgreply_buildinfo)
+                server.autoresponds('buildinfo', opmsgreply_buildinfo)
 
         if saslStart == 0 and "saslStart" in str(conf):
             saslStart = saslStart + 1
@@ -262,7 +263,6 @@ def main():
                 bin_data = "cj07JVxUUDM8TXVvd08hZXE9cWondHBSZElpSmZOb21mOHluUitjMmR0Y0x3RGtYSE5pWjVXWU9SZSxzPVBzdEJqdWpXQjZEdkR6Kzk2LysxR0E9PSxpPTEwMDAw".encode("ascii")
                 #data["reply_data"]["payload"] = int(text_to_bits(bin_data))
                 data["reply_data"]["payload"] = base64.decodebytes(bin_data)
-                print(data["reply_data"])
                 saslStart_reply = OpReply(data["reply_data"])
                 server.autoresponds('saslStart', saslStart_reply)
 
@@ -271,10 +271,8 @@ def main():
             with open(str(folder)+'/'+str(conf)) as file_data:
                 data = json.load(file_data)
                 if str(data["reply_data"]["done"]) == "false":
-                    print("è su false")
                     bin_data = ''.encode("ascii")
                 else:
-                    print("è su true")
                     bin_data = "dj0zb1A2enh5anBXSW5xc25nWllzN2lYZWJ3S289".encode("ascii")
                 #data["reply_data"]["payload"] = int(text_to_bits(bin_data))
                 data["reply_data"]["payload"] = base64.decodebytes(bin_data)
@@ -305,6 +303,12 @@ def main():
         server.autoresponds('saslContinue')
     server.autoresponds('ping')
 
+
+    #Nella fase di inizializzazione è possibile che vengano mandati anche dei comandi come la find, la delete e la insert
+    #Non vengono mandate sempre nello stesso ordine quindi le salvo prima in una struttura dati
+    #Ogni volta che mi arriva uno di questi comandi rispondo con le risposte salvate nella struttura dati
+    #Ovviamente le risposte vengono lette dagli eventuali file di report salvati nell'apposita carte CMDs di MockupFolder
+
     find_list = []
     insert_list = []
     delete_list = []
@@ -314,21 +318,19 @@ def main():
             with open(str(folder)+'/'+str(command)) as file_data:
                 data = json.load(file_data)
                 data["reply_data"]["cursor"]["id"] = Int64(0)
-                find_list.append(OpReply(data["reply_data"]))
+                find_list.append(mockupdb.make_op_msg_reply(data["reply_data"]))
         if "insert" in str(command):
             with open(str(folder)+'/'+str(command)) as file_data:
                 data = json.load(file_data)
-                insert_list.append(OpReply(data["reply_data"]))
+                insert_list.append(mockupdb.make_op_msg_reply(data["reply_data"]))
         if "delete" in str(command):
             with open(str(folder)+'/'+str(command)) as file_data:
                 data = json.load(file_data)
-                delete_list.append(OpReply(data["reply_data"]))
+                delete_list.append(mockupdb.make_op_msg_reply(data["reply_data"]))
 
     count_find = 0
     count_insert = 0
     count_delete = 0
-    #Altrimenti attendo di ricevere find, insert e delete per inizializzazione
-    #Magari non sempre sono precisamente tre quindi termino quando ne ho ricevuto almento uno di ogni tipo
     while not (count_delete == len(delete_list) and count_find == len(find_list) and count_insert == len(insert_list)):
         cmd = server.receives(timeout=3000)
         if str(cmd.command_name) == "find":
@@ -343,10 +345,7 @@ def main():
                     cmd.replies(delete_list[count_delete])
                     count_delete = count_delete + 1
                 else:
-                    general_reply = OpReply({
-                        "n": 1,
-                        "ok": 1.0
-                    })
+                    general_reply = mockupdb.make_op_msg_reply(OrderedDict([('n', 1), ('ok', 1.0)]))
                     cmd.replies(general_reply)
 
     print("----------------Inizializzazione Terminata------------------------------")
@@ -370,13 +369,15 @@ def main():
             #Controllo che il contenuto della richiesta sia corretto
             with open(str(folder)+'/'+str(command)) as file_data:
                 data = json.load(file_data)
-                if cmd.command_name == "find" and 'cursor' in  data["reply_data"] and 'id' in data["reply_data"]["cursor"] \
-                        and '$numberLong' in data["reply_data"]["cursor"]["id"] :
-                    number_long = data["reply_data"]["cursor"]["id"]["$numberLong"]
-                    data["reply_data"]["cursor"]["id"] = Int64(number_long)
+                print("stampo campo command name: " + str(cmd.command_name))
+                if cmd.command_name == "find" and 'cursor' in  data["reply_data"]["sections"][0]["payload"] \
+                        and 'id' in data["reply_data"]["sections"][0]["payload"]["cursor"] \
+                        and '$numberLong' in data["reply_data"]["sections"][0]["payload"]["cursor"]["id"] :
+                    number_long = data["reply_data"]["sections"][0]["payload"]["cursor"]["id"]["$numberLong"]
+                    data["reply_data"]["sections"][0]["payload"]["cursor"]["id"] = Int64(number_long)
 
                 #------------da qua confronto richiesta-------------
-                request_check = data["request_data"]
+                request_check = data["request_data"]["sections"][0]["payload"]
                 request = json.loads(str(cmd))
                 print("Controllo correttezza richiesta...")
                 dispatcher = {'update': cmd_update, 'insert':cmd_insert, 'delete':cmd_delete, 'find':cmd_find, 'count': cmd_count}
@@ -386,7 +387,8 @@ def main():
                 print("Success!")
 
             #Se corretto mando la risposta contentuta nel file di report
-                response = OpReply(data["reply_data"])
+                #response = OpReply(data["reply_data"])
+                response = mockupdb.make_op_msg_reply(data["reply_data"]["sections"][0]["payload"])
                 print("risposta con: " + str(response))
                 cmd.replies(response)
             print("in attesa di comando")

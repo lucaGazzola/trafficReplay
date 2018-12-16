@@ -23,21 +23,19 @@ def main():
     cap = pyshark.FileCapture(sys.argv[1])
 
     authorized = False
-    headers = {'Content-type': 'application/json', "Accept": "application/json"}
 
     pythonScript = None
 
-    list_ip = sys.argv[5].split(',')
+    port_list = sys.argv[4].split(',')
 
-    ip_auth = sys.argv[3]
-    passw_list = sys.argv[4].split(',')
+    passw_list = sys.argv[3].split(',')
 
 
     #Pacchetti estratti dal file pcap dove sono memorizzati i pacchetti catturati da un'interfaccia docker
     for packet in cap:
         index_list_passw = 0
         #Considero ogni ip della lista
-        for ip in list_ip:
+        for port in port_list:
 
         #REST -> quindi vado a considerare protocollo ad alto livello
         #Questa parte deve essere modificata una volta presente la parte di mockup dei microservizi che sostituiscono
@@ -50,10 +48,15 @@ def main():
 
 
         #Controllo prendendo la lista degli ip
-            if 'HTTP' in str(packet.layers) and 'TCP' in str(packet.layers) and packet.ip.addr == ip :
+            if 'HTTP' in str(packet.layers) and 'TCP' in str(packet.layers) and ( packet.tcp.srcport == port or packet.tcp.dstport == port ):
 
                # Apro in scrittura il file di destinazione
                 print("entrato!!!")
+                # print(str(packet.layers))
+                # print(packet.ip.addr)
+                # #print(dir(packet.tcp))
+                # print(packet.ip.dst)
+                # print(packet.ip.src)
                 if pythonScript is None or pythonScript.closed:
                     pythonScript = open(sys.argv[2], 'w')
                     write_import(pythonScript)
@@ -65,16 +68,16 @@ def main():
                     authorized = True
 
                 if str(packet.http.chat).startswith('POST'):
-                    write_post_request(packet, pythonScript, ip)
+                    write_post_request(packet, pythonScript)
 
                 if str(packet.http.chat).startswith('GET'):
-                    write_get_request(packet, pythonScript, ip, ip_auth, passw_list[index_list_passw])
+                    write_get_request(packet, pythonScript, passw_list[index_list_passw])
 
                 if str(packet.http.chat).startswith('PUT'):
-                     write_put_request(packet, pythonScript, ip, ip_auth)
+                     write_put_request(packet, pythonScript)
 
                 if str(packet.http.chat).startswith('DELETE'):
-                     write_delete_request(packet, pythonScript, ip)
+                     write_delete_request(packet, pythonScript)
 
                 if str(packet.http.chat).startswith('HTTP'):
                     write_assertion(packet, pythonScript)
@@ -95,25 +98,23 @@ def write_import(pythonScript):
 
 
 #richiesta token applicazione --> usata quando voglio dati di un singolo utente (specificato in uri)
-def get_token_appl(pythonScript,ip_auth,id,passw):
+def get_token_appl(pythonScript,id,passw):
     """
     writes a get request to a python script
     :param pythonScript: script to write the request to
-    :param ip_auth: auth-service ip
     :param id: application id
     :param passw: application password
 
     """
 
     pythonScript.write("data = {'grant_type': 'client_credentials'}\n")
-    pythonScript.write("token_appl = requests.post('http://"+str(ip_auth)+":5000/uaa/oauth/token', headers=headers, data=data, auth=('"+str(id)+"', '"+str(passw)+"'))\n")
+    pythonScript.write("token_appl = requests.post('http://localhost:5000/uaa/oauth/token', headers=headers, data=data, auth=('"+str(id)+"', '"+str(passw)+"'))\n")
 
 #richiesta token singolo utente ---> usata per richiesta dati utente corrente
-def get_token_user(pythonScript,ip_auth,username):
+def get_token_user(pythonScript ,username):
     """
     writes a get request to a python script
     :param pythonScript: script to write the request to
-    :param ip_auth: auth-service ip
     :param username: username of user
 
     """
@@ -121,22 +122,19 @@ def get_token_user(pythonScript,ip_auth,username):
     pythonScript.write("headers = { 'Accept': 'application/json', 'Authorization': 'Basic YnJvd3Nlcjo=' }\n")
     pythonScript.write("passw = input('Inserisci password per " + str(username) + ":')\n")
     pythonScript.write("data = {'scope': 'ui', 'grant_type': 'password', 'username': '"+str(username)+"','password': passw}\n")
-    pythonScript.write("token_user = requests.post('http://"+str(ip_auth)+":5000/uaa/oauth/token', headers=headers, data=data)\n")
+    pythonScript.write("token_user = requests.post('http://localhost:5000/uaa/oauth/token', headers=headers, data=data)\n")
 
 
 
-def write_get_request(packet, pythonScript, ip, ip_auth, passw):
+def write_get_request(packet, pythonScript, passw):
 
     """
     writes a get request to a python script
     :param packet: packet request to replay
     :param pythonScript: script to write the request to
-    :param ip: application ip
-    :param ip_auth: auth-service ip
     :param passw: application password
     """
-    #Non è più su localhost ma ha indirizzo dell'applicazione
-    url = "http://"+str(ip)+":"
+    url = "http://localhost:"
 
     api_location = str(packet.http.chat).split(" ")[1]
     api_location = re.sub(r'\?.*', '/', api_location)
@@ -147,14 +145,16 @@ def write_get_request(packet, pythonScript, ip, ip_auth, passw):
     # Se l'url termina con /current si sta facendo riferimento al profilo corrente quindi serve token di autenticazione dell'utente
     last_part = url.rsplit('/', 1)[-1]
     if last_part == "current":
-        get_token_user(pythonScript,ip_auth, "davedere")
+        get_token_user(pythonScript, "davedere")
         pythonScript.write("token = \"Bearer\"+str(token_user)\n")
-        pythonScript.write("headers=('Accept': 'application/json', 'Authorization': token  )\n\n")
+        #pythonScript.write("headers=('Accept': 'application/json', 'Authorization': token  )\n\n")
+        pythonScript.write("print('token: '+str(token))\n\n")
     #Altrimenti serve token dell'applicazione perchè sto richiedendo per un utente in particolare
     else:
-        get_token_appl(pythonScript,ip_auth, "account-service", passw)
+        get_token_appl(pythonScript, "account-service", passw)
         pythonScript.write("token = \"Bearer\"+str(token_appl)\n")
-        pythonScript.write("headers=('Accept': 'application/json', 'Authorization': token  )\n\n")
+        #pythonScript.write("headers=('Accept': 'application/json', 'Authorization': token  )\n\n")
+        pythonScript.write("print('token: '+str(token))\n\n")
 
 
     # hardcoded check, remove
@@ -167,16 +167,15 @@ def write_get_request(packet, pythonScript, ip, ip_auth, passw):
 
 
 
-def write_post_request(packet, pythonScript, ip):
+def write_post_request(packet, pythonScript):
 
     """
     writes a post request to a python script
     :param packet: packet request to replay
     :param pythonScript: script to write the request to
-    :param ip: application ip
     """
 
-    url = "http://" + str(ip) + ":"
+    url = "http://localhost:"
 
     api_location = str(packet.http.chat).split(" ")[1]
     api_location = re.sub(r'\?.*', '/', api_location)
@@ -194,17 +193,15 @@ def write_post_request(packet, pythonScript, ip):
     pythonScript.write("\tprint('created')\n\n")
 
 
-def write_put_request(packet, pythonScript, ip, ip_auth):
+def write_put_request(packet, pythonScript):
 
     """
     writes a put request to a python script
     :param packet: packet request to replay
     :param pythonScript: script to write the request to
-    :param ip: application ip
-    :param ip_auth: auth-service ip
     """
 
-    url = "http://" + str(ip) + ":"
+    url = "http://localhost:"
 
 
     api_location = str(packet.http.chat).split(" ")[1]
@@ -216,14 +213,15 @@ def write_put_request(packet, pythonScript, ip, ip_auth):
     # Se l'url termina con /current si sta facendo riferimento al profilo corrente quindi serve token di autenticazione dell'utente
     last_part = url.rsplit('/', 1)[-1]
     if last_part == "current":
-        get_token_user(pythonScript,ip_auth, "davedere")
+        get_token_user(pythonScript, "davedere")
         pythonScript.write("token = \"Bearer\"+str(token_user)\n")
-        pythonScript.write("headers=('Accept': 'application/json', 'Authorization': token  )\n\n")
+        pythonScript.write("print('token: '+str(token))\n\n")
+        #pythonScript.write("headers=('Accept': 'application/json', 'Authorization': token  )\n\n")
 
 
     pythonScript.write("data = {}\n")
     if 'file_data' in packet.http.field_names:
-        print(packet.http.field_names)
+        #print(packet.http.field_names)
         pythonScript.write("data = json.loads('"+packet.http.file_data+"')\n")
     # print(packet.http.field_names)
     # print("-------------")
@@ -265,16 +263,15 @@ def write_put_request(packet, pythonScript, ip, ip_auth):
 
 
 
-def write_delete_request(packet, pythonScript, ip):
+def write_delete_request(packet, pythonScript):
 
     """
         writes a delete request to a python script
         :param packet: packet request to replay
         :param pythonScript: script to write the request to
-        :param ip: application ip
     """
 
-    url = "http://" + str(ip) + ":"
+    url = "http://localhost:"
 
     api_location = str(packet.http.chat).split(" ")[1]
     api_location = re.sub(r'\?.*', '/', api_location).split(':')[0]
@@ -302,7 +299,7 @@ def write_assertion(packet, pythonScript):
         if re.sub(r'\"id\".*?(?=,)', '\"id\":None', packet.http.file_data).__contains__('<div'):
             return
 
-        if packet.http.response_phrase == "Created":
+        if 'response_phrase' in packet.http.field_names and packet.http.response_phrase == "Created":
             pythonScript.write("cont = loads(response.content.decode('utf-8'))\n")
 
         pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")

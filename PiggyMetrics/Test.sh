@@ -67,7 +67,8 @@ for dir in $( ls -vd */ ); do
 		fi
 	fi
 	#-------------controllo che sia presente lo script python per le istruzioni REST----------------#
-	if [ -e *.py ]; then
+	echo $( ls *.py | wc -l )
+	if [ $( ls *.py | wc -l ) -ne 0 ]; then
 		for file in $( ls *.py ); do
 			#Passo 2: Mando in esecuzione lo script che manda comandi REST
 			python3 $file
