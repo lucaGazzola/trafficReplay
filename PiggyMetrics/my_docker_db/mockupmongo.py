@@ -9,6 +9,7 @@ import time
 import os
 import re
 import base64
+import dateutil.parser
 
 numbers = re.compile(r'(\d+)')
 
@@ -70,7 +71,22 @@ def cmd_delete(test_req,req):
                 print("elementi campi deletes non corrispondendi")
                 return False
     else:
-        if 'deletes' in test_req or 'deletes' in req:
+        # Nella nuova versione di mongo mongreplay mette la parte di deletes dentro a documents e identifier identifica
+        # il comando
+        if 'identifier' in test_req and test_req['identifier'] == 'deletes' and 'deletes' in req:
+            lung = len(test_req['documents'])
+            if lung != len(req['deletes']):
+                print("campi deletes con diverso numero di elementi")
+                return False
+            for i in range(0, lung - 1):
+                deletes_check = test_req['documents'][i]
+                deletes = req['deletes'][i]
+                if not check_dict(deletes_check, deletes):
+                    print("elementi campi deletes non corrispondendi")
+                    return False
+        # Controllo che almeno uno abbia il campo
+        # Altrimenti se entrambi non lo hanno non è da considerare un errore
+        if 'deletes' in test_req or 'deletes' in req or ('identifier' in test_req and test_req['identifier'] == 'deletes'):
             print("campi deletes non presenti in entrambe le request")
             return False
     # Controllo campo ordered ---- bool ---to lower case
@@ -85,13 +101,15 @@ def cmd_delete(test_req,req):
     return True
 
 #Controllo comando Update
-    #test_req contiene la richiesta di confronto
-    #req contiene la richiesta da confrontare
+    #test_req contiene la richiesta di confronto ( da file )
+    #req contiene la richiesta da confrontare ( ricevuta )
 def cmd_update(test_req,req):
     #Controllo campo Update
     if not check_field(test_req,req,'update'):
         print("campi update dei comandi update non corrispondono")
         return False
+    print("da file: "+str(test_req))
+    print("da comando: "+str(req))
     #Controllo campo Updates ---- array di dict
     if 'updates' in test_req and 'updates' in req:
         lung = len(test_req['updates'])
@@ -105,9 +123,27 @@ def cmd_update(test_req,req):
                 print("elementi campi updates non corrispondendi")
                 return False
     else:
-        if 'updates' in test_req or 'updates' in req:
-            print("campi updates non presenti in entrambe le request")
-            return False
+        #Nella nuova versione di mongo mongreplay mette la parte di updates dentro a documents e identifier identifica
+            #il comando
+        print("sono con: "+str(test_req))
+        if 'identifier' in test_req and test_req['identifier'] == 'updates' and 'updates' in req:
+            lung = len(test_req['documents'])
+            print("sono entrato nel nuovo IF")
+            if lung != len(req['updates']):
+                print("campi updates con diverso numero di elementi")
+                return False
+            for i in range(0, lung - 1):
+                updates_check = test_req['documents'][i]
+                updates = req['updates'][i]
+                if not check_dict(updates_check, updates):
+                    print("elementi campi updates non corrispondendi")
+                    return False
+        else:
+            #Controllo che almeno uno abbia il campo
+                #Altrimenti se entrambi non lo hanno non è da considerare un errore
+            if 'updates' in test_req or 'updates' in req or ( 'identifier' in test_req and test_req['identifier'] == 'updates' ):
+                print("campi updates non presenti in entrambe le request")
+                return False
     # Controllo campo ordered ---- bool ---to lower case
     if 'ordered' in test_req and 'ordered' in req:
         if not (str(test_req['ordered']).lower() == str(req['ordered']).lower()):
@@ -188,8 +224,6 @@ def cmd_count(test_req,req):
 def cmd_find(test_req,req):
     #Controllo campo Limit
     if not check_field(test_req,req,'limit'):
-        print(test_req)
-        print(req)
         print("campi limit dei find non corrispondono")
         return False
     #Controllo campo Find
@@ -359,7 +393,6 @@ def main():
         # Adesso ricevo richieste dall'applicazione, controllo che siano corrette e invio risposte
         file = open('ActualFileTest.txt', 'r')
         folder_name = file.read()
-        print(folder_name)
         folder_name = folder_name.strip('\n')
         print(folder_name)
         file.close()
@@ -368,27 +401,77 @@ def main():
         for command in sorted(os.listdir(folder), key=numericalSort):
             #Controllo che il contenuto della richiesta sia corretto
             with open(str(folder)+'/'+str(command)) as file_data:
+                print("-------------------"+str(command))
                 data = json.load(file_data)
                 print("stampo campo command name: " + str(cmd.command_name))
-                if cmd.command_name == "find" and 'cursor' in  data["reply_data"]["sections"][0]["payload"] \
-                        and 'id' in data["reply_data"]["sections"][0]["payload"]["cursor"] \
-                        and '$numberLong' in data["reply_data"]["sections"][0]["payload"]["cursor"]["id"] :
-                    number_long = data["reply_data"]["sections"][0]["payload"]["cursor"]["id"]["$numberLong"]
-                    data["reply_data"]["sections"][0]["payload"]["cursor"]["id"] = Int64(number_long)
+                #Nel file di report (nel caso di op_msg della versione aggiornata di mogno) è presente il campo sections
+                    #che può avere più elementi al suo interno contenenti i vari campi da testare
+                len_str = len(data["request_data"]["sections"])
+                if 'sections' in data["request_data"]:
+                    string_report = ''
+                    for i in range(0,len_str):
+                        payload = str(data["request_data"]["sections"][i]["payload"])
+                        #Se non è il primo json allora devo togliere la parentesi di inizio per la stringa
+                         #con un solo json
+                        if i > 0:
+                            payload = payload[1:]
+                        #Se non è l'ultimo json devo sostituire l'ultima parentesi con una virgola per separarlo dal successivo
+                        if  i < (len_str-1):
+                            payload = payload[:-1]+","
+                        string_report = string_report + payload
+                    string_report = string_report.replace("'", '"')
+                    string_report = string_report.replace("True", "true")
+                    string_report = string_report.replace("False", "false")
+                    data_report = json.loads(string_report)
+                else:
+                    data_report = data["request_data"]
+
+                len_str = len(data["reply_data"]["sections"])
+                if 'sections' in data["reply_data"]:
+                    string_reply = ''
+                    for i in range(0, len_str):
+                        payload =  str(data["reply_data"]["sections"][i]["payload"])
+                        # Se non è il primo json allora devo togliere la parentesi di inizio per la stringa
+                        # con un solo json
+                        if i > 0:
+                            payload = payload[1:]
+                        # Se non è l'ultimo json devo sostituire l'ultima parentesi con una virgola per separarlo dal successivo
+                        if i < (len_str - 1):
+                            payload = payload[:-1] + ","
+                        string_reply = string_reply + payload
+                    string_reply = string_reply.replace("True", "true")
+                    string_reply = string_reply.replace("False", "false")
+                    string_reply = string_reply.replace("'", '"')
+                    data_reply = json.loads(string_reply)
+                else:
+                    data_reply = data["reply_data"]
 
                 #------------da qua confronto richiesta-------------
-                request_check = data["request_data"]["sections"][0]["payload"]
                 request = json.loads(str(cmd))
                 print("Controllo correttezza richiesta...")
+                print("da file ho letto:" + str(data_report))
+                print("da comando ricevuto:" + str(request))
                 dispatcher = {'update': cmd_update, 'insert':cmd_insert, 'delete':cmd_delete, 'find':cmd_find, 'count': cmd_count}
-                ris = dispatcher[cmd.command_name](request_check,request)
+                ris = dispatcher[cmd.command_name](data_report,request)
                 print(ris)
                 assert ris == True
                 print("Success!")
+                print("considero ------> "+str(data_reply))
+                #Se il confronto è andato a buon fine preparo la risposta
+                if cmd.command_name == "find" and 'cursor' in  data_reply and 'id' in data_reply["cursor"] \
+                        and '$numberLong' in data_reply["cursor"]["id"] :
+                     number_long = data_reply["cursor"]["id"]["$numberLong"]
+                     data_reply["cursor"]["id"] = Int64(number_long)
+                if 'cursor' in  data_reply and 'firstBatch' in data_reply["cursor"]:
+                    len_firstbastch = len(data_reply["cursor"]["firstBatch"])
+                    for i in range(0, len_firstbastch):
+                        if 'lastSeen' in data_reply["cursor"]["firstBatch"][i] and "$date" in data_reply["cursor"]["firstBatch"][i]["lastSeen"]:
+                            data = json.loads(str(data_reply["cursor"]["firstBatch"][i]["lastSeen"]).replace("'", '"'))
+                            d = dateutil.parser.parse(data["$date"])
+                            data_reply["cursor"]["firstBatch"][i]["lastSeen"] = d
 
             #Se corretto mando la risposta contentuta nel file di report
-                #response = OpReply(data["reply_data"])
-                response = mockupdb.make_op_msg_reply(data["reply_data"]["sections"][0]["payload"])
+                response = mockupdb.make_op_msg_reply(data_reply)
                 print("risposta con: " + str(response))
                 cmd.replies(response)
             print("in attesa di comando")

@@ -1,4 +1,4 @@
-#usage: ./split_mongo.sh pcapfile.pcap savedir
+#usage: ./split_mongo.sh pcapfile.pcap savedir list
 
 if [[ $# -lt 2 ]] ; then 
 	echo 'missing args ---> ./split_mongo.sh <pcapfile.pcap> <testdir/savedir> [<list_of_containers_ip>]'

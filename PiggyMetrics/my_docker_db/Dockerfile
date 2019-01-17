@@ -14,6 +14,8 @@ RUN pip install pprintpp
 
 RUN pip3 install pymongo==3.4.0
 
+RUN pip3 install python-dateutil
+
 EXPOSE 27017
 
 CMD ["python3", "-u", "mockupmongo.py"]
