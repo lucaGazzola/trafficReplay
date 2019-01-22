@@ -20,7 +20,7 @@ def main():
     response_json = {}
     #Controllo se il file contenente il json con le risposte del mockup esiste
     try:
-        with open('mockup_response.json') as file_data:
+        with open(sys.argv[4]) as file_data:
             response_json = json.load(file_data)
     except FileNotFoundError:
         response_json['port'] = 5000
@@ -52,7 +52,7 @@ def main():
         json_data_eq['equals'] = json_data_req
         response_json['stubs'][0]['predicates'].append(json_data_eq)
 
-    shellfile = open("mockup_response.json", "w")
+    shellfile = open(sys.argv[4], "w")
 
     #Dizionario contenente tutte le richieste ---> come chiave andrò ad utilizzare il tcp.stream
     dict_request={}
@@ -80,7 +80,8 @@ def main():
                 stampa(packet)
             if str(packet.http.chat).startswith('HTTP'):
                 print("ENTRO")
-                write_data(packet,response_json,dict_request)
+                if packet.tcp.stream in dict_request:
+                    write_data(packet,response_json,dict_request)
     shellfile.write(json.dumps(response_json))
     shellfile.close()
 
@@ -155,7 +156,12 @@ def write_data(packet, response_json, dict_request):
     header_req['Authorization'] = dict_request[packet.tcp.stream].http.request_line.split(": ")[1].replace('\\xd\\xa', '')
     json_data_req2['headers'] = header_req
     if "file_data" in dict_request[packet.tcp.stream].http.field_names:
-        json_data_req['body'] = loads(dict_request[packet.tcp.stream].http.file_data)
+        print("file_data:---------------------")
+        print(dict_request[packet.tcp.stream].http.file_data)
+        try:
+            json_data_req['body'] = loads(dict_request[packet.tcp.stream].http.file_data)
+        except ValueError:
+            json_data_req['body'] = str(dict_request[packet.tcp.stream].http.file_data)
     json_data_eq['equals'] = json_data_req
     json_data_cont['contains'] = json_data_req2
     response_json['stubs'][i]['predicates'].append(json_data_eq)

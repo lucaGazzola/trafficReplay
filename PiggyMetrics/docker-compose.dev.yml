@@ -1,9 +1,5 @@
 version: '2.1'
 services:
-  rabbitmq:
-    ports:
-      - 5672:5672
-
   config:
     build: config
     ports:
@@ -12,35 +8,9 @@ services:
   registry:
     build: registry
 
-  gateway:
-    build: gateway
-
-  auth-mongodb:
-    build: mongodb
-
   account-service:
     build: account-service
     ports:
       - 6000:6000
 
-  statistics-service:
-    build: statistics-service
-    ports:
-      - 7000:7000
 
-  statistics-mongodb:
-    build: mongodb
-
-  notification-service:
-    build: notification-service
-    ports:
-      - 8000:8000
-
-  notification-mongodb:
-    build: mongodb
-
-  monitoring:
-    build: monitoring
-
-  turbine-stream-service:
-    build: turbine-stream-service

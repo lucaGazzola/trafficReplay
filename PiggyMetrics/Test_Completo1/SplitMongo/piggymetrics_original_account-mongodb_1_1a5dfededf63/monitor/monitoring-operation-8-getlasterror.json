@@ -1,0 +1,2 @@
+{"order":0,"op":"command","command":"getlasterror","ns":"admin.$cmd","request_data":{"getlasterror":1},"connection_num":0,"seen":"2019-01-21T09:03:31.373778Z","request_id":201}
+{"order":1,"op":"reply","reply_data":{"connectionId":3,"err":null,"n":0,"ok":1.0,"syncMillis":0,"writtenTo":null},"nreturned":1,"connection_num":0,"latency_us":140,"seen":"2019-01-21T09:03:31.373918Z","request_id":201}

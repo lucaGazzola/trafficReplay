@@ -5,7 +5,7 @@
 # port_list porte dei container da tenere in considerazione (posso prenderli dal file di test creato dalla cattura)
 
 if [[ $# -lt 2 ]] ; then 
-	echo 'missing args ---> ./generate_replay_scripts.sh <testdir/captureStreamsDirectory> <port_list>'
+	echo 'missing args ---> ./generate_replay_scripts.sh <testdir/captureStreamsDirectory> <Destination_Dir> <port_list>'
 	exit 1
 fi
 
@@ -14,9 +14,16 @@ fi
 #adesso devo specificare gli ip delle applicazioni che voglio considerare
 
 cd $1
+
+if [ ! -d "$2" ]; 
+then 
+	mkdir -p $2; 
+fi
+
 for filename in $( ls -v *.cap ); do
-    	destScript=$filename"_replay.py"
-    	listIP="${@:2:$((($#-1)))}"
+    	destScript=$2"/"$filename"_replay.py"
+	echo $destScript
+    	listIP="${@:3:$((($#-2)))}"
 	listIP=$(echo ${listIP// /,})
 	#echo $listIP
 	#echo $listPass

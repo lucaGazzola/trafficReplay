@@ -54,7 +54,11 @@ if [[ $# -eq 3 ]] ; then
 	sudo tcpdump -i $3 -w $2
 	exit 0
 fi
-
+#Cattura tutto
+if [[ $# -eq 3 ]] ; then 
+	sudo tcpdump -i $3 -w $2
+	exit 0
+fi
 #C'è un solo nome di container quindi catturo pacchetti solo che comprendono questo container negli ip di dst o src
 if [[ $# -eq 4 ]] ; then 
 	echo "c'è interfaccia e 1 container"
