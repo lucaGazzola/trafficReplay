@@ -8,9 +8,9 @@ services:
   registry:
     build: registry
 
-  notification-service:
-    build: notification-service
+  statistics-service:
+    build: statistics-service
     ports:
-      - 8000:8000
+      - 7000:7000
 
 

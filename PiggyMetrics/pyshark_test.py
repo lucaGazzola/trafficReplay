@@ -288,14 +288,24 @@ def write_assertion(packet, pythonScript):
         pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":null',response.content.decode('utf-8'))\n")
         pythonScript.write("content = re.sub(r'\"timestamp\".*?(?=,)', '\"timestamp\":null',content)\n")
         pythonScript.write("content = re.sub(r'\"lastSeen\".*?(?=,)', '\"lastSeen\":null',content)\n")
+        pythonScript.write("content = re.sub(r'\"date\".*?(?=,)', '\"date\":null',content)\n")
         pythonScript.write("data_cont = loads(content)\n")
         pythonScript.write("if 'path' in data_cont and data_cont['path'].endswith('/'):\n")
         pythonScript.write("\tdata_cont['path'] = data_cont['path'][:-1]\n")
         pythonScript.write("packet_data = '" + re.sub(r'\"id\".*?(?=,)', '\"id\":null', packet.http.file_data) + "'\n")
         pythonScript.write("packet_data = re.sub(r'\"timestamp\".*?(?=,)', '\"timestamp\":null', packet_data)\n")
         pythonScript.write("packet_data = re.sub(r'\"lastSeen\".*?(?=,)', '\"lastSeen\":null', packet_data)\n")
+        pythonScript.write("packet_data = re.sub(r'\"date\".*?(?=,)', '\"date\":null', packet_data)\n")
         pythonScript.write("data_pkt = loads(packet_data)\n")
         pythonScript.write("assert data_cont == data_pkt\n\n")
+
+    else:
+        if 'chat' in packet.http.field_names:
+            pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
+            assert response.status_code == 200
+
+            assert str(response) == "<Response [200]>"
+        pythonScript.write("assert str(response) == \"<Response [200]>\" \n\n")
 
 
 if __name__ == "__main__":
