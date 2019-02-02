@@ -1,0 +1,16 @@
+version: '2.1'
+services:
+  config:
+    build: config
+    ports:
+      - 8888:8888
+
+  registry:
+    build: registry
+
+  account-service:
+    build: account-service
+    ports:
+      - 6000:6000
+
+

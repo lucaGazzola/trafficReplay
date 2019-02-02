@@ -19,7 +19,6 @@ def main():
     """
     #Come primo argomento viene passato il nome del file sorgente
         #secondo argomento il file di destinazione
-    print("processing file " + sys.argv[1])
     cap = pyshark.FileCapture(sys.argv[1])
 
     authorized = False
@@ -49,7 +48,6 @@ def main():
             if 'HTTP' in str(packet.layers) and 'TCP' in str(packet.layers) and ( packet.tcp.srcport == port or packet.tcp.dstport == port ):
 
                # Apro in scrittura il file di destinazione
-                print("entrato!!!")
 
                 if pythonScript is None or pythonScript.closed:
                     pythonScript = open(sys.argv[2], 'w')
@@ -60,11 +58,9 @@ def main():
                     write_post_request(packet, pythonScript)
 
                 if str(packet.http.chat).startswith('GET'):
-                    print("GET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                     write_get_request(packet, pythonScript, headers)
 
                 if str(packet.http.chat).startswith('PUT'):
-                     print("PUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                      write_put_request(packet, pythonScript, headers)
 
                 if str(packet.http.chat).startswith('DELETE'):
@@ -143,11 +139,7 @@ def write_get_request(packet, pythonScript, headers):
     #print(packet.http.field_names)
 
     if 'authorization' in packet.http.field_names:
-        print("authorization")
-        print(packet.http.authorization)
         headers['Authorization'] = packet.http.authorization
-    else :
-        print("no authorization")
 
     pythonScript.write("headers=" + str(headers) + "\n\n")
 
@@ -218,11 +210,7 @@ def write_put_request(packet, pythonScript, headers):
     url = url + re.sub(r'.*:', '', packet.http.host) + api_location
 
     if 'authorization' in packet.http.field_names:
-        print("authorization")
-        print(packet.http.authorization)
         headers['Authorization'] = packet.http.authorization
-    else :
-        print("no authorization")
 
     pythonScript.write("headers=" + str(headers) + "\n\n")
 
@@ -238,6 +226,7 @@ def write_put_request(packet, pythonScript, headers):
     pythonScript.write("data = {}\n")
     if 'file_data' in packet.http.field_names:
         #print(packet.http.field_names)
+        packet.http.file_data = packet.http.file_data.replace("'", '\\\'')
         pythonScript.write("data = json.loads('"+packet.http.file_data+"')\n")
     pythonScript.write("print('sending put request to " + url + "')\n")
     pythonScript.write("response = requests.put('"+url+"', data = json.dumps(data), headers=headers)\n")
@@ -283,29 +272,46 @@ def write_assertion(packet, pythonScript):
 
         if 'response_phrase' in packet.http.field_names and packet.http.response_phrase == "Created":
             pythonScript.write("cont = loads(response.content.decode('utf-8'))\n")
-
-        pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
-        pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":null',response.content.decode('utf-8'))\n")
-        pythonScript.write("content = re.sub(r'\"timestamp\".*?(?=,)', '\"timestamp\":null',content)\n")
-        pythonScript.write("content = re.sub(r'\"lastSeen\".*?(?=,)', '\"lastSeen\":null',content)\n")
-        pythonScript.write("content = re.sub(r'\"date\".*?(?=,)', '\"date\":null',content)\n")
-        pythonScript.write("data_cont = loads(content)\n")
-        pythonScript.write("if 'path' in data_cont and data_cont['path'].endswith('/'):\n")
-        pythonScript.write("\tdata_cont['path'] = data_cont['path'][:-1]\n")
-        pythonScript.write("packet_data = '" + re.sub(r'\"id\".*?(?=,)', '\"id\":null', packet.http.file_data) + "'\n")
-        pythonScript.write("packet_data = re.sub(r'\"timestamp\".*?(?=,)', '\"timestamp\":null', packet_data)\n")
-        pythonScript.write("packet_data = re.sub(r'\"lastSeen\".*?(?=,)', '\"lastSeen\":null', packet_data)\n")
-        pythonScript.write("packet_data = re.sub(r'\"date\".*?(?=,)', '\"date\":null', packet_data)\n")
-        pythonScript.write("data_pkt = loads(packet_data)\n")
-        pythonScript.write("assert data_cont == data_pkt\n\n")
+        #Viene fatta la redirect
+        print(packet.http.chat[9:12])
+        if packet.http.chat[9:12] == '302':
+            print(packet.http.field_names)
+            print(packet.http.file_data)
+            print(packet.http.location)
+            packet.http.location = packet.http.location.rsplit(':', 1)[-1]
+            addr = "http://localhost:"+str(packet.http.location)
+            print(addr)
+            pythonScript.write("response2 = requests.get('"+str(addr)+"', headers=headers)\n")
+            pythonScript.write("assert response.status_code == response2.status_code\n\n")
+        else:
+            pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
+            pythonScript.write("content = re.sub(r'\"id\".*?(?=,)', '\"id\":null',response.content.decode('utf-8'))\n")
+            pythonScript.write("content = re.sub(r'\"timestamp\".*?(?=,)', '\"timestamp\":null',content)\n")
+            pythonScript.write("content = re.sub(r'\"lastSeen\".*?(?=,)', '\"lastSeen\":null',content)\n")
+            pythonScript.write("content = re.sub(r'\"date\".*?(?=,)', '\"date\":null',content)\n")
+            pythonScript.write("data_cont = loads(content)\n")
+            #pythonScript.write("if 'path' in data_cont and data_cont['path'].endswith('/'):\n")
+            #pythonScript.write("\tdata_cont['path'] = data_cont['path'][:-1]\n")
+            packet.http.file_data = packet.http.file_data.replace("'", '\\\'')
+            pythonScript.write("packet_data = '" + re.sub(r'\"id\".*?(?=,)', '\"id\":null', packet.http.file_data) + "'\n")
+            pythonScript.write("packet_data = re.sub(r'\"timestamp\".*?(?=,)', '\"timestamp\":null', packet_data)\n")
+            pythonScript.write("packet_data = re.sub(r'\"lastSeen\".*?(?=,)', '\"lastSeen\":null', packet_data)\n")
+            pythonScript.write("packet_data = re.sub(r'\"date\".*?(?=,)', '\"date\":null', packet_data)\n")
+            pythonScript.write("data_pkt = loads(packet_data)\n")
+            pythonScript.write("assert data_cont == data_pkt\n\n")
 
     else:
-        if 'chat' in packet.http.field_names:
-            pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
-            assert response.status_code == 200
-
-            assert str(response) == "<Response [200]>"
-        pythonScript.write("assert str(response) == \"<Response [200]>\" \n\n")
+        #Quando arriva pacchetto con codice 100 è perchè deve ancora arrivare l'ultima parte del messaggio
+            #Quindi salto questo pacchetto e aspetto il completamento
+        if 'chat' in packet.http.field_names and not(packet.http.chat[9:12] == '100'):
+            print(packet.http.chat)
+            if packet.http.chat[9:12] == 302:
+                pythonScript.write("response2 = requests.get('"+str(addr)+"', headers=headers)\n")
+                pythonScript.write("assert response.status_code == response2.status_code\n\n")
+            else:
+                print(packet.http.chat[9:12])
+                pythonScript.write("assert response.status_code == " + packet.http.chat[9:12] + "\n\n")
+        #pythonScript.write("assert str(response) == \"<Response [200]>\" \n\n")
 
 
 if __name__ == "__main__":

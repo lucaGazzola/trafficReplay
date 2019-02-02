@@ -15,3 +15,5 @@ print('sending put request to http://localhost:7000/statistics/Test6')
 response = requests.put('http://localhost:7000/statistics/Test6', data = json.dumps(data), headers=headers)
 print('response: {0}'.format(response.content))
 
+assert response.status_code == 200
+

@@ -22,7 +22,6 @@ fi
 
 for filename in $( ls -v *.cap ); do
     	destScript=$2"/"$filename"_replay.py"
-	echo $destScript
     	listIP="${@:3:$((($#-2)))}"
 	listIP=$(echo ${listIP// /,})
 	#echo $listIP

@@ -384,7 +384,7 @@ def main():
 
     print("----------------Inizializzazione Terminata------------------------------")
 
-    print("in attesa di comando")
+    print("in attesa di comando----MODIFICA 2.0")
     cmd = server.receives(timeout=100000)
     print("ricevuto: " + str(cmd))
     num_rep = 1
@@ -469,6 +469,18 @@ def main():
                             data = json.loads(str(data_reply["cursor"]["firstBatch"][i]["lastSeen"]).replace("'", '"'))
                             d = dateutil.parser.parse(data["$date"])
                             data_reply["cursor"]["firstBatch"][i]["lastSeen"] = d
+                        if '_id' in data_reply["cursor"]["firstBatch"][i] and "date" in data_reply["cursor"]["firstBatch"][i]["_id"] and "$date" in data_reply["cursor"]["firstBatch"][i]["_id"]["date"]:
+                            data = json.loads(str(data_reply["cursor"]["firstBatch"][i]["_id"]["date"]).replace("'", '"'))
+                            d = dateutil.parser.parse(data["$date"])
+                            data_reply["cursor"]["firstBatch"][i]["_id"]["date"] = d
+                        if 'scheduledNotifications' in data_reply["cursor"]["firstBatch"][i] \
+                            and 'REMIND' in data_reply["cursor"]["firstBatch"][i]["scheduledNotifications"] \
+                            and 'lastNotified' in data_reply["cursor"]["firstBatch"][i]["scheduledNotifications"]["REMIND"] \
+                            and "$date" in data_reply["cursor"]["firstBatch"][i]["scheduledNotifications"]["REMIND"]["lastNotified"]:
+                            print("entro per modificare la data")
+                            data = json.loads(str(data_reply["cursor"]["firstBatch"][i]["scheduledNotifications"]["REMIND"]["lastNotified"]).replace("'", '"'))
+                            d = dateutil.parser.parse(data["$date"])
+                            data_reply["cursor"]["firstBatch"][i]["scheduledNotifications"]["REMIND"]["lastNotified"] = d
 
             #Se corretto mando la risposta contentuta nel file di report
                 response = mockupdb.make_op_msg_reply(data_reply)

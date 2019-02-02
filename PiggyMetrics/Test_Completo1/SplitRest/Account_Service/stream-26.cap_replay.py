@@ -6,3 +6,5 @@ print('sending put request to http://localhost:6000/accounts/current')
 response = requests.put('http://localhost:6000/accounts/current', data = json.dumps(data), headers=headers)
 print('response: {0}'.format(response.content))
 
+assert response.status_code == 200
+

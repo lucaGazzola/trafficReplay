@@ -20,8 +20,6 @@ content = re.sub(r'"timestamp".*?(?=,)', '"timestamp":null',content)
 content = re.sub(r'"lastSeen".*?(?=,)', '"lastSeen":null',content)
 content = re.sub(r'"date".*?(?=,)', '"date":null',content)
 data_cont = loads(content)
-if 'path' in data_cont and data_cont['path'].endswith('/'):
-	data_cont['path'] = data_cont['path'][:-1]
 packet_data = '[]'
 packet_data = re.sub(r'"timestamp".*?(?=,)', '"timestamp":null', packet_data)
 packet_data = re.sub(r'"lastSeen".*?(?=,)', '"lastSeen":null', packet_data)
@@ -42,8 +40,6 @@ content = re.sub(r'"timestamp".*?(?=,)', '"timestamp":null',content)
 content = re.sub(r'"lastSeen".*?(?=,)', '"lastSeen":null',content)
 content = re.sub(r'"date".*?(?=,)', '"date":null',content)
 data_cont = loads(content)
-if 'path' in data_cont and data_cont['path'].endswith('/'):
-	data_cont['path'] = data_cont['path'][:-1]
 packet_data = '[{"id":null,"date":"2019-01-21T00:00:00.000+0000"},"incomes":[{"title":"Salary","amount":136.8954},{"title":"Scholarship","amount":16.4275}],"expenses":[{"title":"Utilities","amount":6.5710},{"title":"Vacation","amount":6.2435},{"title":"Phone","amount":0.3746},{"title":"Meal","amount":100.0000},{"title":"Gas","amount":1.9713},{"title":"Rent","amount":19.7130}],"statistics":{"EXPENSES_AMOUNT":134.8734,"INCOMES_AMOUNT":153.3229,"SAVING_AMOUNT":2000.00000},"rates":{"EUR":0.8770391159,"RUB":66.3275741098,"USD":1}}]'
 packet_data = re.sub(r'"timestamp".*?(?=,)', '"timestamp":null', packet_data)
 packet_data = re.sub(r'"lastSeen".*?(?=,)', '"lastSeen":null', packet_data)
@@ -58,4 +54,6 @@ data = json.loads('{"name":"Test2","lastSeen":"2018-12-14T08:51:43.294+0000","in
 print('sending put request to http://localhost:7000/statistics/Test2')
 response = requests.put('http://localhost:7000/statistics/Test2', data = json.dumps(data), headers=headers)
 print('response: {0}'.format(response.content))
+
+assert response.status_code == 200
 

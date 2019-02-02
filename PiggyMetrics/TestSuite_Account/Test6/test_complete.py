@@ -13,3 +13,5 @@ print('sending get request to http://localhost:6000/accounts/Test5')
 response = requests.get('http://localhost:6000/accounts/Test5', headers=headers)
 print('response: {0}'.format(response.content))
 
+assert response.status_code == 200
+

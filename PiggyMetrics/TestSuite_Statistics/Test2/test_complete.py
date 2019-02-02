@@ -15,6 +15,8 @@ print('sending put request to http://localhost:7000/statistics/Test2')
 response = requests.put('http://localhost:7000/statistics/Test2', data = json.dumps(data), headers=headers)
 print('response: {0}'.format(response.content))
 
+assert response.status_code == 200
+
 headers={'Content-type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer 3fab3679-7083-41a3-8061-765a6e648561'}
 
 data = {}
@@ -22,4 +24,6 @@ data = json.loads('{"name":"Test2","lastSeen":"2019-01-21T09:16:24.870+0000","in
 print('sending put request to http://localhost:7000/statistics/Test2')
 response = requests.put('http://localhost:7000/statistics/Test2', data = json.dumps(data), headers=headers)
 print('response: {0}'.format(response.content))
+
+assert response.status_code == 200
 

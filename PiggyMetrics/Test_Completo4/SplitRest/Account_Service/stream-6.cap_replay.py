@@ -7,3 +7,5 @@ print('response: {0}'.format(response.content))
 if response.status_code == 201:
 	print('created')
 
+assert response.status_code == 400
+

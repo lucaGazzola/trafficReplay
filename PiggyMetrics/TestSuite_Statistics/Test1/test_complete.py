@@ -17,5 +17,3 @@ print('response: {0}'.format(response.content))
 
 assert response.status_code == 200
 
-assert str(response) == "<Response [200]>" 
-
