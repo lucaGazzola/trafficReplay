@@ -66,6 +66,31 @@ ACCOUNT-SERVICE:
 		- curl -H "Accept: application/json" --header "Authorization: Bearer a1527040-5fa0-4f8c-b413-e53de57cad4b" -X GET http://172.18.0.11:6000/accounts/Test3
 		-curl -H "Accept: application/json" --header "Authorization: Bearer a1527040-5fa0-4f8c-b413-e53de57cad4b" -X GET http://172.18.0.11:6000/accounts/curren
 
+	TEST11: ------------------------> 22
+		- curl -d '{"username":"Tes","password":"password"}' -H "Content-Type: application/json" -X POST http://172.18.0.14:6000/accounts/
+		- curl -d '{"username":"Test_venti_caratteri","password":"password"}' -H "Content-Type: application/json" -X POST http://172.18.0.14:6000/accounts/
+		- curl -d '{"username":"TestLimite1","password":"pass6c"}' -H "Content-Type: application/json" -X POST http://172.18.0.14:6000/accounts/
+		- curl -d '{"username":"TestLimite2","password":"password_con_quaranta_caratteri_per_test"}' -H "Content-Type: application/json" -X POST http://172.18.0.14:6000/accounts/
+		- curl -X POST --header "Authorization: Basic YnJvd3Nlcjo=" -d "scope=ui&grant_type=password&username=TestLimite1&password=pass6c" http://172.18.0.11:5000/uaa/oauth/token
+		- curl -X POST --header "Authorization: Basic YnJvd3Nlcjo=" -d "scope=ui&grant_type=password&username=TestLimite2&password=password_con_quaranta_caratteri_per_test" http://172.18.0.11:5000/uaa/oauth/token
+		- curl -d @UtenteTest_NoteVuote.json --header "Authorization: Bearer 95535003-8e29-4557-a98d-e3cae23dbfc6" -H "Content-Type: application/json" -X PUT http://172.18.0.13:6000/accounts/current
+		- curl -d @UtenteTest_NoteVentik.json --header "Authorization: Bearer 95535003-8e29-4557-a98d-e3cae23dbfc6" -H "Content-Type: application/json" -X PUT http://172.18.0.13:6000/accounts/current
+		- curl -d @UtenteTest_ExpTitle1.json --header "Authorization: Bearer 9438bc8c-b03d-40fd-ac21-7d26abceedd5" -H "Content-Type: application/json" -X PUT http://172.18.0.13:6000/accounts/current
+		- curl -d @UtenteTest_ExpTitle20.json --header "Authorization: Bearer ce4bba12-4570-4345-ac6c-4fd451565645" -H "Content-Type: application/json" -X PUT http://172.18.0.13:6000/accounts/current
+		- curl -d @UtenteTest_IncTitle1.json --header "Authorization: Bearer 9438bc8c-b03d-40fd-ac21-7d26abceedd5" -H "Content-Type: application/json" -X PUT http://172.18.0.13:6000/accounts/current
+		- curl -d @UtenteTest_IncTitle20.json --header "Authorization: Bearer ce4bba12-4570-4345-ac6c-4fd451565645" -H "Content-Type: application/json" -X PUT http://172.18.0.13:6000/accounts/current
+
+	TEST12: ----------------------------> 24
+		- curl -d '{"username":"UtenteCon21_caratteri","password":"password"}' -H "Content-Type: application/json" -X POST http://172.18.0.14:6000/accounts/
+		- curl -d '{"username":"TestLimite3","password":"pass5"}' -H "Content-Type: application/json" -X POST http://172.18.0.14:6000/accounts/
+		- curl -d '{"username":"TestLimite4","password":"password_con_quaranta_caratteri_per_test2"}' -H "Content-Type: application/json" -X POST http://172.18.0.14:6000/accounts/
+		- curl -d '{"username":"TestLimite2","password":"password_con_quaranta_caratteri_per_test"}' -H "Content-Type: application/json" -X POST http://172.18.0.14:6000/accounts/
+		- curl -X POST --header "Authorization: Basic YnJvd3Nlcjo=" -d "scope=ui&grant_type=password&username=TestLimite2&password=password_con_quaranta_caratteri_per_test" http://172.18.0.11:5000/uaa/oauth/token
+		- curl -d @UtenteTest_NoteVentike1.json --header "Authorization: Bearer 95535003-8e29-4557-a98d-e3cae23dbfc6" -H "Content-Type: application/json" -X PUT http://172.18.0.13:6000/accounts/current
+		- curl -d @UtenteTest_ExpTitle0.json --header "Authorization: Bearer 71563090-b1b5-44e2-ac80-149be9c9a27e" -H "Content-Type: application/json" -X PUT http://172.18.0.13:6000/accounts/current
+		- curl -d @UtenteTest_ExpTitle21.json --header "Authorization: Bearer 71563090-b1b5-44e2-ac80-149be9c9a27e" -H "Content-Type: application/json" -X PUT http://172.18.0.13:6000/accounts/current
+		- curl -d @UtenteTest_IncTitle0.json --header "Authorization: Bearer 71563090-b1b5-44e2-ac80-149be9c9a27e" -H "Content-Type: application/json" -X PUT http://172.18.0.13:6000/accounts/current
+		- curl -d @UtenteTest_IncTitle21.json --header "Authorization: Bearer 71563090-b1b5-44e2-ac80-149be9c9a27e" -H "Content-Type: application/json" -X PUT http://172.18.0.13:6000/accounts/current
 
 
 --------------------------------------------------------------------------------------------------------------STATISTICS-SERVICE:
@@ -106,6 +131,20 @@ ACCOUNT-SERVICE:
 		- curl -H "Accept: application/json" --header "Authorization: Bearer a1527040-5fa0-4f8c-b413-e53de57cad4b" -X GET http://172.18.0.12:7000/statistics/TestParametri
 		- curl -d @UtenteTest2.json  --header "Authorization: Bearer b5cdbce4-7c04-4b84-a31e-7e55119b9b09" -H "Content-Type: application/json" -X PUT http://172.18.0.12:7000/statistics/Test6
 		- curl -d @UtenteTest2.json  --header "Authorization: Bearer b5cdbce4-7c04-4b84-a31e-7e55119b9b09" -H "Content-Type: application/json" -X PUT http://172.18.0.12:7000/stistics/Test1
+
+	TEST7: -------------------> 23
+		- curl -X POST -H "Accept: application/json" -d "grant_type=client_credentials" -u "statistics-service:stat_serv" "http://172.18.0.11:5000/uaa/oauth/token"
+		- curl -d @UtenteTest_ExpTitle1.json --header "Authorization: Bearer d72ec39d-145d-4981-a702-b05d08aebc31" -H "Content-Type: application/json" -X PUT http://172.18.0.14:7000/statistics/TestLimite1
+		- curl -d @UtenteTest_ExpTitle20.json --header "Authorization: Bearer d72ec39d-145d-4981-a702-b05d08aebc31" -H "Content-Type: application/json" -X PUT http://172.18.0.14:7000/statistics/TestLimite1
+		- curl -d @UtenteTest_IncTitle1.json --header "Authorization: Bearer d72ec39d-145d-4981-a702-b05d08aebc31" -H "Content-Type: application/json" -X PUT http://172.18.0.14:7000/statistics/TestLimite1
+		- curl -d @UtenteTest_IncTitle20.json --header "Authorization: Bearer d72ec39d-145d-4981-a702-b05d08aebc31" -H "Content-Type: application/json" -X PUT http://172.18.0.14:7000/statistics/TestLimite1
+
+	TEST8: -------------------> 25
+		- curl -X POST -H "Accept: application/json" -d "grant_type=client_credentials" -u "statistics-service:stat_serv" "http://172.18.0.11:5000/uaa/oauth/token"
+		- curl -d @UtenteTest_ExpTitle0.json --header "Authorization: Bearer 5ee18008-f2f0-445f-8acd-342d4efc38cc" -H "Content-Type: application/json" -X PUT http://172.18.0.14:7000/statistics/TestLimite1
+		- curl -d @UtenteTest_ExpTitle21.json --header "Authorization: Bearer 5ee18008-f2f0-445f-8acd-342d4efc38cc" -H "Content-Type: application/json" -X PUT http://172.18.0.14:7000/statistics/TestLimite1
+		- curl -d @UtenteTest_IncTitle0.json --header "Authorization: Bearer 5ee18008-f2f0-445f-8acd-342d4efc38cc" -H "Content-Type: application/json" -X PUT http://172.18.0.14:7000/statistics/TestLimite1
+		- curl -d @UtenteTest_IncTitle21.json --header "Authorization: Bearer 5ee18008-f2f0-445f-8acd-342d4efc38cc" -H "Content-Type: application/json" -X PUT http://172.18.0.14:7000/statistics/TestLimite1
 
 		
 
