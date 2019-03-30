@@ -1,2 +1,0 @@
-{"order":0,"op":"command","command":"find","ns":"db.$cmd","request_data":{"filter":{"_id":{"$oid":"5bd5f71e0e8e3d0001891c25"}},"find":"product","limit":1,"singleBatch":true},"reply_data":null,"connection_num":0,"seen":"2018-10-28T17:52:11.142042Z","request_id":103}
-{"order":1,"op":"reply","request_data":null,"reply_data":{"n":1,"ok":1.0},"connection_num":0,"seen":"2018-10-28T17:52:12.230185Z","request_id":104}

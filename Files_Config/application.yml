@@ -1,0 +1,15 @@
+security:
+  authorization: disabled
+
+spring:
+  data:
+    mongodb:
+      database: db
+      port: 0
+
+feign:
+  client:
+    config:
+      feignName:
+        connectTimeout: 160000000
+        readTimeout: 160000000

@@ -1,2 +1,0 @@
-{"order":0,"op":"delete","ns":"db.$cmd","request_data":{"delete":"product","deletes":[{"limit":0,"q":{"_id":{"$oid":"5bd5f71e0e8e3d0001891c25"}}}],"ordered":false},"reply_data":null,"connection_num":0,"seen":"2018-10-28T17:52:12.229925Z","request_id":104}
-{"order":1,"op":"reply","request_data":null,"reply_data":{"n":4,"ok":1.0},"connection_num":0,"seen":"2018-10-28T17:52:12.266697Z","request_id":105}

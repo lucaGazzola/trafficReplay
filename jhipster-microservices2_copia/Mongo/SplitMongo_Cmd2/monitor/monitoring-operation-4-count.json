@@ -1,2 +1,0 @@
-{"order":0,"op":"command","command":"count","ns":"db.$cmd","request_data":{"count":"product","query":{}},"reply_data":null,"connection_num":0,"seen":"2018-10-28T17:50:55.904761Z","request_id":63}
-{"order":1,"op":"reply","request_data":null,"reply_data":{"cursor":{"firstBatch":[],"id":{"$numberLong":"0"},"ns":"db.product"},"ok":1.0},"connection_num":0,"seen":"2018-10-28T17:50:57.079524Z","request_id":64}

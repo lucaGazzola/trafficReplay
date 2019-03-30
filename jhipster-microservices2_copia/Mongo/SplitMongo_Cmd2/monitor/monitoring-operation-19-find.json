@@ -1,2 +1,0 @@
-{"order":0,"op":"command","command":"find","ns":"db.$cmd","request_data":{"filter":{},"find":"product","limit":20,"sort":{"_id":1}},"reply_data":null,"connection_num":0,"seen":"2018-10-28T17:51:16.757375Z","request_id":78}
-{"order":2,"op":"reply","request_data":null,"reply_data":{"ismaster":true,"localTime":{"$date":"2018-10-28T17:51:17.147Z"},"maxBsonObjectSize":16777216,"maxMessageSizeBytes":48000000,"maxWireVersion":5,"maxWriteBatchSize":1000,"minWireVersion":0,"ok":1.0,"readOnly":false},"connection_num":1,"seen":"2018-10-28T17:51:17.148074Z","request_id":79}

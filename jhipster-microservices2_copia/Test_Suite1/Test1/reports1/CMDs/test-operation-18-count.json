@@ -1,1 +1,0 @@
-{"order":0,"op":"command","command":"count","ns":"db.$cmd","request_data":{"count":"product","query":{}},"reply_data":{"n":3,"ok":1.0},"nreturned":1,"played_at":"2018-10-27T11:18:26.809320622+02:00","play_at":"2018-10-27T11:18:26.809238742+02:00","playbacklag_us":81,"connection_num":1,"latency_us":350,"seen":"2018-10-18T14:08:46.743619Z","request_id":90}
