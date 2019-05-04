@@ -14,9 +14,7 @@ do
 
 	cd ..
 done
-#./automatic_create_capture.sh $1 $2 
-#./automatic_permission.sh
-echo "INIZIA!!!"
-#./automatic_create_script.sh $1 $2
+./automatic_create_capture.sh $1 $2 
+./automatic_permission.sh
+./automatic_create_script.sh $1 $2
 ./automatic_Test.sh $1 $2
-echo "FINISCE!!!"
