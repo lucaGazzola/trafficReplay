@@ -8,8 +8,8 @@ from bson.json_util import loads
 
 
 def main():
-    # Come primo argomento viene passato il nome del file sorgente
-    # secondo argomento il file di destinazione
+    # 1st Argument: name of source file
+    # 2nd Argument: dst file
     print("processing file " + sys.argv[1])
     cap = pyshark.FileCapture(sys.argv[1])
 
@@ -18,7 +18,7 @@ def main():
     appip = sys.argv[3]
 
     response_json = {}
-    #Controllo se il file contenente il json con le risposte del mockup esiste
+    # Check if the json file containing mockup responses exists
     try:
         with open(sys.argv[4]) as file_data:
             response_json = json.load(file_data)
@@ -27,7 +27,7 @@ def main():
         response_json['protocol'] = "http"
         response_json['stubs'] = []
 
-        #La risposta a /uaa/oauth/token deve essere sempre la stessa
+        # Response to /uaa/oauth/token must be always the same
         json_data = {}
         json_data_cont = {}
         json_header = {}
@@ -54,30 +54,20 @@ def main():
 
     shellfile = open(sys.argv[4], "w")
 
-    #Dizionario contenente tutte le richieste ---> come chiave andrò ad utilizzare il tcp.stream
+    # Dict containing all the requests ---> using tcp.stream as key
     dict_request={}
 
-    # Pacchetti estratti dal file pcap dove sono memorizzati i pacchetti catturati da un'interfaccia docker
+    # Packets extracted from pcap file
     for packet in cap:
 
-        # Controllo prendendo la lista degli ip
-            # print(packet.ip.dst)
-            # print(packet.ip.src)
-            # print(appip)
-            # print(port)
-            # print(packet.tcp.dstport)
-            # print(packet.tcp.srcport)
-
-        #print(dir(packet.tcp))
+        # Check ip list
         if 'HTTP' in str(packet.layers) and 'TCP' in str(packet.layers) and \
                 ( packet.ip.src == appmock or packet.ip.dst == appmock ) and \
                 ( packet.ip.src == appip or packet.ip.dst == appip ):
             if str(packet.http.chat).startswith('POST'):
                 dict_request[packet.tcp.stream] = packet
-                #stampa(packet)
             if str(packet.http.chat).startswith('GET'):
                 dict_request[packet.tcp.stream] = packet
-                #stampa(packet)
             if str(packet.http.chat).startswith('HTTP'):
                 print("ENTRO")
                 if packet.tcp.stream in dict_request:
@@ -87,7 +77,6 @@ def main():
 
 
 def stampa(packet):
-    print("viaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     print(packet.http.field_names)
     if "request_version" in packet.http.field_names:
         print(packet.http.request_version)
