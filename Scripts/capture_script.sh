@@ -1,9 +1,9 @@
 #!/bin/bash
-#Devono essere passati almeno un argomento: il nome dell'interfaccia sulla quale ascoltare
-#Se viene passato anche il secondo argomento indica la lista lista dei nomi delle applicazioni da monitorare
+# At least one argument needed, the interface where to listen
+# The second argument is the list of names of the applications to monitor
 echo $#
 
-#Mancano gli argomenti obbligatori
+# Check for missing arguments
 if [[ $# -lt 3 ]] ; then 
 	echo 'missing args ---> ./capture_script.sh <test_dir> <name_pcap_file> <interface> [<list_of_container>]'
 	exit 1
@@ -16,7 +16,7 @@ fi
 
 cd $1
 
-#Se esiste lo rimuovo per evitare di aggiungere righe
+# Remove it to avoid extra lines
 if [ -f "name_ip_mongo.txt" ]; then
 	rm -f "name_ip_mongo.txt"
 fi
@@ -27,9 +27,7 @@ fi
 
 docker ps --format "{{.Names}}" > "list_names_mongo_containers.txt"
 
-#Salvataggio file con nomi dei container mongo associati a indirizzo ip
-#LEggo da un file contenente tutti i nomi dei container mongo che voglio considerare
-
+# Saving files with the names of mongo containers associated to ip address
 while read name; do
     	name_mongo_cont=$name
 	echo "nome del container = $name_mongo_cont"
@@ -48,18 +46,18 @@ while read name; do
 		sudo echo "$name_mongo_cont;$ipdb" >> "name_ip_mongo.txt"
 	fi
 done < "list_names_mongo_containers.txt"
-#C'è solo interfaccia quindi catturo tutto il traffico sull'interfaccia specificata
+# Only one interface, capture all the traffic on the interface
 if [[ $# -eq 3 ]] ; then 
 	echo "c'è solo l'interfaccia quindi catturo tutto"
 	sudo tcpdump -U -i $3 -w $2
 	exit 0
 fi
-#Cattura tutto
+# Capture everything
 if [[ $# -eq 3 ]] ; then 
 	sudo tcpdump -U -i $3 -w $2
 	exit 0
 fi
-#C'è un solo nome di container quindi catturo pacchetti solo che comprendono questo container negli ip di dst o src
+# Only one container name, capture only packets that have this container as src or dst
 if [[ $# -eq 4 ]] ; then 
 	echo "c'è interfaccia e 1 container"
 	id_application=$(docker ps -aqf "name="$4)
@@ -73,8 +71,8 @@ if [[ $# -eq 4 ]] ; then
 	echo "ip dell'applicazione $container_name : $ipapp"
 	sudo tcpdump -U -i $3 -n "dst host $id_application or src host $id_application" -w $2
 	exit 0
-#Lista di container --> devo catturare solo interazioni tra questi specificati ed i loro database
-#Se voglio catturare anche nterazione con i loro database devo passare anche nome dei loro container (dei db)
+
+#Container list, capture interactions between them and their databases
 else
 	echo "c'è interfaccia e lista di container"
 	i=3
