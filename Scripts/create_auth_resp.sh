@@ -1,5 +1,5 @@
-#Crea file per settare la risposta di auth-service  al servizio che stiamo testando
-#L'argomento passato è il nome del file da leggere (json) che corrisponderà a quello er settare la risposta (sh)
+# Creates file to set the response of auth-service to the service under test
+# Argument: json file to read (corresponding to the .sh script to set the response)
 
 if [[ $# -lt 1 ]] ; then 
 	echo 'missing args ---> ./union_scripts.sh <namefile>'
