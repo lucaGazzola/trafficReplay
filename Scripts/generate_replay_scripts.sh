@@ -1,8 +1,8 @@
 #!/bin/bash
 # generates replay scripts
 # usage: ./generate_replay_scripts.sh TestDir/captureStreamsDirectory ip_list password_list
-# ip_auth_service serve per ottenere token di autenticazione
-# port_list porte dei container da tenere in considerazione (posso prenderli dal file di test creato dalla cattura)
+# ip_auth_service -> used to obtain auth token
+# port_list -> ports of containers to consider (can be extracted from capture file)
 
 if [[ $# -lt 2 ]] ; then 
 	echo 'missing args ---> ./generate_replay_scripts.sh <testdir/captureStreamsDirectory> <Destination_Dir> <port_list>'
@@ -10,8 +10,8 @@ if [[ $# -lt 2 ]] ; then
 fi
 
 
-#una parte del filtraggio è stata fatta durante lo split
-#adesso devo specificare gli ip delle applicazioni che voglio considerare
+# part of the filtering is performed during the split
+# need to specify the ips of the applications under test
 
 cd $1
 
@@ -26,7 +26,7 @@ for filename in $( ls -v *.cap ); do
 	listIP=$(echo ${listIP// /,})
 	#echo $listIP
 	#echo $listPass
-	#Passo come argomento unica stringa e da pyhton creo lista
+	# Pass a string as argument and process it with python
     	python3 ../../pyshark_test.py $filename $destScript $listIP 
 done
 
