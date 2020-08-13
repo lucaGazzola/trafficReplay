@@ -10,17 +10,13 @@ from bson.json_util import loads
 
 def main():
 
-    #Il primo argomento passato è il nome del file pcap
-    #Il secondo è il nome dello script python da creare per il test
-    #Il terzo è l'elenco degli ip delle applicazioni da considerare per la creazione dei test
-    #Il quarto è ........
-
+    # 1st argument: name of pcap file
+    # 2nd argument: generated python test script name
+    # 3rd argument: list of ips of applications under test
 
     """
     creates a script that replays an interaction with a docker container in a microservice application
     """
-    #Come primo argomento viene passato il nome del file sorgente
-        #secondo argomento il file di destinazione
     cap = pyshark.FileCapture(sys.argv[1])
 
     pythonScript = None
@@ -31,29 +27,27 @@ def main():
 
     headers = {'Content-type': 'application/json', "Accept": "application/json"}
 
-    #Pacchetti estratti dal file pcap dove sono memorizzati i pacchetti catturati da un'interfaccia docker
+    # Packets extracted from pcap file
     for packet in cap:
-        #Considero ogni ip della lista
+        # For each ip
         for port in port_list:
 
-        #REST -> quindi vado a considerare protocollo ad alto livello
-        #Questa parte deve essere modificata una volta presente la parte di mockup dei microservizi che sostituiscono
-            #gli altri microservizi che comunicano con il microservizio che stiamo testando
-        #Questa parte è diversa per ogni microservizio testato in quanto dipende dal tipo di configurazione richiesta e
-            #dal tipo di autenticazione implementata
-        #In questo caso (PiggyMetrics) abbiamo comunicazione con microservizio auth che ci fornisce token per servizo
-            # authentication o per singolo utente registrato
+        # REST -> quindi vado a considerare protocollo ad alto livello
+        # Questa parte deve essere modificata una volta presente la parte di mockup dei microservizi che sostituiscono
+        # gli altri microservizi che comunicano con il microservizio che stiamo testando
+        # Questa parte è diversa per ogni microservizio testato in quanto dipende dal tipo di configurazione richiesta e
+        # dal tipo di autenticazione implementata
+        # In questo caso (PiggyMetrics) abbiamo comunicazione con microservizio auth che ci fornisce token per servizo
+        # authentication o per singolo utente registrato
 
 
 
-        #Controllo prendendo la lista degli ip
+            # Check from ip list
             if 'HTTP' in str(packet.layers) and 'TCP' in str(packet.layers) and ( packet.tcp.srcport == port or packet.tcp.dstport == port ):
 
-               # Apro in scrittura il file di destinazione
-
+                # Open dst file
                 if pythonScript is None or pythonScript.closed:
                     pythonScript = open(sys.argv[2], 'w')
-                    #write_import(pythonScript)
 
                 if str(packet.http.chat).startswith('POST'):
                     if not controllo:
