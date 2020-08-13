@@ -7,7 +7,7 @@ if [[ $# -lt 1 ]] ; then
 fi
 
 
-#Prima vado ad eseguire mongo replay per i file contenuti nella cartella
+# First execute mong replay for the files in the folder
 cd $2/$1
 
 for filename in $( ls -v *.cap ); do
@@ -81,12 +81,12 @@ for filename in $( ls -v *.cap ); do
 		fi
 		cd ..
 		mongoreplay record -f $filename -p ../$1/${mongo_info[0]}/recordings/test_$name.bson
-		#Creo una cartella con i report sui pacchetti di controllo ed una con i report sui pacchetti contenenti comandi per il database
+		# Create a folder with reports of control packets and another one with database packets
 		if  ! ([[ $name == *"find"* ]] || [[ $name == *"delete"* ]] || [[ $name == *"update"* ]] || [[ $name == *"insert"* ]] || [[ $name == *"count"* ]]); 		
 		then
 			echo "replay di ../$1/${mongo_info[0]}/recordings/test_$name.bson"
 			mongoreplay play -p ../$1/${mongo_info[0]}/recordings/test_$name.bson --report ../$1/${mongo_info[0]}/reports/Config/test-$name.json --collect json --host mongodb://user:mongo@$ipdb:27017/piggymetrics
-			 #Se il file è vuoto lo elimino
+			 # remove file if empty
 			if [ ! -s ../$1/${mongo_info[0]}/reports/Config/test-$name.json ];
 			then
 				echo "rimozione di test-$name.json"
